@@ -88,5 +88,14 @@ namespace GameDex.Tools.DataHelper
             _context.Games.Update(model);
             _context.SaveChanges();
         }
+
+        public async Task<List<Game>> GetTopTenGamesWithIncludes()
+        {
+            return await _context.Games
+                .Include(game => game.Medias)
+                .Include(game => game.Companies)
+                .Include(game => game.Genres)
+                .ToListAsync();
+        }
     }
 }

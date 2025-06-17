@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDex.DataLayer", "GameDe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDex.Tools", "GameDex.Tools\GameDex.Tools.csproj", "{3578E7A0-6D5E-4A96-92AA-ECCAC11F21A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDex.APIServer", "GameDex.APIServer\GameDex.APIServer.csproj", "{93D969EF-DF14-414A-9FB7-A4C858D3B0FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{3578E7A0-6D5E-4A96-92AA-ECCAC11F21A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3578E7A0-6D5E-4A96-92AA-ECCAC11F21A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3578E7A0-6D5E-4A96-92AA-ECCAC11F21A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93D969EF-DF14-414A-9FB7-A4C858D3B0FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93D969EF-DF14-414A-9FB7-A4C858D3B0FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93D969EF-DF14-414A-9FB7-A4C858D3B0FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93D969EF-DF14-414A-9FB7-A4C858D3B0FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
