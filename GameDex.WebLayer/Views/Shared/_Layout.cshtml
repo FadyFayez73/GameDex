@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GameDex.WebLayer</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/GameDex.WebLayer.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="header">
+            <a class="nav-link w-100" href="#"><i class="fa-solid fa-house"></i> Home</a>
+            <a class="nav-link w-100" href="#"><i class="fa-solid fa-book-open-reader"></i> Library</a>
+
+            <a class="nav-link" data-bs-toggle="collapse" href="#submenu1" role="button" aria-expanded="false" aria-controls="submenu1">
+                <i class="fa-solid fa-heart"></i> Favorites ▼
+            </a>
+            <div class="collapse submenu" id="submenu1">
+                <a class="nav-link ms-4" href="#">My Favorite</a>
+                <a class="nav-link ms-4" href="#">RPG</a>
+            </div>
+        </div>
+        <div class="footer">
+            <a class="nav-link w-100" href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+        </div>
+    </div>
+
+    <main role="main" class="pb-3">
+        <div class="bar">
+            <div class="controls">
+                <a href="#">Create</a>
+                <a href="#">Update</a>
+                <a href="#">Delete</a>
+            </div>
+            <div class="system-info">
+                <div class="item">
+                    <h5>Games</h5>
+                    <span>12</span>
+                </div>
+                <div class="item">
+                    <h5>Media Size</h5>
+                    <span>143.46 MB</span>
+                </div>
+
+            </div>
+        </div>
+        <div class="content">
+            @RenderBody()
+        </div>
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        // const sidebar = document.getElementById('sidebar');
+        // const toggleBtn = document.getElementById('toggleSidebar');
+
+        // toggleBtn.addEventListener('click', () => {
+        //   sidebar.classList.toggle('collapsed');
+        // });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

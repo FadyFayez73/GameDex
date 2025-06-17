@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDex", "GameDex\GameDex.csproj", "{AA8E5330-F850-42DF-8F98-CA1854754A7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDex.WebLayer", "GameDex.WebLayer\GameDex.WebLayer.csproj", "{DFB4C953-5B04-4140-98ED-3917F75EA668}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDex.DataLayer", "GameDex.DataLayer\GameDex.DataLayer.csproj", "{A26E5A44-A5F9-4CD5-ADA0-97BDBF2560F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDex.Tools", "GameDex.Tools\GameDex.Tools.csproj", "{3578E7A0-6D5E-4A96-92AA-ECCAC11F21A7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA8E5330-F850-42DF-8F98-CA1854754A7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA8E5330-F850-42DF-8F98-CA1854754A7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA8E5330-F850-42DF-8F98-CA1854754A7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA8E5330-F850-42DF-8F98-CA1854754A7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFB4C953-5B04-4140-98ED-3917F75EA668}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFB4C953-5B04-4140-98ED-3917F75EA668}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFB4C953-5B04-4140-98ED-3917F75EA668}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFB4C953-5B04-4140-98ED-3917F75EA668}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A26E5A44-A5F9-4CD5-ADA0-97BDBF2560F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A26E5A44-A5F9-4CD5-ADA0-97BDBF2560F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A26E5A44-A5F9-4CD5-ADA0-97BDBF2560F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A26E5A44-A5F9-4CD5-ADA0-97BDBF2560F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3578E7A0-6D5E-4A96-92AA-ECCAC11F21A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3578E7A0-6D5E-4A96-92AA-ECCAC11F21A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3578E7A0-6D5E-4A96-92AA-ECCAC11F21A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3578E7A0-6D5E-4A96-92AA-ECCAC11F21A7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
