@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace GameDex.DataLayer.Models
@@ -17,6 +18,7 @@ namespace GameDex.DataLayer.Models
 
 
         // Game Entity Relation Many to Many
+        [JsonIgnore]
         public ICollection<Game>? Games { get; set; }
     }
 
