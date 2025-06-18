@@ -1,0 +1,81 @@
+.Card{
+    width: 300px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: 0.2s;
+}
+
+.Card:hover{
+    box-shadow: 5px 5px 10px 1px black;
+}
+
+.Card .CradBody{
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    background-color: #212529;
+}
+
+.Card .CradBody img{
+    width: 100%;
+}
+
+.Card .CradBody h4{
+    padding: 10px 0;
+}
+
+.Card .CradBody p{
+    margin-left: 10px;
+    color: rgba(255, 255, 255, 0.39);
+}
+
+.Card .CradBody .Items{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    width: 100%;
+}
+
+.Card .CradBody .Items .UserRate{
+    font-weight: bold;
+    font-size: 16px;
+
+}
+
+.Card .CradBody .Items .UserRate::before{
+    content: '✭';
+    font-size: 16px;
+    color: rgba(255, 217, 0, 0.637);
+}
+
+.Card .CradBody .Items .Price{
+    font-weight: bold;
+}
+
+.Card .CradBody .Items .Price::after{
+    content: ' $';
+    color: rgba(255, 0, 0, 0.733);
+}
+
+.Card .CradBody .Genres{
+    width: 100%;
+}
+
+.Card .CradBody .Genres ul{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+}
+
+.Card .CradBody .Genres ul li{
+    padding: 5px;
+    background-color: rgba(162, 170, 243, 0.144);
+    color: rgba(255, 255, 255, 0.507);
+    border-radius: 5px;
+}

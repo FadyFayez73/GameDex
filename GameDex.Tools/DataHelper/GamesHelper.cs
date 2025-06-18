@@ -89,15 +89,6 @@ namespace GameDex.Tools.DataHelper
             _context.SaveChanges();
         }
 
-<<<<<<< Updated upstream
-        public async Task<List<Game>> GetTopTenGamesWithIncludes()
-        {
-            return await _context.Games
-                .Include(game => game.Medias)
-                .Include(game => game.Companies)
-                .Include(game => game.Genres)
-                .ToListAsync();
-=======
         public async Task<List<Game>> GetGamesWithIncludes()
         {
             var games = await _context.Games
@@ -109,7 +100,6 @@ namespace GameDex.Tools.DataHelper
                 .ToListAsync();
 
             return games;
->>>>>>> Stashed changes
         }
     }
 }
