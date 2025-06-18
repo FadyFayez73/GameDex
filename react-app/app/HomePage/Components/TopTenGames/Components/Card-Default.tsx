@@ -80,7 +80,7 @@ function DefaultCard(param: Param){
             </div>
             <div className={styles.Genres}>
                 <ul>
-                    {param.game.genres?.map(g => (<li>{g.name}</li>))}
+                    {param.game.genres?.map(g => (<li key={g.genreID}>{g.name}</li>))}
                 </ul>
             </div>
         </div>
