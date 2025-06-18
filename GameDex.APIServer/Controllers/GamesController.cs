@@ -20,7 +20,7 @@ namespace GameDex.APIServer.Controllers
         [HttpGet("top-ten")]
         public async Task<IActionResult> Index()
         {
-            return Ok(_gamesHelper.)
+            return Ok(await _gamesHelper.GetGamesWithIncludes());
         }
     }
 }
