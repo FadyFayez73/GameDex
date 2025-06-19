@@ -1,3 +1,5 @@
+@import url('./themes.css');
+
 .Card{
     width: 300px;
     height: fit-content;
@@ -6,6 +8,7 @@
     border-radius: 5px;
     overflow: hidden;
     transition: 0.2s;
+    cursor: pointer;
 }
 
 .Card:hover{
@@ -16,7 +19,7 @@
     padding: 10px;
     width: 100%;
     height: 100%;
-    background-color: #212529;
+    background-color: var(--Background-Color);
 }
 
 .Card .CradBody img{

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
-import DefaultCard from './Components/Card-Default'
+import DefaultCard from '../../../Components/Cards/Card-Default'
 
 type Game = {
     gameID: number;
@@ -60,12 +60,11 @@ type Company = {
     games?: Game[];
 };
 
-
 function TopTenGames(){
     const [Games, setGames] = useState<Game[]>([])
     
     useEffect(() => {
-        fetch('https://localhost:7165/api/Games/top-ten')
+        fetch('https://10.0.0.10:7165/api/Home/top-ten')
         .then(res => res.json())
         .then(data => setGames(data))
         .catch(err => console.error("❌ خطأ أثناء جلب البيانات:", err));

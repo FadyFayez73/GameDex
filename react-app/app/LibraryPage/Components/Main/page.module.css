@@ -1,0 +1,14 @@
+.Content{
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+
+.Header{
+    padding: 20px 0;
+}
+
+.HerBody{
+    display: flex;
+    flex-wrap: wrap;
+}

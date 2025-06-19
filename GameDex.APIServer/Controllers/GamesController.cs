@@ -9,18 +9,7 @@ namespace GameDex.APIServer.Controllers
     [ApiController]
     public class GamesController : ControllerBase
     {
-        private GamesHelper _gamesHelper;
-
-        public GamesController(AppDbContext context)
-        {
-            _gamesHelper = new GamesHelper(context);
-        }
 
 
-        [HttpGet("top-ten")]
-        public async Task<IActionResult> Index()
-        {
-            return Ok(await _gamesHelper.GetGamesWithIncludes());
-        }
     }
 }

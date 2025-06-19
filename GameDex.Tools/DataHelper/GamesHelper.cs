@@ -95,6 +95,19 @@ namespace GameDex.Tools.DataHelper
                 .Include(x => x.Medias)
                 .Include(x => x.Companies)
                 .Include(x => x.Genres)
+                .OrderByDescending(x => x.UserRating)
+                .Take(10)
+                .ToListAsync();
+
+            return games;
+        }
+
+        public async Task<List<Game>> GetLastGames()
+        {
+            var games = await _context.Games
+                .Include(x => x.Medias)
+                .Include(x => x.Companies)
+                .Include(x => x.Genres)
                 .OrderByDescending(x => x.GameID)
                 .Take(10)
                 .ToListAsync();

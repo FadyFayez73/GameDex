@@ -61,7 +61,7 @@ type Company = {
 };
 
 
-function TopTenGames(){
+function Main(){
     const [Games, setGames] = useState<Game[]>([])
     
     useEffect(() => {
@@ -72,9 +72,11 @@ function TopTenGames(){
     }, []);
 
     return (
-        <div className={styles.TopGames}>
+        <div className={styles.Content}>
             <div className={styles.Header}>
-                <h3>Last {Games.length} Games</h3>
+                <ul>
+                    <li>Games: {Games.length}</li>
+                </ul>
             </div>
             <div className={styles.HerBody}>
                 {Games.length === 0 ? <p>Loading...</p> : Games.map(game => (
@@ -85,4 +87,4 @@ function TopTenGames(){
     );
 }
 
-export default TopTenGames;
+export default Main;
