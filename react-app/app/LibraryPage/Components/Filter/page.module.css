@@ -1,0 +1,46 @@
+.Content{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(15, 15, 15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.Content input{
+    width: 100%;
+    padding: 5px;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.164);
+    border-radius: 5px;
+}
+
+.Content .Collection{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.Content .Collection h4{
+    width: 100%;
+    padding: 10px 0;
+    background-color: rgb(20 ,20, 20);
+}
+
+.Content .Collection .Items{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 10px;
+    gap: 10px;
+}
+
+.Content .Collection .Items .Item{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.Content .Collection .Items .Item input{
+    width: 15px;
+    height: 15px;
+}

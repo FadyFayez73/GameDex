@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 import DefaultCard from '../../../Components/Cards/Card-Default'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGamepad, faDatabase } from "@fortawesome/free-solid-svg-icons";
 
 type Game = {
     gameID: number;
@@ -71,12 +73,31 @@ function Main(){
         .catch(err => console.error("❌ خطأ أثناء جلب البيانات:", err));
     }, []);
 
+    const [test, setTest] = useState('create')
+
+    useEffect(() => {
+        console.log(test);
+    }, [test])
+
     return (
         <div className={styles.Content}>
             <div className={styles.Header}>
-                <ul>
-                    <li>Games: {Games.length}</li>
-                </ul>
+                <div className={styles.AppLogo}>
+                    <FontAwesomeIcon className={styles.Logo} icon={faGamepad}/>
+                    <div>
+                        <div>GameDex - للعلق صلاح</div>
+                        <ul>
+                            <li><FontAwesomeIcon icon={faGamepad}/> <span>{Games.length}</span></li>
+                            <li><FontAwesomeIcon icon={faDatabase}/> <span>12 MB</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div className={styles.Controls}>
+                    <button className={styles.btnCreate} onClick={() => setTest('Create')}>Create</button>
+                    <button className={styles.btnUpdate} onClick={() => setTest('Update')}>Update</button>
+                    <button className={styles.btnDelete} onClick={() => setTest('Delete')}>Delete</button>
+                </div>
             </div>
             <div className={styles.HerBody}>
                 {Games.length === 0 ? <p>Loading...</p> : Games.map(game => (

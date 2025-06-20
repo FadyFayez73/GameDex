@@ -1,6 +1,7 @@
 'use client';
 
 import styles from './page.module.css'
+import Image from "next/image";
 
 type Param = {
     game:Game;
@@ -63,10 +64,17 @@ type Company = {
 };
 
 function DefaultCard(param: Param){
+    const coverImage = param.game.medias?.find(media => media.mediaType === "Cover")?.mediaPath;
+
     return(
     <div className={styles.Card} key={param.game.gameID}>
-        <img src={param.game.medias?.filter(media => 
-        media.mediaType === "Cover")[0]?.mediaPath} alt="game cover" />
+        {coverImage && (
+            <Image
+                src={param.game.medias?.filter(media => media.mediaType === "Cover")[0]?.mediaPath ?? ""}
+                alt="game cover"
+                priority/>
+        )}
+
         <div className={styles.CradBody}>
             <h4>{param.game.name}</h4>
             <p>{param.game.companies?.map(c => c.name).join(" And ")}</p>

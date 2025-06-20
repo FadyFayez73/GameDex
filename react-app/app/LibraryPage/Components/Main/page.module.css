@@ -5,7 +5,89 @@
 }
 
 .Header{
-    padding: 20px 0;
+    padding: 15px;
+    border: 1px rgba(255, 255, 255, 0.295) solid;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Header .AppLogo{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.Header .AppLogo .Logo{
+    font-size: 22px;
+}
+
+.Header .AppLogo > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+
+.Header .AppLogo > div ul{
+    list-style: none;
+    color: gray;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.Header .AppLogo > div ul span{
+    color: green;
+}
+
+.Header .Controls{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.Header .Controls > button{
+    padding: 10px;
+    border: 0;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 70px;
+}
+
+
+.Header .Controls > button.btnCreate{
+    background-color: transparent;
+    border: #5cb85c 1px solid;
+    color: #5cb85c;
+    transition: 0.2s;
+}.Header .Controls > button.btnCreate:hover{
+    border: #0c550c 1px solid;
+    color: #0c550c;
+}
+
+.Header .Controls > button.btnUpdate{
+    background-color: transparent;
+    border: #f0ad4e 1px solid;
+    color: #f0ad4e;
+    transition: 0.2s;
+}.Header .Controls > button.btnUpdate:hover{
+    border: #5c3e14 1px solid;
+    color: #5c3e14;
+}
+
+.Header .Controls > button.btnDelete{
+    background-color: transparent;
+    border: #d9534f 1px solid;
+    color: #d9534f;
+    transition: 0.2s;
+}.Header .Controls > button.btnDelete:hover{
+    border: #581614 1px solid;
+    color: #581614;
 }
 
 .HerBody{
