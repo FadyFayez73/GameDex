@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { HTMLElementType, useEffect, useRef, useState } from 'react';
 import styles from './page.module.css';
 import DefaultCard from '../../../Components/Cards/Card-Default'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGamepad, faDatabase } from "@fortawesome/free-solid-svg-icons";
+import { faGamepad, faDatabase, faList, faVcard } from "@fortawesome/free-solid-svg-icons";
 
 type Game = {
     gameID: number;
@@ -64,10 +64,12 @@ type Company = {
 
 
 function Main(){
-    const [Games, setGames] = useState<Game[]>([])
+    const [Games, setGames] = useState<Game[]>([]);
+    const [Mod, setMod] = useState<string>("defualtCard");
+    const Radio = useRef<HTMLElementType>(null);
     
     useEffect(() => {
-        fetch('https://10.0.0.10:7165/api/Home/last-games')
+        fetch('https://10.0.0.10:7165/api/Library/GetAllForDisplay')
         .then(res => res.json())
         .then(data => setGames(data))
         .catch(err => console.error("❌ خطأ أثناء جلب البيانات:", err));
@@ -78,6 +80,11 @@ function Main(){
     useEffect(() => {
         console.log(test);
     }, [test])
+
+    useEffect(() => {
+
+        console.log(Mod);
+    }, [Mod])
 
     return (
         <div className={styles.Content}>
@@ -98,6 +105,40 @@ function Main(){
                     <button className={styles.btnUpdate} onClick={() => setTest('Update')}>Update</button>
                     <button className={styles.btnDelete} onClick={() => setTest('Delete')}>Delete</button>
                 </div>
+            </div>
+            <div className={styles.PageMossContainer}>
+                <ul>
+                    <li>
+                        <input
+                            type="radio"
+                            name="option"
+                            checked={Mod === "defualtCard"}
+                            onChange={() => setMod("defualtCard")}
+                            />
+                        <span 
+                            className={
+                                Mod === "defualtCard"
+                                ? `${styles.radioMark} ${styles.active}`
+                                : styles.radioMark}>
+                                <FontAwesomeIcon icon={faVcard} />
+                        </span>
+                    </li>
+                    <li>
+                        <input
+                            type="radio"
+                            name="option"
+                            checked={Mod === "listCard"}
+                            onChange={() => setMod("listCard")}
+                            />
+                        <span 
+                            className={
+                                Mod === "listCard"
+                                ? `${styles.radioMark} ${styles.active}`
+                                : styles.radioMark}>
+                                    <FontAwesomeIcon icon={faList} />
+                        </span>
+                    </li>
+                </ul>
             </div>
             <div className={styles.HerBody}>
                 {Games.length === 0 ? <p>Loading...</p> : Games.map(game => (

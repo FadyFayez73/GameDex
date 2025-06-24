@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameDex.Tools.DataHelper
+namespace GameDex.Core.DataHelper
 {
     public class CompanysHelper : IDataHelper<Company>
     {
@@ -50,7 +50,7 @@ namespace GameDex.Tools.DataHelper
             return companys;
         }
 
-        public async Task<Company> GetByIDAsync(int id)
+        public async Task<Company> FindByIDAsync(int id)
         {
             var company = await _context.Companys.FirstOrDefaultAsync(g => g.CompanyID == id);
             if (company == null)
