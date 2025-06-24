@@ -1,46 +1,85 @@
-.Content{
-    width: 100%;
-    height: 100%;
-    background-color: rgb(15, 15, 15);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 16px;
+  background: #121212;
+  border-radius: 10px;
+  color: #fff;
 }
 
-.Content input{
-    width: 100%;
-    padding: 5px;
-    background-color: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.164);
-    border-radius: 5px;
+.collection {
+  background: #1a1a1a;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.Content .Collection{
-    width: 100%;
-    margin-bottom: 20px;
+.title {
+  font-size: 16px;
+  margin-bottom: 8px;
+  font-weight: 600;
 }
 
-.Content .Collection h4{
-    width: 100%;
-    padding: 10px 0;
-    background-color: rgb(20 ,20, 20);
+.items {
+  overflow: hidden;
 }
 
-.Content .Collection .Items{
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: 10px;
-    gap: 10px;
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  color: #ddd;
 }
 
-.Content .Collection .Items .Item{
-    display: flex;
-    align-items: center;
-    gap: 5px;
+.toggle {
+  background: none;
+  border: none;
+  color: #4aa3ff;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 8px;
 }
 
-.Content .Collection .Items .Item input{
-    width: 15px;
-    height: 15px;
+.sortSection,
+.rangeSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.select {
+  padding: 6px;
+  background-color: #1e1e1e;
+  color: #fff;
+  border-radius: 4px;
+  border: 1px solid #333;
+}
+
+.rangeRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rangeRow input {
+  width: 80px;
+  padding: 5px;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.submit {
+  background-color: #4aa3ff;
+  color: #000;
+  border: none;
+  padding: 10px;
+  margin-top: 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
 }

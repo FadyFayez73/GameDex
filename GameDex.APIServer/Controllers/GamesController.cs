@@ -1,5 +1,5 @@
 ﻿using GameDex.DataLayer;
-using GameDex.Tools.DataHelper;
+using GameDex.Core.DataHelper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +9,6 @@ namespace GameDex.APIServer.Controllers
     [ApiController]
     public class GamesController : ControllerBase
     {
-
 
     }
 }

@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameDex.Tools.DataHelper
+namespace GameDex.Core.DataHelper
 {
     public interface IDataHelper<T>
     {
-        Task<T> GetByIDAsync(int id);
+        Task<T> FindByIDAsync(int id);
         Task<List<T>> GetAllAsync();
-        Task<T> GetAllForDisplayAsync(int id);
         Task<List<T>> AdvancedSearchAsync(string word);
 
         void Add(T model);
