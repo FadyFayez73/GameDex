@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -12,8 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GameDex.DataLayer\GameDex.DataLayer.csproj" />
-    <ProjectReference Include="..\GameDex.Tools\GameDex.Core.csproj" />
+    <ProjectReference Include="..\GameDex.Core\GameDex.Core.csproj" />
   </ItemGroup>
 
 </Project>

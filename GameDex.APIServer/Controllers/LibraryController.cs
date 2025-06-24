@@ -1,5 +1,5 @@
 ﻿using GameDex.DataLayer.Models;
-using GameDex.Tools.DataHelper;
+using GameDex.Core.DataHelper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,7 +30,7 @@ namespace GameDex.APIServer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Game game)
+        public async Task<IActionResult> Create(Game game)
         {
             if (game == null)
                 return BadRequest("Game cannot be null");

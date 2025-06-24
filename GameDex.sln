@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDex.WebLayer", "GameDex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDex.DataLayer", "GameDex.DataLayer\GameDex.DataLayer.csproj", "{A26E5A44-A5F9-4CD5-ADA0-97BDBF2560F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDex.Core", "GameDex.Tools\GameDex.Core.csproj", "{3578E7A0-6D5E-4A96-92AA-ECCAC11F21A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDex.Core", "GameDex.Core\GameDex.Core.csproj", "{3578E7A0-6D5E-4A96-92AA-ECCAC11F21A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDex.APIServer", "GameDex.APIServer\GameDex.APIServer.csproj", "{93D969EF-DF14-414A-9FB7-A4C858D3B0FC}"
 EndProject

@@ -13,16 +13,16 @@
     box-shadow: 5px 5px 10px 1px black;
 }
 
+.Card .GameCover{
+    width: 100%;
+    height: fit-content;
+}
+
 .Card .CradBody{
     padding: 10px;
     width: 100%;
     height: 100%;
     background-color: #212529;
-}
-
-.Card .GameCover{
-    width: 100%;
-    height: fit-content;
 }
 
 .Card .CradBody h4{
@@ -32,20 +32,20 @@
 .Card .CradBody p{
     margin-left: 10px;
     color: rgba(255, 255, 255, 0.39);
+    font-size: 12px;
 }
 
 .Card .CradBody .Items{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
+    padding: 10px 0;
     width: 100%;
 }
 
 .Card .CradBody .Items .UserRate{
     font-weight: bold;
     font-size: 16px;
-
 }
 
 .Card .CradBody .Items .UserRate::before{
@@ -59,8 +59,8 @@
 }
 
 .Card .CradBody .Items .Price::after{
-    content: ' $';
-    color: rgba(255, 0, 0, 0.733);
+    content: '$';
+    color: green;
 }
 
 .Card .CradBody .Genres{
@@ -80,4 +80,6 @@
     background-color: rgba(162, 170, 243, 0.144);
     color: rgba(255, 255, 255, 0.507);
     border-radius: 5px;
+    font-size: 10px;
+    font-weight: bold;
 }

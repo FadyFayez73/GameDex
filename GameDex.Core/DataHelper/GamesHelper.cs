@@ -1,6 +1,6 @@
 ﻿using GameDex.DataLayer;
 using GameDex.DataLayer.Models;
-using GameDex.Tools.Exceptions;
+using GameDex.Core.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameDex.Tools.DataHelper
+namespace GameDex.Core.DataHelper
 {
     public class GamesHelper : IDataHelper<Game>
     {
