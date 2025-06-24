@@ -66,10 +66,6 @@ type Company = {
 function DefaultCard(param: Param){
     const coverImage = param.game.medias?.find(media => media.mediaType === "Cover")?.mediaPath;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> f83eed6 (Start feature/kerolos-main branch)
     return(
     <div className={styles.Card} key={param.game.gameID}>
         {coverImage && (
