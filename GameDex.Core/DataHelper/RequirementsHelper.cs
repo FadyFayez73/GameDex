@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameDex.Tools.DataHelper
+namespace GameDex.Core.DataHelper
 {
     public class RequirementsHelper : IDataHelper<Requirement>
     {
@@ -50,7 +50,7 @@ namespace GameDex.Tools.DataHelper
             return requirements;
         }
 
-        public async Task<Requirement> GetByIDAsync(int id)
+        public async Task<Requirement> FindByIDAsync(int id)
         {
             var requirement = await _context.Requirements.FirstOrDefaultAsync(g => g.RequirementID == id);
             if (requirement == null)

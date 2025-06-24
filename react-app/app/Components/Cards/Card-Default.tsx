@@ -74,7 +74,10 @@ function DefaultCard(param: Param){
     <div className={styles.Card} key={param.game.gameID}>
         {coverImage && (
             <Image
+                className={styles.GameCover}
                 src={param.game.medias?.filter(media => media.mediaType === "Cover")[0]?.mediaPath ?? ""}
+                width={640}
+                height={360}
                 alt="game cover"
                 priority/>
         )}

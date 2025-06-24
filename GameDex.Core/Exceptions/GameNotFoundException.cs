@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameDex.Tools.Exceptions
+namespace GameDex.Core.Exceptions
 {
     public class GameNotFoundException : Exception
     {

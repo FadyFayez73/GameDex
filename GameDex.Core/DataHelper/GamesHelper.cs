@@ -1,6 +1,6 @@
 ﻿using GameDex.DataLayer;
 using GameDex.DataLayer.Models;
-using GameDex.Tools.Exceptions;
+using GameDex.Core.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameDex.Tools.DataHelper
+namespace GameDex.Core.DataHelper
 {
     public class GamesHelper : IDataHelper<Game>
     {
@@ -23,6 +23,19 @@ namespace GameDex.Tools.DataHelper
             _context.Games.Add(model);
             _context.SaveChanges();
         }
+
+        public void Remove(Game model)
+        {
+            _context.Games.Remove(model);
+            _context.SaveChanges();
+        }
+
+        public void Update(Game model)
+        {
+            _context.Games.Update(model);
+            _context.SaveChanges();
+        }
+
 
         public async Task<List<Game>> AdvancedSearchAsync(string word)
         {
@@ -40,7 +53,7 @@ namespace GameDex.Tools.DataHelper
             return games;
         }
 
-        public async Task<Game> GetAllForDisplayAsync(int id)
+        public async Task<Game> GetGameForDisplayAsync(int id)
         {
             var game = await _context.Games
                 .Include(x => x.Albums)
@@ -64,12 +77,11 @@ namespace GameDex.Tools.DataHelper
         public async Task<List<Game>> GetAllAsync()
         {
             var games = await _context.Games
-                .Include(x => x.Medias)
                 .ToListAsync();
             return games;
         }
 
-        public async Task<Game> GetByIDAsync(int id)
+        public async Task<Game> FindByIDAsync(int id)
         {
             var game = await _context.Games.FirstOrDefaultAsync(g => g.GameID == id);
             if (game == null)
@@ -77,41 +89,55 @@ namespace GameDex.Tools.DataHelper
             return game;
         }
 
-        public void Remove(Game model)
-        {
-            _context.Games.Remove(model);
-            _context.SaveChanges();
-        }
-
-        public void Update(Game model)
-        {
-            _context.Games.Update(model);
-            _context.SaveChanges();
-        }
-
-        public async Task<List<Game>> GetGamesWithIncludes()
+        // Get For Display
+        public async Task<List<Game>> GetAllForDisplayAsync()
         {
             var games = await _context.Games
                 .Include(x => x.Medias)
                 .Include(x => x.Companies)
                 .Include(x => x.Genres)
-                .OrderByDescending(x => x.UserRating)
-                .Take(10)
                 .ToListAsync();
 
             return games;
         }
 
-        public async Task<List<Game>> GetLastGames()
-        {
-            var games = await _context.Games
-                .Include(x => x.Medias)
-                .Include(x => x.Companies)
-                .Include(x => x.Genres)
-                .OrderByDescending(x => x.GameID)
-                .Take(10)
-                .ToListAsync();
+        // // Get Filter For Display
 
+        public async Task<List<Game>> GetGamesOrderedByRatingDisplayAsync()
+        {
+            var games = await GetAllForDisplayAsync();
+            games = games.OrderBy(g => g.UserRating).ToList();
+            return games;
+        }
+
+        public async Task<List<Game>> GetGamesOrderedByReleaseDateDisplayAsync()
+        {
+            var games = await GetAllForDisplayAsync();
+            games = games.OrderBy(g => g.YearOfRelease).ToList();
+            return games;
+        }
+
+        public async Task<List<Game>> GetGamesOrderedByNameDisplayAsync()
+        {
+            var games = await GetAllForDisplayAsync();
+            games = games.OrderBy(g => g.Name).ToList();
+            return games;
+        }
+
+        public async Task<List<Game>> GetGamesOrderedBySizeDisplayAsync()
+        {
+            var games = await GetAllForDisplayAsync();
+            games = games.OrderBy(g => g.ActualGameSize).ToList();
+            return games;
+        }
+
+        public async Task<List<Game>> SearchByNameDisplayAsync(string name)
+        {
+            var games = await GetAllForDisplayAsync();
+            games = games
+                .Where(g => 
+                    g.Name.ToLower().Contains(name.ToLower()))
+                .ToList();
             return games;
         }
     }
