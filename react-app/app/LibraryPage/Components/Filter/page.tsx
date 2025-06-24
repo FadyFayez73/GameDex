@@ -1,3 +1,4 @@
+'use client';
 import { useRef, useState, useEffect } from "react";
 import clsx from "clsx";
 import styles from "./page.module.css";
