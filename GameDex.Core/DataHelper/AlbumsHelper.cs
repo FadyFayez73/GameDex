@@ -1,5 +1,5 @@
 ﻿using GameDex.DataLayer;
-using GameDex.Tools.DataHelper;
+using GameDex.Core.DataHelper;
 using GameDex.DataLayer.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace AlbumDex.Tools.DataHelper
+namespace AlbumDex.Core.DataHelper
 {
     public class AlbumsHelper : IDataHelper<Album>
     {
@@ -51,7 +51,7 @@ namespace AlbumDex.Tools.DataHelper
             return albums;
         }
 
-        public async Task<Album> GetByIDAsync(int id)
+        public async Task<Album> FindByIDAsync(int id)
         {
             var album = await _context.Albums.FirstOrDefaultAsync(g => g.AlbumID == id);
             if (album == null)

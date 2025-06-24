@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameDex.Tools.DataHelper
+namespace GameDex.Core.DataHelper
 {
     public class SongsHelper : IDataHelper<Song>
     {
@@ -50,7 +50,7 @@ namespace GameDex.Tools.DataHelper
             return songs;
         }
 
-        public async Task<Song> GetByIDAsync(int id)
+        public async Task<Song> FindByIDAsync(int id)
         {
             var song = await _context.Songs.FirstOrDefaultAsync(g => g.SongID == id);
             if (song == null)
