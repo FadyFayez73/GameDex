@@ -1,5 +1,5 @@
-import { useRef, useState, useEffect } from "react";
-import clsx from "clsx";
+'use client';
+import { useRef, useState } from "react";
 import styles from "./page.module.css";
 
 type Section = {
