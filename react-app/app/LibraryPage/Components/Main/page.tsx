@@ -66,7 +66,6 @@ type Company = {
 function Main(){
     const [Games, setGames] = useState<Game[]>([]);
     const [Mod, setMod] = useState<string>("defualtCard");
-    const Radio = useRef<HTMLElementType>(null);
     
     useEffect(() => {
         fetch('https://10.0.0.10:7165/api/Library/GetAllForDisplay')
