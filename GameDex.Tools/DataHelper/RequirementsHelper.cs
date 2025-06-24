@@ -50,7 +50,7 @@ namespace GameDex.Tools.DataHelper
             return requirements;
         }
 
-        public async Task<Requirement> GetByIDAsync(int id)
+        public async Task<Requirement> FindByIDAsync(int id)
         {
             var requirement = await _context.Requirements.FirstOrDefaultAsync(g => g.RequirementID == id);
             if (requirement == null)

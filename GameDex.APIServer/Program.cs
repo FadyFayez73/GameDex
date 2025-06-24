@@ -1,4 +1,5 @@
 using GameDex.DataLayer;
+using GameDex.Tools.DataHelper;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,8 @@ builder.Services.AddCors(options =>
     });
 });
 
+
+builder.Services.AddScoped<GamesHelper>();
 
 var app = builder.Build();
 

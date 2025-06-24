@@ -51,7 +51,7 @@ namespace AlbumDex.Tools.DataHelper
             return albums;
         }
 
-        public async Task<Album> GetByIDAsync(int id)
+        public async Task<Album> FindByIDAsync(int id)
         {
             var album = await _context.Albums.FirstOrDefaultAsync(g => g.AlbumID == id);
             if (album == null)

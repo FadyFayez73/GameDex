@@ -8,9 +8,8 @@ namespace GameDex.Tools.DataHelper
 {
     public interface IDataHelper<T>
     {
-        Task<T> GetByIDAsync(int id);
+        Task<T> FindByIDAsync(int id);
         Task<List<T>> GetAllAsync();
-        Task<T> GetAllForDisplayAsync(int id);
         Task<List<T>> AdvancedSearchAsync(string word);
 
         void Add(T model);

@@ -50,7 +50,7 @@ namespace GameDex.Tools.DataHelper
             return controls;
         }
 
-        public async Task<Control> GetByIDAsync(int id)
+        public async Task<Control> FindByIDAsync(int id)
         {
             var control = await _context.Controls.FirstOrDefaultAsync(g => g.ControlID == id);
             if (control == null)

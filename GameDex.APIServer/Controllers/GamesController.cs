@@ -10,6 +10,5 @@ namespace GameDex.APIServer.Controllers
     public class GamesController : ControllerBase
     {
 
-
     }
 }
