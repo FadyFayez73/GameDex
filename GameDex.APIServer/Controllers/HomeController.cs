@@ -26,7 +26,7 @@ namespace GameDex.APIServer.Controllers
         [HttpGet("last-games")]
         public async Task<IActionResult> GetLastGames()
         {
-            return Ok(await _gamesHelper.GetLastGames());
+            return Ok(await _gamesHelper.GetLatestGamesAsync());
         }
     }
 }

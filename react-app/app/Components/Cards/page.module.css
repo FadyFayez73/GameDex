@@ -20,8 +20,9 @@
     background-color: #212529;
 }
 
-.Card .CradBody Image{
+.Card .GameCover{
     width: 100%;
+    height: fit-content;
 }
 
 .Card .CradBody h4{

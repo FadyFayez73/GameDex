@@ -102,17 +102,16 @@ namespace GameDex.Tools.DataHelper
             return games;
         }
 
-        public async Task<List<Game>> GetLastGames()
+        public async Task<List<Game>> GetLatestGamesAsync()
         {
-            var games = await _context.Games
-                .Include(x => x.Medias)
-                .Include(x => x.Companies)
-                .Include(x => x.Genres)
-                .OrderByDescending(x => x.GameID)
+            return await _context.Games
+                .AsNoTracking()
+                .Include(g => g.Medias)
+                .Include(g => g.Companies)
+                .Include(g => g.Genres)
+                .OrderByDescending(g => g.GameID)
                 .Take(10)
                 .ToListAsync();
-
-            return games;
         }
     }
 }

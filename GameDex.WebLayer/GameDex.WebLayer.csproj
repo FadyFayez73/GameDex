@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GameDex.DataLayer\GameDex.DataLayer.csproj" />
-    <ProjectReference Include="..\GameDex.Tools\GameDex.Tools.csproj" />
+    <ProjectReference Include="..\GameDex.Tools\GameDex.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
