@@ -1,151 +1,124 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import styles from './page.module.css';
-import DefaultCard from '../../../Components/Cards/Card-Default'
+// Style module
+import styles from "./page.module.css";
+
+// Tools
+import { useContext, useEffect, useState } from "react";
+
+// Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGamepad, faDatabase, faList, faVcard } from "@fortawesome/free-solid-svg-icons";
+import {
+  faGamepad,
+  faDatabase,
+  faList,
+  faVcard,
+} from "@fortawesome/free-solid-svg-icons";
 
-type Game = {
-    gameID: number;
-    name: string;
-    patch: string;
-    gamePath: string;
-    yearOfRelease: string;
-    pgRating: string;
-    gameDescription: string;
-    gameEngine: string;
-    orderOfFranchise: string;
-    linkForCrack: string;
-    criticsRating: number;
-    playersRating: number;
-    userRating: number;
-    steamPrices: number;
-    actualGameSize: string;
-    gameFiles: string;
-    hoursToComplete: number;
-    playerHours: number;
-    storyPlace: string;
+import CardContener from "@/app/Components/Cards/card/page";
+import ListContener from "@/app/Components/Cards/list/page";
 
-    // علاقات Many-to-Many
-    companies?: Company[];
-    medias?: Media[];
-    genres?: Genre[];
-};
+function Main() {
+  const [Mod, setMod] = useState<string>("defualtCard");
+  const [length, setLength] = useState<number>();
 
-type Media = {
-    mediaID: number;
-    mediaType: string;
-    mediaPath: string;
+  const [test, setTest] = useState("create");
 
-    // علاقة Many-to-One مع Game
-    gameID?: number;
-    game?: Game;
-};
+  useEffect(() => {
+    console.log(test);
+  }, [test]);
 
-type Genre = {
-    genreID: number;
-    name: string;
-    description: string;
+  useEffect(() => {
+    console.log(Mod);
+  }, [Mod]);
 
-    // علاقة Many-to-Many مع Game
-    games?: Game[];
-};
-
-type Company = {
-    companyID: number;
-    name: string;
-    description: string;
-    companyType: number;
-
-    // علاقة Many-to-Many مع Game
-    games?: Game[];
-};
+  const handleDataFromCard = (length: number) => {
+    setLength(length);
+  };
 
 
-function Main(){
-    const [Games, setGames] = useState<Game[]>([]);
-    const [Mod, setMod] = useState<string>("defualtCard");
-    
-    useEffect(() => {
-        fetch('https://10.0.0.10:7165/api/Library/GetAllForDisplay')
-        .then(res => res.json())
-        .then(data => setGames(data))
-        .catch(err => console.error("❌ خطأ أثناء جلب البيانات:", err));
-    }, []);
 
-    const [test, setTest] = useState('create')
-
-    useEffect(() => {
-        console.log(test);
-    }, [test])
-
-    useEffect(() => {
-
-        console.log(Mod);
-    }, [Mod])
-
-    return (
-        <div className={styles.Content}>
-            <div className={styles.Header}>
-                <div className={styles.AppLogo}>
-                    <FontAwesomeIcon className={styles.Logo} icon={faGamepad}/>
-                    <div>
-                        <div>GameDex - للعلق صلاح</div>
-                        <ul>
-                            <li><FontAwesomeIcon icon={faGamepad}/> <span>{Games.length}</span></li>
-                            <li><FontAwesomeIcon icon={faDatabase}/> <span>12 MB</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div className={styles.Controls}>
-                    <button className={styles.btnCreate} onClick={() => setTest('Create')}>Create</button>
-                    <button className={styles.btnUpdate} onClick={() => setTest('Update')}>Update</button>
-                    <button className={styles.btnDelete} onClick={() => setTest('Delete')}>Delete</button>
-                </div>
-            </div>
-            <div className={styles.PageMossContainer}>
-                <ul>
-                    <li>
-                        <input
-                            type="radio"
-                            name="option"
-                            checked={Mod === "defualtCard"}
-                            onChange={() => setMod("defualtCard")}
-                            />
-                        <span 
-                            className={
-                                Mod === "defualtCard"
-                                ? `${styles.radioMark} ${styles.active}`
-                                : styles.radioMark}>
-                                <FontAwesomeIcon icon={faVcard} />
-                        </span>
-                    </li>
-                    <li>
-                        <input
-                            type="radio"
-                            name="option"
-                            checked={Mod === "listCard"}
-                            onChange={() => setMod("listCard")}
-                            />
-                        <span 
-                            className={
-                                Mod === "listCard"
-                                ? `${styles.radioMark} ${styles.active}`
-                                : styles.radioMark}>
-                                    <FontAwesomeIcon icon={faList} />
-                        </span>
-                    </li>
-                </ul>
-            </div>
-            <div className={styles.HerBody}>
-                {Games.length === 0 ? <p>Loading...</p> : Games.map(game => (
-                    <DefaultCard key={game.gameID} game={game}/>
-                ))}
-            </div>
+  return (
+    <div className={styles.Content}>
+      <div className={styles.Header}>
+        <div className={styles.AppLogo}>
+          <FontAwesomeIcon className={styles.Logo} icon={faGamepad} />
+          <div>
+            <div>GameDex - للعلق صلاح</div>
+            <ul>
+              <li>
+                <FontAwesomeIcon icon={faGamepad} /> <span>{length}</span>
+              </li>
+              <li>
+                <FontAwesomeIcon icon={faDatabase} /> <span>12 MB</span>
+              </li>
+            </ul>
+          </div>
         </div>
-    );
+
+        <div className={styles.Controls}>
+          <button
+            className={styles.btnCreate}
+            onClick={() => setTest("Create")}
+          >
+            Create
+          </button>
+          <button
+            className={styles.btnUpdate}
+            onClick={() => setTest("Update")}
+          >
+            Update
+          </button>
+          <button
+            className={styles.btnDelete}
+            onClick={() => setTest("Delete")}
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+      <div className={styles.PageMossContainer}>
+        <ul>
+          <li>
+            <input
+              type="radio"
+              name="option"
+              checked={Mod === "defualtCard"}
+              onChange={() => setMod("defualtCard")}
+            />
+            <span
+              className={
+                Mod === "defualtCard"
+                  ? `${styles.radioMark} ${styles.active}`
+                  : styles.radioMark
+              }
+            >
+              <FontAwesomeIcon icon={faVcard} />
+            </span>
+          </li>
+          <li>
+            <input
+              type="radio"
+              name="option"
+              checked={Mod === "listCard"}
+              onChange={() => setMod("listCard")}
+            />
+            <span
+              className={
+                Mod === "listCard"
+                  ? `${styles.radioMark} ${styles.active}`
+                  : styles.radioMark
+              }
+            >
+              <FontAwesomeIcon icon={faList} />
+            </span>
+          </li>
+        </ul>
+      </div>
+      {Mod === "defualtCard" && <CardContener onLength={handleDataFromCard} />}
+      {Mod === "listCard" && <ListContener />}
+    </div>
+  );
 }
 
 export default Main;

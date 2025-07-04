@@ -1,0 +1,87 @@
+@import '../../variables';
+
+/* List */
+.List{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.List:hover{
+    box-shadow: 5px 5px 10px 1px black;
+}
+
+.List .GameCover{
+    width: fit-content;
+    height: 150px;
+}
+
+.List .CradBody{
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    background-color: $background-color;
+}
+
+.List .CradBody h4{
+    padding: 10px 0;
+}
+
+.List .CradBody p{
+    margin-left: 10px;
+    color: rgba(255, 255, 255, 0.39);
+    font-size: 12px;
+}
+
+.List .CradBody .Items{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    width: 100%;
+}
+
+.List .CradBody .Items .UserRate{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.List .CradBody .Items .UserRate::before{
+    content: '✭';
+    font-size: 16px;
+    color: rgba(255, 217, 0, 0.637);
+}
+
+.List .CradBody .Items .Price{
+    font-weight: bold;
+}
+
+.List .CradBody .Items .Price::after{
+    content: '$';
+    color: green;
+}
+
+.List .CradBody .Genres{
+    width: 100%;
+}
+
+.List .CradBody .Genres ul{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+}
+
+.List .CradBody .Genres ul li{
+    padding: 5px;
+    background-color: rgba(162, 170, 243, 0.144);
+    color: rgba(255, 255, 255, 0.507);
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: bold;
+}

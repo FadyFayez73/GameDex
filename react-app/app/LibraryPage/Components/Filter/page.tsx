@@ -1,6 +1,10 @@
-'use client';
-import { useRef, useState } from "react";
+"use client";
+import { useEffect, useRef, useState } from "react";
 import styles from "./page.module.css";
+import { Game } from "@/app/Components/models/game";
+
+import { useContext } from "react";
+import { FilterContext } from "@/app/Components/FilterContext";
 
 type Section = {
   key: string;
@@ -12,12 +16,21 @@ const sections: Section[] = [
   {
     key: "genres",
     title: "Genres",
-    items: ["RPG", "Open World", "Story Rich", "Atmospheric"],
+    items: [
+      "RPG",
+      "Open World",
+      "Story Rich",
+      "Atmospheric",
+      "Action-Adventure",
+      "Hack and Slash",
+      "Action",
+      "Adventure"
+    ],
   },
   {
     key: "platforms",
     title: "Platforms",
-    items: ["PC", "PlayStation", "Xbox", "Switch"],
+    items: ["PC", "PlayStation 3", "PlayStation 4", "Xbox", "Switch"],
   },
   {
     key: "tags",
@@ -26,11 +39,14 @@ const sections: Section[] = [
   },
 ];
 
-export default function FilterList() {
+export default function FilterList({ OnFiltred = () => {} }) {
+  const { setFilterModel } = useContext(FilterContext);
+
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>(() =>
     Object.fromEntries(sections.map((s) => [s.key, true]))
   );
 
+  // Create Dynamic Filter Model ======>
   const [filters, setFilters] = useState<Record<string, string[]>>(() =>
     Object.fromEntries(sections.map((s) => [s.key, []]))
   );
@@ -41,6 +57,7 @@ export default function FilterList() {
   });
 
   const [sortBy, setSortBy] = useState("name");
+  //Create Dynamic Filter Model ======>
 
   const contentRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
@@ -63,6 +80,8 @@ export default function FilterList() {
     });
   };
 
+  const [Games, setGames] = useState<Game[]>([]);
+
   const handleRangeChange = (
     type: "price" | "size",
     field: "min" | "max",
@@ -80,93 +99,110 @@ export default function FilterList() {
       range: rangeFilters,
       sortBy: sortBy,
     };
-    console.log("Filter model:", model);
     // await fetch("/api/search", { method: "POST", body: JSON.stringify(model) })
+    /*fetch("https://10.0.0.10:7165/api/Library/Filter", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // 👈 مهم جداً
+      },
+      body: JSON.stringify(model),
+    })
+      .then((res) => res.json())
+      .then((data) => setGames(data))
+      .catch((err) => console.error(`Error: ${err}`));*/
+    setFilterModel(model);
   };
 
+  useEffect(() => {
+    console.log(`My API Data With Filter:`, Games);
+  }, [Games]);
   return (
     <div className={styles.container}>
-      {/* Sorting */}
-      <div className={styles.sortSection}>
-        <label>Sort By:</label>
-        <select
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value)}
-          className={styles.select}
-        >
-          <option value="name">Name</option>
-          <option value="size">Size</option>
-          <option value="release">Release Date</option>
-        </select>
-      </div>
-
-      {/* Range Filters */}
-      <div className={styles.rangeSection}>
-        <h4>Price Range</h4>
-        <div className={styles.rangeRow}>
-          <input
-            type="number"
-            value={rangeFilters.price.min}
-            onChange={(e) =>
-              handleRangeChange("price", "min", e.target.value)
-            }
-            placeholder="Min"
-          />
-          <span>–</span>
-          <input
-            type="number"
-            value={rangeFilters.price.max}
-            onChange={(e) =>
-              handleRangeChange("price", "max", e.target.value)
-            }
-            placeholder="Max"
-          />
+      <div className={styles.FilterComponents}>
+        {/* Sorting */}
+        <div className={styles.sortSection}>
+          <label>Sort By:</label>
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className={styles.select}
+          >
+            <option value="name">Name</option>
+            <option value="size">Size</option>
+            <option value="release">Release Date</option>
+          </select>
         </div>
-      </div>
 
-      {/* Sections with Collapse + Checkboxes */}
-      {sections.map((section) => {
-        const isCollapsed = collapsed[section.key];
-        const ref = (el: HTMLDivElement | null) => {
-          contentRefs.current[section.key] = el;
-        };
-
-        return (
-          <div key={section.key} className={styles.collection}>
-            <h4 className={styles.title}>{section.title}</h4>
-
-            <div
-              ref={ref}
-              className={styles.items}
-              style={{
-                maxHeight: isCollapsed
-                  ? "0px"
-                  : `${contentRefs.current[section.key]?.scrollHeight || 0}px`,
-                overflow: "hidden",
-                transition: "max-height 0.4s ease",
-              }}
-            >
-              {section.items.map((item) => (
-                <label key={item} className={styles.item}>
-                  <input
-                    type="checkbox"
-                    checked={filters[section.key]?.includes(item)}
-                    onChange={() => toggleValue(section.key, item)}
-                  />
-                  {item}
-                </label>
-              ))}
-            </div>
-
-            <button
-              className={styles.toggle}
-              onClick={() => toggleCollapse(section.key)}
-            >
-              {isCollapsed ? "View All" : "Collapse"}
-            </button>
+        {/* Range Filters */}
+        <div className={styles.rangeSection}>
+          <h4>Price Range</h4>
+          <div className={styles.rangeRow}>
+            <input
+              type="number"
+              value={rangeFilters.price.min}
+              onChange={(e) =>
+                handleRangeChange("price", "min", e.target.value)
+              }
+              placeholder="Min"
+            />
+            <span>–</span>
+            <input
+              type="number"
+              value={rangeFilters.price.max}
+              onChange={(e) =>
+                handleRangeChange("price", "max", e.target.value)
+              }
+              placeholder="Max"
+            />
           </div>
-        );
-      })}
+        </div>
+
+        {/* Sections with Collapse + Checkboxes */}
+        {sections.map((section) => {
+          const isCollapsed = collapsed[section.key];
+          const ref = (el: HTMLDivElement | null) => {
+            contentRefs.current[section.key] = el;
+          };
+
+          return (
+            <div key={section.key} className={styles.collection}>
+              <h4 className={styles.title}>{section.title}</h4>
+
+              <div
+                ref={ref}
+                className={styles.items}
+                style={{
+                  maxHeight: isCollapsed
+                    ? "0px"
+                    : `${
+                        contentRefs.current[section.key]?.scrollHeight || 0
+                      }px`,
+                  overflow: "hidden",
+                  transition: "max-height 0.4s ease",
+                }}
+              >
+                {section.items.map((item) => (
+                  <label key={item} className={styles.item}>
+                    <input
+                      type="checkbox"
+                      checked={filters[section.key]?.includes(item)}
+                      onChange={() => toggleValue(section.key, item)}
+                    />
+                    {item}
+                  </label>
+                ))}
+              </div>
+
+              <button
+                className={styles.toggle}
+                onClick={() => toggleCollapse(section.key)}
+              >
+                {isCollapsed ? "View All" : "Collapse"}
+              </button>
+            </div>
+          );
+        })}
+      </div>
 
       {/* Submit Button */}
       <button onClick={handleSubmit} className={styles.submit}>
