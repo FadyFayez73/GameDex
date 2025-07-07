@@ -11,6 +11,7 @@
 
 .Content .Filter{
     width: 250px;
+    min-width: 250px;
     height: 100%;
     border: 1px rgba(255, 255, 255, 0.171) solid;
     border-radius: 10px;

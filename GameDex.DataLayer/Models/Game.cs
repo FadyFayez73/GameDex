@@ -40,7 +40,7 @@ namespace GameDex.DataLayer.Models
         public ICollection<ChapterMission>? ChapterMissions { get; set; }
         public ICollection<Character>? Characters { get; set; }
         public ICollection<Performance>? Performances { get; set; }
-        public ICollection<Genres>? Genres { get; set; }
+        public ICollection<Genre>? Genres { get; set; }
         public ICollection<DLC>? DLCs { get; set; }
     }
 }

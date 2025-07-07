@@ -60,7 +60,7 @@ namespace GameDex.DataLayer
 
             new GenresTypeConfiguration()
                 .Configure(modelBuilder
-                .Entity<Genres>());
+                .Entity<Genre>());
 
             new DLCTypeConfiguration()
                 .Configure(modelBuilder
@@ -79,7 +79,7 @@ namespace GameDex.DataLayer
         public DbSet<ChapterMission> ChapterMissions { get; set; }
         public DbSet<Character> Characters { get; set; }
         public DbSet<Performance> Performances { get; set; }
-        public DbSet<Genres> Genres { get; set; }
+        public DbSet<Genre> Genres { get; set; }
         public DbSet<DLC> DLCs { get; set; }
     }
 }

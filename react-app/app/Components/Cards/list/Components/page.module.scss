@@ -1,41 +1,43 @@
-.Card{
-    width: 300px;
+@use '../../variables' as *;
+
+/* List */
+.List{
+    width: 100%;
     height: fit-content;
     display: flex;
-    flex-direction: column;
     border-radius: 5px;
     overflow: hidden;
     transition: 0.2s;
     cursor: pointer;
 }
 
-.Card:hover{
+.List:hover{
     box-shadow: 5px 5px 10px 1px black;
 }
 
-.Card .GameCover{
-    width: 100%;
-    height: fit-content;
+.List .GameCover{
+    width: fit-content;
+    height: 150px;
 }
 
-.Card .CradBody{
+.List .CradBody{
     padding: 10px;
     width: 100%;
     height: 100%;
-    background-color: #212529;
+    background-color: $background-color;
 }
 
-.Card .CradBody h4{
+.List .CradBody h4{
     padding: 10px 0;
 }
 
-.Card .CradBody p{
+.List .CradBody p{
     margin-left: 10px;
     color: rgba(255, 255, 255, 0.39);
     font-size: 12px;
 }
 
-.Card .CradBody .Items{
+.List .CradBody .Items{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -43,31 +45,31 @@
     width: 100%;
 }
 
-.Card .CradBody .Items .UserRate{
+.List .CradBody .Items .UserRate{
     font-weight: bold;
     font-size: 16px;
 }
 
-.Card .CradBody .Items .UserRate::before{
+.List .CradBody .Items .UserRate::before{
     content: '✭';
     font-size: 16px;
     color: rgba(255, 217, 0, 0.637);
 }
 
-.Card .CradBody .Items .Price{
+.List .CradBody .Items .Price{
     font-weight: bold;
 }
 
-.Card .CradBody .Items .Price::after{
+.List .CradBody .Items .Price::after{
     content: '$';
     color: green;
 }
 
-.Card .CradBody .Genres{
+.List .CradBody .Genres{
     width: 100%;
 }
 
-.Card .CradBody .Genres ul{
+.List .CradBody .Genres ul{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -75,7 +77,7 @@
     list-style: none;
 }
 
-.Card .CradBody .Genres ul li{
+.List .CradBody .Genres ul li{
     padding: 5px;
     background-color: rgba(162, 170, 243, 0.144);
     color: rgba(255, 255, 255, 0.507);

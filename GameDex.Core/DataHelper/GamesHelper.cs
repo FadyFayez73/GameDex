@@ -90,13 +90,13 @@ namespace GameDex.Core.DataHelper
         }
 
         // Get For Display
-        public async Task<List<Game>> GetAllForDisplayAsync()
+        public async Task<IQueryable<Game>> GetAllForDisplayAsync()
         {
-            var games = await _context.Games
+            var games = _context.Games
                 .Include(x => x.Medias)
                 .Include(x => x.Companies)
                 .Include(x => x.Genres)
-                .ToListAsync();
+                .AsQueryable();
 
             return games;
         }
@@ -106,29 +106,29 @@ namespace GameDex.Core.DataHelper
         public async Task<List<Game>> GetGamesOrderedByRatingDisplayAsync()
         {
             var games = await GetAllForDisplayAsync();
-            games = games.OrderBy(g => g.UserRating).ToList();
-            return games;
+            games = games.OrderBy(g => g.UserRating);
+            return games.ToList();
         }
 
         public async Task<List<Game>> GetGamesOrderedByReleaseDateDisplayAsync()
         {
             var games = await GetAllForDisplayAsync();
-            games = games.OrderBy(g => g.YearOfRelease).ToList();
-            return games;
+            games = games.OrderBy(g => g.YearOfRelease);
+            return games.ToList();
         }
 
         public async Task<List<Game>> GetGamesOrderedByNameDisplayAsync()
         {
             var games = await GetAllForDisplayAsync();
-            games = games.OrderBy(g => g.Name).ToList();
-            return games;
+            games = games.OrderBy(g => g.Name);
+            return games.ToList();
         }
 
         public async Task<List<Game>> GetGamesOrderedBySizeDisplayAsync()
         {
             var games = await GetAllForDisplayAsync();
-            games = games.OrderBy(g => g.ActualGameSize).ToList();
-            return games;
+            games = games.OrderBy(g => g.ActualGameSize);
+            return games.ToList();
         }
 
         public async Task<List<Game>> SearchByNameDisplayAsync(string name)
@@ -136,9 +136,8 @@ namespace GameDex.Core.DataHelper
             var games = await GetAllForDisplayAsync();
             games = games
                 .Where(g => 
-                    g.Name.ToLower().Contains(name.ToLower()))
-                .ToList();
-            return games;
+                    g.Name.ToLower().Contains(name.ToLower()));
+            return games.ToList();
         }
     }
 }
