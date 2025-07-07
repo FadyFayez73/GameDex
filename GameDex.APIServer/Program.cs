@@ -1,4 +1,4 @@
-using GameDex.DataLayer;
+﻿using GameDex.DataLayer;
 using GameDex.Core.DataHelper;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
@@ -13,7 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options => options
-.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection")));
 
 builder.Services.AddCors(options =>
 {
@@ -42,6 +42,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate(); // أو db.Database.Migrate();
+}
+
 
 app.UseHttpsRedirection();
 

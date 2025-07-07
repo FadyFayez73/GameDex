@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace GameDex.DataLayer.Configurations
 {
-    public class GenresTypeConfiguration : IEntityTypeConfiguration<Genres>
+    public class GenresTypeConfiguration : IEntityTypeConfiguration<Genre>
     {
-        public void Configure(EntityTypeBuilder<Genres> builder)
+        public void Configure(EntityTypeBuilder<Genre> builder)
         {
             // Primary Key
             builder

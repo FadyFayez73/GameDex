@@ -2,6 +2,8 @@
 using GameDex.Core.DataHelper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using GameDex.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameDex.APIServer.Controllers
 {
@@ -34,7 +36,7 @@ namespace GameDex.APIServer.Controllers
         {
             if (game == null)
                 return BadRequest("Game cannot be null");
-            
+
             _games.Add(game);
 
             var getSearch = await _games.AdvancedSearchAsync(game.Name);
@@ -44,5 +46,7 @@ namespace GameDex.APIServer.Controllers
                 return NotFound("Game not found after creation");
             return Created($"ID: {getGame.GameID}", getGame);
         }
+
+
     }
 }
