@@ -1,10 +1,12 @@
 "use client";
 
 // Style module
-import styles from "./page.module.css";
+import styles from "./main.module.css";
 
 // Tools
 import { useContext, useEffect, useState } from "react";
+import { FilterContext } from "@/app/Components/Contexts/FilterContext";
+import { Game } from "@/app/Components/models/game";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,30 +15,60 @@ import {
   faDatabase,
   faList,
   faVcard,
+  faAdd,
+  faEdit,
+  faTrash
 } from "@fortawesome/free-solid-svg-icons";
 
-import CardContener from "@/app/Components/Cards/card/page";
-import ListContener from "@/app/Components/Cards/list/page";
+// Cards
+import CardContener from "@/app/Components/Cards/card/cards";
+import ListContener from "@/app/Components/Cards/list/lists";
+
+// Contexts
+import { ControlContext } from "@/app/Components/Contexts/ControlContext";
 
 function Main() {
   const [Mod, setMod] = useState<string>("defualtCard");
-  const [length, setLength] = useState<number>();
-
-  const [test, setTest] = useState("create");
+  const [test, setTest] = useState("");
+  const { filterModel } = useContext(FilterContext);
+  const [Games, setGames] = useState<Game[]>([]);
+  const { gameID } = useContext(ControlContext);
 
   useEffect(() => {
-    console.log(test);
+    console.log("Game ID:", gameID);
+  }, [gameID]);
+
+  useEffect(() => {
+    console.log(test, gameID);
   }, [test]);
 
   useEffect(() => {
     console.log(Mod);
   }, [Mod]);
 
-  const handleDataFromCard = (length: number) => {
-    setLength(length);
-  };
+  useEffect(() => {
+    setGames([]);
+    if (filterModel) {
+      console.log("انا card وده جالي من filter:", filterModel);
 
-
+      fetch("https://localhost:7165/api/Filter/SetFilterData", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // 👈 مهم جداً
+        },
+        body: JSON.stringify(filterModel),
+      })
+        .then((res) => res.json())
+        .then((data) => setGames(data))
+        .catch((err) => console.error(`Error: ${err}`));
+    } else {
+      fetch("https://localhost:7165/api/Library/GetAllForDisplay")
+        .then((res) => res.json())
+        .then((data) => setGames(data))
+        .catch((err) => console.error("❌ خطأ أثناء جلب البيانات:", err));
+      console.log("تحديث جديد");
+    }
+  }, [filterModel]);
 
   return (
     <div className={styles.Content}>
@@ -47,7 +79,7 @@ function Main() {
             <div>GameDex - للعلق صلاح</div>
             <ul>
               <li>
-                <FontAwesomeIcon icon={faGamepad} /> <span>{length}</span>
+                <FontAwesomeIcon icon={faGamepad} /> <span>{Games.length}</span>
               </li>
               <li>
                 <FontAwesomeIcon icon={faDatabase} /> <span>12 MB</span>
@@ -61,19 +93,19 @@ function Main() {
             className={styles.btnCreate}
             onClick={() => setTest("Create")}
           >
-            Create
+            <FontAwesomeIcon icon={faAdd} />
           </button>
           <button
             className={styles.btnUpdate}
             onClick={() => setTest("Update")}
           >
-            Update
+            <FontAwesomeIcon icon={faEdit} />
           </button>
           <button
             className={styles.btnDelete}
             onClick={() => setTest("Delete")}
           >
-            Delete
+            <FontAwesomeIcon icon={faTrash} />
           </button>
         </div>
       </div>
@@ -115,8 +147,8 @@ function Main() {
           </li>
         </ul>
       </div>
-      {Mod === "defualtCard" && <CardContener onLength={handleDataFromCard} />}
-      {Mod === "listCard" && <ListContener />}
+      {Mod === "defualtCard" && <CardContener games={Games} />}
+      {Mod === "listCard" && <ListContener games={Games} />}
     </div>
   );
 }

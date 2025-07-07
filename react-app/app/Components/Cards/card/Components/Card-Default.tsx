@@ -2,21 +2,21 @@
 
 import styles from "./page.module.scss";
 import Image from "next/image";
-import GameDetails from "@/app/GameDetailsPage/page";
+import GameDetails from "@/app/GameDetailsPage/GameDetails";
 import Modal from "react-modal";
 
 //Models
 import { Game } from "@/app/Components/models/game";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { ControlContext } from "@/app/Components/Contexts/ControlContext";
 
 type Param = {
   game: Game;
 };
 
 function DefaultCard(param: Param) {
-  const [gameDetails, setGameDetails] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
+  const { gameID, setGameID } = useContext(ControlContext);
   const coverImage = param.game.medias?.find(
     (media) => media.mediaType === "Cover"
   )?.mediaPath;
@@ -29,11 +29,25 @@ function DefaultCard(param: Param) {
   useEffect(() => {
     console.log("مسا مسا");
   }, [modalIsOpen]);
+
+  const click = () => {
+    setGameID(param.game.gameID);
+    console.log("Card is clicked!");
+  };
+
   return (
     <div
-      onClick={() => setModalIsOpen(true)}
+      onClick={() => click()}
+      onDoubleClick={() => setModalIsOpen(true)}
       className={styles.Card}
       key={param.game.gameID}
+      style={{
+        boxShadow:
+          gameID === param.game.gameID
+            ? "0 0 20px 1px rgb(30,30,30)"
+            : "0 0 10px 1px black",
+        zIndex: 0,
+      }}
     >
       {coverImage && (
         <Image

@@ -15,11 +15,13 @@ namespace GameDex.APIServer.Controllers
             _games = games;
         }
 
-        [HttpPost("GetGame")]
-        public async Task<IActionResult> GetGameForDisplayAsync([FromBody] int id)
+        [HttpPost("GetGame/{id}")]
+        public async Task<IActionResult> GetGameForDisplayAsync(int id)
         {
             if (id == 0) return BadRequest();
-            return Ok(await _games.GetGameForDisplayAsync(id));
+            var game = await _games.GetGameForDisplayAsync(id);
+            if (game == null) return NotFound();
+            return Ok();
         }
     }
 }

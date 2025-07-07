@@ -1,5 +1,6 @@
+'use client';
 import { useEffect, useState } from "react";
-import styles from "./page.module.css";
+import styles from "./GameDetails.module.css";
 import Image from "next/image";
 
 import { Game } from "@/app/Components/models/game";
@@ -12,12 +13,8 @@ function GameDetails(prop: prop) {
   const [game, setGame] = useState<Game>();
 
   useEffect(() => {
-    fetch("https://10.0.0.10:7165/api/Games/GetGame", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json", // 👈 مهم جداً
-      },
-      body: JSON.stringify(prop.gameID),
+    fetch(`https://10.0.0.10:7165/api/Games/GetGame/${prop.gameID}`, {
+      method: "POST"
     })
       .then((res) => res.json())
       .then((data) => setGame(data))

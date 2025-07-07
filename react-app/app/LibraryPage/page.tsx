@@ -1,8 +1,9 @@
 import Styles from "./page.module.css";
-import Filter from "./Components/Filter/page";
-import Main from "./Components/Main/page";
+import Filter from "./Components/Filter/filter";
+import Main from "./Components/Main/main";
 
-import { FilterProvider } from "../Components/FilterContext";
+import { FilterProvider } from "../Components/Contexts/FilterContext";
+import { ControlProvider } from "@/app/Components/Contexts/ControlContext";
 
 function Library() {
   return (
@@ -11,9 +12,11 @@ function Library() {
         <div className={Styles.Filter}>
           <Filter />
         </div>
-        <main className={Styles.Main}>
-          <Main />
-        </main>
+        <ControlProvider>
+          <main className={Styles.Main}>
+            <Main />
+          </main>
+        </ControlProvider>
       </div>
     </FilterProvider>
   );

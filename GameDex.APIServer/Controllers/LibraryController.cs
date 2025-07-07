@@ -47,51 +47,6 @@ namespace GameDex.APIServer.Controllers
             return Created($"ID: {getGame.GameID}", getGame);
         }
 
-        [HttpPost("Filter")]
-        public async Task<IActionResult> Filter(FilterModel filter)
-        {
-            if (filter == null)
-                return BadRequest("Filter cannot be null");
 
-            var games = await _games.GetAllForDisplayAsync();
-
-            if(filter.Checkboxes != null)
-            {
-                if (filter.Checkboxes.Genres != null && filter.Checkboxes.Genres.Count > 0)
-                    games = games.Where(g => g.Genres.Any(g => filter.Checkboxes.Genres.Contains(g.Name)));
-                if (filter.Checkboxes.Platforms != null && filter.Checkboxes.Platforms.Count > 0)
-                    games = games.Where(g => g.Platforms.Any(p => filter.Checkboxes.Platforms.Contains(p.Name)));
-            }
-            var f1 = await games.ToListAsync();
-
-            if (filter.Range != null)
-            {
-                if (filter.Range.Price.Max != 0 && filter.Range.Price.Min >= 0)
-                    games = games.Where(g => g.SteamPrices >= filter.Range.Price.Min && g.SteamPrices <= filter.Range.Price.Max);
-            }
-
-            var f2 = await games.ToListAsync();
-
-
-            if (!string.IsNullOrEmpty(filter.SortBy))
-            {
-                switch (filter.SortBy.ToLower())
-                {
-                    case "name":
-                        games = games.OrderBy(g => g.Name);
-                        break;
-                    case "year":
-                        games = games.OrderBy(g => g.YearOfRelease);
-                        break;
-                    case "price":
-                        games = games.OrderBy(g => g.SteamPrices);
-                        break;
-                    default:
-                        return BadRequest("Invalid sort option");
-                }
-            }
-            var f3 = await games.ToListAsync();
-            return Ok(games.ToList());
-        }
     }
 }

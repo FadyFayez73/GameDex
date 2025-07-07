@@ -1,10 +1,8 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import styles from "./page.module.css";
-import { Game } from "@/app/Components/models/game";
-
-import { useContext } from "react";
-import { FilterContext } from "@/app/Components/FilterContext";
+import { useContext, useEffect, useRef, useState } from "react";
+import styles from "./filter.module.css";
+import { FilterContext } from "@/app/Components/Contexts/FilterContext";
+import { defaultFilterModel } from "@/app/Components/models/defaultFilterModel";
 
 type Section = {
   key: string;
@@ -12,60 +10,38 @@ type Section = {
   items: string[];
 };
 
-const sections: Section[] = [
-  {
-    key: "genres",
-    title: "Genres",
-    items: [
-      "RPG",
-      "Open World",
-      "Story Rich",
-      "Atmospheric",
-      "Action-Adventure",
-      "Hack and Slash",
-      "Action",
-      "Adventure"
-    ],
-  },
-  {
-    key: "platforms",
-    title: "Platforms",
-    items: ["PC", "PlayStation 3", "PlayStation 4", "Xbox", "Switch"],
-  },
-  {
-    key: "tags",
-    title: "Tags",
-    items: ["Multiplayer", "Single Player", "Controller Support"],
-  },
-];
-
-export default function FilterList({ OnFiltred = () => {} }) {
+export default function FilterList() {
   const { setFilterModel } = useContext(FilterContext);
+  const [shouldSubmitAfterClear, setShouldSubmitAfterClear] = useState(false);
+
+  // استخراج الأقسام تلقائيًا من default model
+  const checkboxSections: Section[] = Object.entries(
+    defaultFilterModel.checkboxes
+  ).map(([key, items]) => ({
+    key,
+    title: key.charAt(0).toUpperCase() + key.slice(1),
+    items,
+  }));
+
+  const initialFilters = Object.fromEntries(
+    checkboxSections.map((s) => [s.key, []])
+  );
+  const initialRange = defaultFilterModel.range;
+  const initialSortBy = defaultFilterModel.sortBy;
 
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>(() =>
-    Object.fromEntries(sections.map((s) => [s.key, true]))
+    Object.fromEntries(checkboxSections.map((s) => [s.key, true]))
   );
 
-  // Create Dynamic Filter Model ======>
-  const [filters, setFilters] = useState<Record<string, string[]>>(() =>
-    Object.fromEntries(sections.map((s) => [s.key, []]))
-  );
-
-  const [rangeFilters, setRangeFilters] = useState({
-    price: { min: 0, max: 0 },
-    size: { min: 0, max: 0 },
-  });
-
-  const [sortBy, setSortBy] = useState("name");
-  //Create Dynamic Filter Model ======>
+  const [filters, setFilters] =
+    useState<Record<string, string[]>>(initialFilters);
+  const [rangeFilters, setRangeFilters] = useState(initialRange);
+  const [sortBy, setSortBy] = useState(initialSortBy);
 
   const contentRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const toggleCollapse = (key: string) => {
-    setCollapsed((prev) => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
+    setCollapsed((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
   const toggleValue = (sectionKey: string, value: string) => {
@@ -80,8 +56,6 @@ export default function FilterList({ OnFiltred = () => {} }) {
     });
   };
 
-  const [Games, setGames] = useState<Game[]>([]);
-
   const handleRangeChange = (
     type: "price" | "size",
     field: "min" | "max",
@@ -93,33 +67,34 @@ export default function FilterList({ OnFiltred = () => {} }) {
     }));
   };
 
+  useEffect(() => {
+    if (shouldSubmitAfterClear) {
+      handleSubmit();
+      setShouldSubmitAfterClear(false); // reset
+    }
+  }, [filters, rangeFilters, sortBy]);
+
   const handleSubmit = () => {
     const model = {
       checkboxes: filters,
       range: rangeFilters,
       sortBy: sortBy,
     };
-    // await fetch("/api/search", { method: "POST", body: JSON.stringify(model) })
-    /*fetch("https://10.0.0.10:7165/api/Library/Filter", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json", // 👈 مهم جداً
-      },
-      body: JSON.stringify(model),
-    })
-      .then((res) => res.json())
-      .then((data) => setGames(data))
-      .catch((err) => console.error(`Error: ${err}`));*/
     setFilterModel(model);
+    console.log("from handleSubmit", model);
   };
 
-  useEffect(() => {
-    console.log(`My API Data With Filter:`, Games);
-  }, [Games]);
+  const handleClearAll = () => {
+    setFilters(initialFilters);
+    setRangeFilters(initialRange);
+    setSortBy(initialSortBy);
+    setShouldSubmitAfterClear(true); // اطلب تنفيذ submit بعد ما الحالة تتحدث
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.FilterComponents}>
-        {/* Sorting */}
+        {/* Sort */}
         <div className={styles.sortSection}>
           <label>Sort By:</label>
           <select
@@ -128,7 +103,10 @@ export default function FilterList({ OnFiltred = () => {} }) {
             className={styles.select}
           >
             <option value="name">Name</option>
-            <option value="size">Size</option>
+            <option value="priceLowerToHigher">Price (Lower to Higher)</option>
+            <option value="priceHigherToLower">Price (Higher to Lower)</option>
+            <option value="sizeLowerToHigher">Size (Lower To Higher)</option>
+            <option value="sizeHigherToLower">Size (Higher To Lower)</option>
             <option value="release">Release Date</option>
           </select>
         </div>
@@ -157,8 +135,8 @@ export default function FilterList({ OnFiltred = () => {} }) {
           </div>
         </div>
 
-        {/* Sections with Collapse + Checkboxes */}
-        {sections.map((section) => {
+        {/* Checkbox Sections */}
+        {checkboxSections.map((section) => {
           const isCollapsed = collapsed[section.key];
           const ref = (el: HTMLDivElement | null) => {
             contentRefs.current[section.key] = el;
@@ -167,7 +145,6 @@ export default function FilterList({ OnFiltred = () => {} }) {
           return (
             <div key={section.key} className={styles.collection}>
               <h4 className={styles.title}>{section.title}</h4>
-
               <div
                 ref={ref}
                 className={styles.items}
@@ -192,7 +169,6 @@ export default function FilterList({ OnFiltred = () => {} }) {
                   </label>
                 ))}
               </div>
-
               <button
                 className={styles.toggle}
                 onClick={() => toggleCollapse(section.key)}
@@ -204,10 +180,15 @@ export default function FilterList({ OnFiltred = () => {} }) {
         })}
       </div>
 
-      {/* Submit Button */}
-      <button onClick={handleSubmit} className={styles.submit}>
-        Apply Filters
-      </button>
+      {/* Buttons */}
+      <div className={styles.buttonGroup}>
+        <button onClick={handleSubmit} className={styles.submit}>
+          Apply Filters
+        </button>
+        <button onClick={handleClearAll} className={styles.clear}>
+          Clear
+        </button>
+      </div>
     </div>
   );
 }

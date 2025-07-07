@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameDex.DataLayer.Models
 {
-    public class Genres
+    public class Genre
     {
         // Property
         public int GenreID { get; set; }
