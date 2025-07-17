@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameDex.DataLayer.Models
+namespace Domain.Entities
 {
     public class Requirement
     {
         // Property
-        public int RequirementID { get; set; }
-        public string RequirementType { get; set; }
+        public Guid RequirementID { get; set; }
+        public RequirementTypeEnum RequirementType { get; set; }
         public string SystemOS { get; set; }
         public string Processor { get; set; }
         public string Memory { get; set; }
@@ -21,7 +21,13 @@ namespace GameDex.DataLayer.Models
         public string DirectX { get; set; }
 
         // Game Entity Relation One to Many
-        public int? GameID { get; set; }
+        public Guid GameID { get; set; }
         public Game? Game { get; set; }
+
+        public enum RequirementTypeEnum
+        {
+            Minimum,
+            Recommended
+        }
     }
 }

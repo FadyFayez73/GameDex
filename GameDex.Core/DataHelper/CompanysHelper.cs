@@ -1,5 +1,5 @@
-﻿using GameDex.DataLayer;
-using GameDex.DataLayer.Models;
+﻿using GameDex.DataLayer.Models;
+using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

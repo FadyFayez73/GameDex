@@ -1,4 +1,4 @@
-﻿using GameDex.DataLayer;
+﻿using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;

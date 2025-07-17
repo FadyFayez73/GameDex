@@ -1,7 +1,7 @@
-﻿using GameDex.DataLayer;
-using GameDex.Core.DataHelper;
+﻿using GameDex.Core.DataHelper;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using Infrastructure.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 

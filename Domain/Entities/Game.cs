@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameDex.DataLayer.Models
+namespace Domain.Entities
 {
     public class Game
     {
         // Property
-        public int GameID { get; set; }
+        public Guid GameID { get; set; }
         public string Name { get; set; }
         public string Patch { get; set; }
         public string GamePath { get; set; }

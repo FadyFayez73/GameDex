@@ -1,5 +1,4 @@
-﻿using GameDex.DataLayer;
-using GameDex.Core.DataHelper;
+﻿using GameDex.Core.DataHelper;
 using GameDex.DataLayer.Models;
 using System;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Infrastructure.Context;
 
 namespace AlbumDex.Core.DataHelper
 {

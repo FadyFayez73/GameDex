@@ -1,4 +1,4 @@
-﻿using GameDex.DataLayer.Models;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameDex.DataLayer.Configurations
+namespace Infrastructure.Configurations
 {
     internal class GameTypeConfiguration : IEntityTypeConfiguration<Game>
     {

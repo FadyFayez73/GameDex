@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameDex.DataLayer.Models
+namespace Domain.Entities
 {
     public class Performance
     {
         // Property
-        public int PerformanceID { get; set; }
+        public Guid PerformanceID { get; set; }
         public string GraphicsQuality { get; set; }
         public int Low1PercentFPS { get; set; }
         public string AverageFPS { get; set; }
@@ -17,7 +17,7 @@ namespace GameDex.DataLayer.Models
         public string TestDate { get; set; }
 
         // Game Entity Relation Many to One
-        public int? GameID { get; set; }
+        public Guid GameID { get; set; }
         public Game? Game { get; set; }
     }
 }

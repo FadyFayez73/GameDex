@@ -1,8 +1,8 @@
-﻿using GameDex.DataLayer.Configurations;
-using GameDex.DataLayer.Models;
+﻿using Infrastructure.Configurations;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace GameDex.DataLayer
+namespace Infrastructure.Context
 {
     public class AppDbContext : DbContext
     {

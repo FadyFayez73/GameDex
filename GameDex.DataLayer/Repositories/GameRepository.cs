@@ -1,0 +1,98 @@
+﻿using Domain.Entities;
+using Domain.Repositories;
+using Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Infrastructure.Repositories
+{
+    public class GameRepository : IGameRepository
+    {
+        private AppDbContext _context;
+
+        public GameRepository(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<bool> AddAsync(Game entity)
+        {
+            _context.Games.Add(entity);
+
+            var result = await _context.SaveChangesAsync();
+            return result > 0;
+        }
+
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            var game =  _context.Games.FirstOrDefault(g => g.GameID == id);
+            if(game == null) return false;
+            _context.Games.Remove(game);
+            var result = await _context.SaveChangesAsync();
+            return result > 0;
+        }
+
+        public async Task<IEnumerable<Game>> GetAllGamesForDisplayAsync()
+        {
+            var games = await _context.Games
+                .Include(g => g.Medias)
+                .Select(g => new {
+                    g.GameID,
+                    g.Name,
+                    g.SteamPrices,
+                    g.UserRating,
+                    Medias = g.Medias.Select(m => new {
+                        m.MediaID,
+                        m.MediaPath,
+                        m.MediaType
+                    }),
+
+                })
+                .ToListAsync();
+
+            var gameslist = new List<Game>();
+            foreach (var game in games)
+            {
+                var medias = new List<Media>();
+                foreach (var media in game.Medias)
+                {
+                    medias.Add(new Media
+                    {
+                        MediaID = media.MediaID,
+                        MediaPath = media.MediaPath,
+                        MediaType = media.MediaType
+                    });
+                }
+                gameslist.Add(new Game
+                {
+                    GameID = game.GameID,
+                    Name = game.Name,
+                    SteamPrices = game.SteamPrices,
+                    UserRating = game.UserRating,
+                    Medias = medias
+                });
+            }
+            return gameslist;
+        }
+
+        public async Task<Game?> GetGameByIdAsync(Guid id)
+        {
+            var game = await _context.Games
+                .FirstOrDefaultAsync(g => g.GameID == id);
+            
+            return game;
+        }
+
+        public async Task<bool> UpdateAsync(Game entity)
+        {
+            _context.Games.Update(entity);
+
+            var result = await _context.SaveChangesAsync();
+            return result > 0;
+        }
+    }
+}

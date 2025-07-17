@@ -6,25 +6,24 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace GameDex.DataLayer.Models
+namespace Domain.Entities
 {
     public class Company
     {
         // Property
-        public int CompanyID { get; set; }
+        public Guid CompanyID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public CompanyType CompanyType { get; set; }
+        public CompanyTypeEnum CompanyType { get; set; }
 
 
         // Game Entity Relation Many to Many
-        [JsonIgnore]
         public ICollection<Game>? Games { get; set; }
-    }
 
-    public enum CompanyType
-    {
-        Developer,
-        Publisher
+        public enum CompanyTypeEnum
+        {
+            Developer,
+            Publisher
+        }
     }
 }

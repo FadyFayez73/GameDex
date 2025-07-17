@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameDex.DataLayer.Models
+namespace Domain.Entities
 {
     public class Control
     {
         //Property
-        public int ControlID { get; set; }
+        public Guid ControlID { get; set; }
         public string ControlType { get; set; }
         public string Action { get; set; }
         public string Key { get; set; }
 
         //Game Entity Relation Many to One
-        public int? GameID { get; set; }
+        public Guid GameID { get; set; }
         public Game? Game { get; set; }
     }
 }

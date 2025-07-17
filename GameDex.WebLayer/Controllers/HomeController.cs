@@ -1,5 +1,5 @@
-﻿using GameDex.DataLayer;
-using GameDex.WebLayer.Models;
+﻿using GameDex.WebLayer.Models;
+using Infrastructure.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Diagnostics;
