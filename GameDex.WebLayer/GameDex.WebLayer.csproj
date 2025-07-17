@@ -15,12 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GameDex.Core\Core.csproj" />
+    <Folder Include="wwwroot\css\Home\" />
+    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\css\Home\" />
-    <Folder Include="wwwroot\img\" />
+    <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
 </Project>

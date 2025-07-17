@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameDex.DataLayer
+namespace Infrastructure
 {
     public class AppDbContextFactory : IDbContextFactory<AppDbContext>
     {

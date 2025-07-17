@@ -1,11 +1,10 @@
-﻿//using GameDex.DataLayer.Models;
-//using GameDex.Core.DataHelper;
+﻿//using Domain.Entities;
 //using Microsoft.AspNetCore.Http;
 //using Microsoft.AspNetCore.Mvc;
-//using GameDex.Core;
+//using Core;
 //using Microsoft.EntityFrameworkCore;
 
-//namespace GameDex.APIServer.Controllers
+//namespace API.Controllers
 //{
 //    [Route("api/[controller]")]
 //    [ApiController]

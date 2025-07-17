@@ -18,7 +18,7 @@ namespace Core.Mapping
                 .ForMember(dest => dest.PGRating, opt => opt.MapFrom(src => src.PGRating))
                 .ForMember(dest => dest.UserRating, opt => opt.MapFrom(src => src.UserRating))
                 .ForMember(dest => dest.SteamPrices, opt => opt.MapFrom(src => src.SteamPrices))
-                .ForMember(dest => dest.CoverUrl, opt => opt.MapFrom(src => src.Medias.Where(g => g.MediaType == "Cover").Select(g => g.MediaPath)))
+                .ForMember(dest => dest.CoverUrl, opt => opt.MapFrom(src => src.Medias.Where(g => g.MediaType == "Cover").Select(g => g.MediaPath).FirstOrDefault()))
                 .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => src.Genres.Select(g => g.Name).ToList()))
                 .ForMember(dest => dest.Platforms, opt => opt.MapFrom(src => src.Platforms.Select(p => p.Name).ToList()))
                 .ReverseMap();

@@ -1,4 +1,4 @@
-namespace GameDex.APIServer
+namespace API
 {
     public class WeatherForecast
     {

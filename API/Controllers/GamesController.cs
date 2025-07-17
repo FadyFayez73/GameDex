@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using Core.Features.Games.Queries.Commands;
 
-namespace GameDex.APIServer.Controllers
+namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
