@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Repositories.Base
+namespace Services.Contracts.Base
 {
-    public interface IBaseRepository<T>
+    public interface IBaseServices<T>
     {
         Task<bool> AddAsync(T entity);
-        Task<bool> UpdateAsync(T entity);
+        Task<bool> UpdateAsync(T entity);    
         Task<bool> DeleteAsync(Guid id);
-        Task<bool> SaveChangesAsync();
     }
 }

@@ -29,15 +29,19 @@ namespace Infrastructure.Configurations
                 .HasMany(plat => plat.Games)
                 .WithMany(g => g.Platforms);
 
+            var id1 = Guid.Parse("aff935b7-a122-45bf-b343-fb2b84ecfc47");
+            var id2 = Guid.Parse("43b2427b-b32b-4a80-98c2-18b8c6f11934");
+
             builder
-                .HasData(new Platform
+                .HasData(
+                new Platform
                 {
-                    PlatformID = 1,
+                    PlatformID = id1,
                     Name = "PC",
                 },
                 new Platform
                 {
-                    PlatformID = 2,
+                    PlatformID = id2,
                     Name = "PlayStation 4",
                 });
 

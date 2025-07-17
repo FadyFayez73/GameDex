@@ -40,43 +40,10 @@ namespace Infrastructure.Repositories
         {
             var games = await _context.Games
                 .Include(g => g.Medias)
-                .Select(g => new {
-                    g.GameID,
-                    g.Name,
-                    g.SteamPrices,
-                    g.UserRating,
-                    Medias = g.Medias.Select(m => new {
-                        m.MediaID,
-                        m.MediaPath,
-                        m.MediaType
-                    }),
-
-                })
+                .Include(g => g.Platforms)
+                .Include(g => g.Genres)
                 .ToListAsync();
-
-            var gameslist = new List<Game>();
-            foreach (var game in games)
-            {
-                var medias = new List<Media>();
-                foreach (var media in game.Medias)
-                {
-                    medias.Add(new Media
-                    {
-                        MediaID = media.MediaID,
-                        MediaPath = media.MediaPath,
-                        MediaType = media.MediaType
-                    });
-                }
-                gameslist.Add(new Game
-                {
-                    GameID = game.GameID,
-                    Name = game.Name,
-                    SteamPrices = game.SteamPrices,
-                    UserRating = game.UserRating,
-                    Medias = medias
-                });
-            }
-            return gameslist;
+            return games;
         }
 
         public async Task<Game?> GetGameByIdAsync(Guid id)
@@ -85,6 +52,12 @@ namespace Infrastructure.Repositories
                 .FirstOrDefaultAsync(g => g.GameID == id);
             
             return game;
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            var result = await _context.SaveChangesAsync();
+            return result > 0;
         }
 
         public async Task<bool> UpdateAsync(Game entity)

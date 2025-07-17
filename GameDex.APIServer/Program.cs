@@ -1,7 +1,10 @@
-﻿using GameDex.Core.DataHelper;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Infrastructure.Context;
+using Core;
+using Infrastructure;
+using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +15,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<AppDbContext>(options => options
-.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection")));
+builder.Services.AddDbContext<AppDbContext>(options => {
+    options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConnection"));
+});
+
+builder.Services.AddCoreDependencies();
+builder.Services.AddServicesDependence();
+builder.Services.AddInfrastructureDependence();
 
 builder.Services.AddCors(options =>
 {
@@ -32,7 +40,6 @@ builder.Services.AddControllers()
     });
 
 
-builder.Services.AddScoped<GamesHelper>();
 
 var app = builder.Build();
 

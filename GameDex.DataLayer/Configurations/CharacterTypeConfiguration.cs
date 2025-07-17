@@ -44,21 +44,25 @@ namespace Infrastructure.Configurations
                 .HasMany(cha => cha.ChapterMissions)
                 .WithMany(cm => cm.Characters);
 
+            var id1 = Guid.Parse("24bc0f9d-2749-40ac-bf17-14bcdd8a66eb");
+            var id2 = Guid.Parse("3ad1890d-573b-44e6-ada2-268dfe65a569");
 
             builder
                 .HasData(new Character
                 {
-                    CharacterID = 1,
+                    CharacterID = id1,
                     Name = "Geralt of Rivia",
                     ImagePath = string.Empty,
-                    Description = "A witcher and the main protagonist of The Witcher series."
+                    Description = "A witcher and the main protagonist of The Witcher series.",
+                    GameID = Guid.Parse("052b2a66-a6f6-4865-80bf-7b89175f79db")
                 },
                 new Character
                 {
-                    CharacterID = 2,
+                    CharacterID = id2,
                     Name = "Ciri",
                     ImagePath = string.Empty,
-                    Description = "The Child of Prophecy, a powerful source of Elder Blood."
+                    Description = "The Child of Prophecy, a powerful source of Elder Blood.",
+                    GameID = Guid.Parse("052b2a66-a6f6-4865-80bf-7b89175f79db")
                 });
 
         }

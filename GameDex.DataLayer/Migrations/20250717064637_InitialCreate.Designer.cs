@@ -3,34 +3,30 @@ using System;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace GameDex.DataLayer.Migrations
+namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250707004029_FixGenreModelName")]
-    partial class FixGenreModelName
+    [Migration("20250717064637_InitialCreate")]
+    partial class InitialCreate
     {
+        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.0")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.7");
 
             modelBuilder.Entity("ChapterMissionCharacter", b =>
                 {
-                    b.Property<int>("ChapterMissionsChapterMissionID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ChapterMissionsChapterMissionID")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("CharactersCharacterID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("CharactersCharacterID")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ChapterMissionsChapterMissionID", "CharactersCharacterID");
 
@@ -41,11 +37,11 @@ namespace GameDex.DataLayer.Migrations
 
             modelBuilder.Entity("CompanyGame", b =>
                 {
-                    b.Property<int>("CompaniesCompanyID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("CompaniesCompanyID")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("GamesGameID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("GamesGameID")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("CompaniesCompanyID", "GamesGameID");
 
@@ -54,40 +50,38 @@ namespace GameDex.DataLayer.Migrations
                     b.ToTable("CompanyGame");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Album", b =>
+            modelBuilder.Entity("Domain.Entities.Album", b =>
                 {
-                    b.Property<int>("AlbumID")
+                    b.Property<Guid>("AlbumID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("TEXT");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AlbumID"), 1L, 1);
-
-                    b.Property<int?>("GameID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("GameID")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Genre")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Language")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Length")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Producer")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ReleaseDate")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("AlbumID");
 
@@ -96,27 +90,25 @@ namespace GameDex.DataLayer.Migrations
                     b.ToTable("Albums");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.ChapterMission", b =>
+            modelBuilder.Entity("Domain.Entities.ChapterMission", b =>
                 {
-                    b.Property<int>("ChapterMissionID")
+                    b.Property<Guid>("ChapterMissionID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChapterMissionID"), 1L, 1);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
-                    b.Property<int?>("GameID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("GameID")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ChapterMissionID");
 
@@ -125,27 +117,25 @@ namespace GameDex.DataLayer.Migrations
                     b.ToTable("ChapterMissions");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Character", b =>
+            modelBuilder.Entity("Domain.Entities.Character", b =>
                 {
-                    b.Property<int>("CharacterID")
+                    b.Property<Guid>("CharacterID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CharacterID"), 1L, 1);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
-                    b.Property<int?>("GameID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("GameID")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ImagePath")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("CharacterID");
 
@@ -156,65 +146,63 @@ namespace GameDex.DataLayer.Migrations
                     b.HasData(
                         new
                         {
-                            CharacterID = 1,
+                            CharacterID = new Guid("24bc0f9d-2749-40ac-bf17-14bcdd8a66eb"),
                             Description = "A witcher and the main protagonist of The Witcher series.",
+                            GameID = new Guid("052b2a66-a6f6-4865-80bf-7b89175f79db"),
                             ImagePath = "",
                             Name = "Geralt of Rivia"
                         },
                         new
                         {
-                            CharacterID = 2,
+                            CharacterID = new Guid("3ad1890d-573b-44e6-ada2-268dfe65a569"),
                             Description = "The Child of Prophecy, a powerful source of Elder Blood.",
+                            GameID = new Guid("052b2a66-a6f6-4865-80bf-7b89175f79db"),
                             ImagePath = "",
                             Name = "Ciri"
                         });
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Company", b =>
+            modelBuilder.Entity("Domain.Entities.Company", b =>
                 {
-                    b.Property<int>("CompanyID")
+                    b.Property<Guid>("CompanyID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CompanyID"), 1L, 1);
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("CompanyType")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("CompanyID");
 
                     b.ToTable("Companys");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Control", b =>
+            modelBuilder.Entity("Domain.Entities.Control", b =>
                 {
-                    b.Property<int>("ControlID")
+                    b.Property<Guid>("ControlID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ControlID"), 1L, 1);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Action")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ControlType")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
-                    b.Property<int?>("GameID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("GameID")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Key")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ControlID");
 
@@ -223,23 +211,21 @@ namespace GameDex.DataLayer.Migrations
                     b.ToTable("Controls");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.DLC", b =>
+            modelBuilder.Entity("Domain.Entities.DLC", b =>
                 {
-                    b.Property<int>("DLCID")
+                    b.Property<Guid>("DLCID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DLCID"), 1L, 1);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
-                    b.Property<int?>("GameID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("GameID")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("DLCID");
 
@@ -248,58 +234,56 @@ namespace GameDex.DataLayer.Migrations
                     b.ToTable("DLCs");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Game", b =>
+            modelBuilder.Entity("Domain.Entities.Game", b =>
                 {
-                    b.Property<int>("GameID")
+                    b.Property<Guid>("GameID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GameID"), 1L, 1);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ActualGameSize")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("CriticsRating")
                         .HasColumnType("decimal(3,1)");
 
                     b.Property<string>("GameDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("GameEngine")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("GameFiles")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("GamePath")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("HoursToComplete")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("LinkForCrack")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("OrderOfFranchise")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PGRating")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Patch")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("PlayerHours")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<decimal>("PlayersRating")
                         .HasColumnType("decimal(3,1)");
@@ -308,13 +292,13 @@ namespace GameDex.DataLayer.Migrations
                         .HasColumnType("Decimal(7,2)");
 
                     b.Property<string>("StoryPlace")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("UserRating")
                         .HasColumnType("decimal(3,1)");
 
                     b.Property<string>("YearOfRelease")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("GameID");
 
@@ -323,7 +307,7 @@ namespace GameDex.DataLayer.Migrations
                     b.HasData(
                         new
                         {
-                            GameID = 1,
+                            GameID = new Guid("052b2a66-a6f6-4865-80bf-7b89175f79db"),
                             ActualGameSize = "57 GB",
                             CriticsRating = 9.6m,
                             GameDescription = "One of the most acclaimed RPGs of all time. Now ready for a new generation...",
@@ -345,44 +329,40 @@ namespace GameDex.DataLayer.Migrations
                         });
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Genre", b =>
+            modelBuilder.Entity("Domain.Entities.Genre", b =>
                 {
-                    b.Property<int>("GenreID")
+                    b.Property<Guid>("GenreID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenreID"), 1L, 1);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("GenreID");
 
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Media", b =>
+            modelBuilder.Entity("Domain.Entities.Media", b =>
                 {
-                    b.Property<int>("MediaID")
+                    b.Property<Guid>("MediaID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("TEXT");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MediaID"), 1L, 1);
-
-                    b.Property<int?>("GameID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("GameID")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("MediaPath")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("MediaType")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("MediaID");
 
@@ -391,55 +371,51 @@ namespace GameDex.DataLayer.Migrations
                     b.ToTable("Medias");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.ModManager", b =>
+            modelBuilder.Entity("Domain.Entities.ModManager", b =>
                 {
-                    b.Property<int>("ModManagerID")
+                    b.Property<Guid>("ModManagerID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ModManagerID"), 1L, 1);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Path")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ModManagerID");
 
                     b.ToTable("ModManagers");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Performance", b =>
+            modelBuilder.Entity("Domain.Entities.Performance", b =>
                 {
-                    b.Property<int>("PerformanceID")
+                    b.Property<Guid>("PerformanceID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PerformanceID"), 1L, 1);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("AverageFPS")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
-                    b.Property<int?>("GameID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("GameID")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("GraphicsQuality")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Low1PercentFPS")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("MaxFPS")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("TestDate")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("PerformanceID");
 
@@ -448,17 +424,15 @@ namespace GameDex.DataLayer.Migrations
                     b.ToTable("Performances");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Platform", b =>
+            modelBuilder.Entity("Domain.Entities.Platform", b =>
                 {
-                    b.Property<int>("PlatformID")
+                    b.Property<Guid>("PlatformID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlatformID"), 1L, 1);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("PlatformID");
 
@@ -467,62 +441,59 @@ namespace GameDex.DataLayer.Migrations
                     b.HasData(
                         new
                         {
-                            PlatformID = 1,
+                            PlatformID = new Guid("aff935b7-a122-45bf-b343-fb2b84ecfc47"),
                             Name = "PC"
                         },
                         new
                         {
-                            PlatformID = 2,
+                            PlatformID = new Guid("43b2427b-b32b-4a80-98c2-18b8c6f11934"),
                             Name = "PlayStation 4"
                         });
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Requirement", b =>
+            modelBuilder.Entity("Domain.Entities.Requirement", b =>
                 {
-                    b.Property<int>("RequirementID")
+                    b.Property<Guid>("RequirementID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RequirementID"), 1L, 1);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("DirectX")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
-                    b.Property<int?>("GameID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("GameID")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Graphics")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Memory")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Network")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Processor")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("RequirementType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("RequirementType")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("SoundCard")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Storage")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("SystemOS")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("RequirementID");
 
@@ -531,30 +502,28 @@ namespace GameDex.DataLayer.Migrations
                     b.ToTable("Requirements");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Song", b =>
+            modelBuilder.Entity("Domain.Entities.Song", b =>
                 {
-                    b.Property<int>("SongID")
+                    b.Property<Guid>("SongID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("TEXT");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SongID"), 1L, 1);
-
-                    b.Property<int?>("AlbumID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("AlbumID")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Detail")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("DiscNumber")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("TrackNumber")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("SongID");
 
@@ -565,11 +534,11 @@ namespace GameDex.DataLayer.Migrations
 
             modelBuilder.Entity("GameGenre", b =>
                 {
-                    b.Property<int>("GamesGameID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("GamesGameID")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("GenresGenreID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("GenresGenreID")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("GamesGameID", "GenresGenreID");
 
@@ -580,11 +549,11 @@ namespace GameDex.DataLayer.Migrations
 
             modelBuilder.Entity("GameModManager", b =>
                 {
-                    b.Property<int>("GamesGameID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("GamesGameID")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("ModManagersModManagerID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ModManagersModManagerID")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("GamesGameID", "ModManagersModManagerID");
 
@@ -595,11 +564,11 @@ namespace GameDex.DataLayer.Migrations
 
             modelBuilder.Entity("GamePlatform", b =>
                 {
-                    b.Property<int>("GamesGameID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("GamesGameID")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("PlatformsPlatformID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PlatformsPlatformID")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("GamesGameID", "PlatformsPlatformID");
 
@@ -610,13 +579,13 @@ namespace GameDex.DataLayer.Migrations
 
             modelBuilder.Entity("ChapterMissionCharacter", b =>
                 {
-                    b.HasOne("GameDex.DataLayer.Models.ChapterMission", null)
+                    b.HasOne("Domain.Entities.ChapterMission", null)
                         .WithMany()
                         .HasForeignKey("ChapterMissionsChapterMissionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GameDex.DataLayer.Models.Character", null)
+                    b.HasOne("Domain.Entities.Character", null)
                         .WithMany()
                         .HasForeignKey("CharactersCharacterID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -625,109 +594,127 @@ namespace GameDex.DataLayer.Migrations
 
             modelBuilder.Entity("CompanyGame", b =>
                 {
-                    b.HasOne("GameDex.DataLayer.Models.Company", null)
+                    b.HasOne("Domain.Entities.Company", null)
                         .WithMany()
                         .HasForeignKey("CompaniesCompanyID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GameDex.DataLayer.Models.Game", null)
+                    b.HasOne("Domain.Entities.Game", null)
                         .WithMany()
                         .HasForeignKey("GamesGameID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Album", b =>
+            modelBuilder.Entity("Domain.Entities.Album", b =>
                 {
-                    b.HasOne("GameDex.DataLayer.Models.Game", "Game")
+                    b.HasOne("Domain.Entities.Game", "Game")
                         .WithMany("Albums")
-                        .HasForeignKey("GameID");
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.ChapterMission", b =>
+            modelBuilder.Entity("Domain.Entities.ChapterMission", b =>
                 {
-                    b.HasOne("GameDex.DataLayer.Models.Game", "Game")
+                    b.HasOne("Domain.Entities.Game", "Game")
                         .WithMany("ChapterMissions")
-                        .HasForeignKey("GameID");
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Character", b =>
+            modelBuilder.Entity("Domain.Entities.Character", b =>
                 {
-                    b.HasOne("GameDex.DataLayer.Models.Game", "Game")
+                    b.HasOne("Domain.Entities.Game", "Game")
                         .WithMany("Characters")
-                        .HasForeignKey("GameID");
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Control", b =>
+            modelBuilder.Entity("Domain.Entities.Control", b =>
                 {
-                    b.HasOne("GameDex.DataLayer.Models.Game", "Game")
+                    b.HasOne("Domain.Entities.Game", "Game")
                         .WithMany("Controls")
-                        .HasForeignKey("GameID");
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.DLC", b =>
+            modelBuilder.Entity("Domain.Entities.DLC", b =>
                 {
-                    b.HasOne("GameDex.DataLayer.Models.Game", "Game")
+                    b.HasOne("Domain.Entities.Game", "Game")
                         .WithMany("DLCs")
-                        .HasForeignKey("GameID");
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Media", b =>
+            modelBuilder.Entity("Domain.Entities.Media", b =>
                 {
-                    b.HasOne("GameDex.DataLayer.Models.Game", "Game")
+                    b.HasOne("Domain.Entities.Game", "Game")
                         .WithMany("Medias")
-                        .HasForeignKey("GameID");
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Performance", b =>
+            modelBuilder.Entity("Domain.Entities.Performance", b =>
                 {
-                    b.HasOne("GameDex.DataLayer.Models.Game", "Game")
+                    b.HasOne("Domain.Entities.Game", "Game")
                         .WithMany("Performances")
-                        .HasForeignKey("GameID");
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Requirement", b =>
+            modelBuilder.Entity("Domain.Entities.Requirement", b =>
                 {
-                    b.HasOne("GameDex.DataLayer.Models.Game", "Game")
+                    b.HasOne("Domain.Entities.Game", "Game")
                         .WithMany("Requirements")
-                        .HasForeignKey("GameID");
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Song", b =>
+            modelBuilder.Entity("Domain.Entities.Song", b =>
                 {
-                    b.HasOne("GameDex.DataLayer.Models.Album", "Album")
+                    b.HasOne("Domain.Entities.Album", "Album")
                         .WithMany("Songs")
-                        .HasForeignKey("AlbumID");
+                        .HasForeignKey("AlbumID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Album");
                 });
 
             modelBuilder.Entity("GameGenre", b =>
                 {
-                    b.HasOne("GameDex.DataLayer.Models.Game", null)
+                    b.HasOne("Domain.Entities.Game", null)
                         .WithMany()
                         .HasForeignKey("GamesGameID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GameDex.DataLayer.Models.Genre", null)
+                    b.HasOne("Domain.Entities.Genre", null)
                         .WithMany()
                         .HasForeignKey("GenresGenreID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -736,13 +723,13 @@ namespace GameDex.DataLayer.Migrations
 
             modelBuilder.Entity("GameModManager", b =>
                 {
-                    b.HasOne("GameDex.DataLayer.Models.Game", null)
+                    b.HasOne("Domain.Entities.Game", null)
                         .WithMany()
                         .HasForeignKey("GamesGameID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GameDex.DataLayer.Models.ModManager", null)
+                    b.HasOne("Domain.Entities.ModManager", null)
                         .WithMany()
                         .HasForeignKey("ModManagersModManagerID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -751,25 +738,25 @@ namespace GameDex.DataLayer.Migrations
 
             modelBuilder.Entity("GamePlatform", b =>
                 {
-                    b.HasOne("GameDex.DataLayer.Models.Game", null)
+                    b.HasOne("Domain.Entities.Game", null)
                         .WithMany()
                         .HasForeignKey("GamesGameID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GameDex.DataLayer.Models.Platform", null)
+                    b.HasOne("Domain.Entities.Platform", null)
                         .WithMany()
                         .HasForeignKey("PlatformsPlatformID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Album", b =>
+            modelBuilder.Entity("Domain.Entities.Album", b =>
                 {
                     b.Navigation("Songs");
                 });
 
-            modelBuilder.Entity("GameDex.DataLayer.Models.Game", b =>
+            modelBuilder.Entity("Domain.Entities.Game", b =>
                 {
                     b.Navigation("Albums");
 

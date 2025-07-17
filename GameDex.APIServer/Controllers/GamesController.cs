@@ -1,7 +1,8 @@
-﻿using GameDex.DataLayer;
-using GameDex.Core.DataHelper;
+﻿using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MediatR;
+using Core.Features.Games.Queries.Commands;
 
 namespace GameDex.APIServer.Controllers
 {
@@ -9,19 +10,27 @@ namespace GameDex.APIServer.Controllers
     [ApiController]
     public class GamesController : ControllerBase
     {
-        private readonly GamesHelper _games;
-        public GamesController(GamesHelper games)
+        private readonly IMediator _mediator;
+        public GamesController(IMediator mediator)
         {
-            _games = games;
+            _mediator = mediator;
         }
 
-        [HttpPost("GetGame/{id}")]
-        public async Task<IActionResult> GetGameForDisplayAsync(int id)
+        [HttpGet("GetAllGamesForDisplay")]
+        public async Task<IActionResult> GetAllGamesForDisplayAsync()
         {
-            if (id == 0) return BadRequest();
-            var game = await _games.GetGameForDisplayAsync(id);
-            if (game == null) return NotFound();
-            return Ok(game);
+            var games = await _mediator.Send(new GetAllGamesForDisplayCommand());
+            if (games == null || !games.Any()) return NotFound();
+            return Ok(games);
         }
+
+        //[HttpPost("GetGame/{id}")]
+        //public async Task<IActionResult> GetGameForDisplayAsync(int id)
+        //{
+        //    if (id == 0) return BadRequest();
+        //    var game = await _mapper
+        //    if (game == null) return NotFound();
+        //    return Ok(game);
+        //}
     }
 }

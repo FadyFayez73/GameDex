@@ -1,22 +1,26 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace GameDex.DataLayer.Migrations
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace Infrastructure.Migrations
 {
+    /// <inheritdoc />
     public partial class InitialCreate : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
                 name: "Companys",
                 columns: table => new
                 {
-                    CompanyID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompanyType = table.Column<int>(type: "int", nullable: false)
+                    CompanyID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    CompanyType = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,26 +31,25 @@ namespace GameDex.DataLayer.Migrations
                 name: "Games",
                 columns: table => new
                 {
-                    GameID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Patch = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GamePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    YearOfRelease = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PGRating = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GameDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GameEngine = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrderOfFranchise = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LinkForCrack = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GameID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Patch = table.Column<string>(type: "TEXT", nullable: false),
+                    GamePath = table.Column<string>(type: "TEXT", nullable: false),
+                    YearOfRelease = table.Column<string>(type: "TEXT", nullable: true),
+                    PGRating = table.Column<string>(type: "TEXT", nullable: false),
+                    GameDescription = table.Column<string>(type: "TEXT", nullable: false),
+                    GameEngine = table.Column<string>(type: "TEXT", nullable: false),
+                    OrderOfFranchise = table.Column<string>(type: "TEXT", nullable: true),
+                    LinkForCrack = table.Column<string>(type: "TEXT", nullable: true),
                     CriticsRating = table.Column<decimal>(type: "decimal(3,1)", nullable: false),
                     PlayersRating = table.Column<decimal>(type: "decimal(3,1)", nullable: false),
                     UserRating = table.Column<decimal>(type: "decimal(3,1)", nullable: false),
                     SteamPrices = table.Column<decimal>(type: "Decimal(7,2)", nullable: false),
-                    ActualGameSize = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GameFiles = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    HoursToComplete = table.Column<int>(type: "int", nullable: false),
-                    PlayerHours = table.Column<int>(type: "int", nullable: false),
-                    StoryPlace = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ActualGameSize = table.Column<string>(type: "TEXT", nullable: true),
+                    GameFiles = table.Column<string>(type: "TEXT", nullable: true),
+                    HoursToComplete = table.Column<int>(type: "INTEGER", nullable: false),
+                    PlayerHours = table.Column<int>(type: "INTEGER", nullable: false),
+                    StoryPlace = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -57,10 +60,9 @@ namespace GameDex.DataLayer.Migrations
                 name: "Genres",
                 columns: table => new
                 {
-                    GenreID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    GenreID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -71,10 +73,9 @@ namespace GameDex.DataLayer.Migrations
                 name: "ModManagers",
                 columns: table => new
                 {
-                    ModManagerID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Path = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ModManagerID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Path = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -85,9 +86,8 @@ namespace GameDex.DataLayer.Migrations
                 name: "Platforms",
                 columns: table => new
                 {
-                    PlatformID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PlatformID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -98,15 +98,14 @@ namespace GameDex.DataLayer.Migrations
                 name: "Albums",
                 columns: table => new
                 {
-                    AlbumID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Producer = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Language = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Length = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ReleaseDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GameID = table.Column<int>(type: "int", nullable: true)
+                    AlbumID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Producer = table.Column<string>(type: "TEXT", nullable: false),
+                    Language = table.Column<string>(type: "TEXT", nullable: false),
+                    Length = table.Column<string>(type: "TEXT", nullable: false),
+                    Genre = table.Column<string>(type: "TEXT", nullable: false),
+                    ReleaseDate = table.Column<string>(type: "TEXT", nullable: false),
+                    GameID = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -115,19 +114,19 @@ namespace GameDex.DataLayer.Migrations
                         name: "FK_Albums_Games_GameID",
                         column: x => x.GameID,
                         principalTable: "Games",
-                        principalColumn: "GameID");
+                        principalColumn: "GameID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ChapterMissions",
                 columns: table => new
                 {
-                    ChapterMissionID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GameID = table.Column<int>(type: "int", nullable: true)
+                    ChapterMissionID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Type = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    GameID = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -136,19 +135,19 @@ namespace GameDex.DataLayer.Migrations
                         name: "FK_ChapterMissions_Games_GameID",
                         column: x => x.GameID,
                         principalTable: "Games",
-                        principalColumn: "GameID");
+                        principalColumn: "GameID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Characters",
                 columns: table => new
                 {
-                    CharacterID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GameID = table.Column<int>(type: "int", nullable: true)
+                    CharacterID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    ImagePath = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    GameID = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -157,15 +156,16 @@ namespace GameDex.DataLayer.Migrations
                         name: "FK_Characters_Games_GameID",
                         column: x => x.GameID,
                         principalTable: "Games",
-                        principalColumn: "GameID");
+                        principalColumn: "GameID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "CompanyGame",
                 columns: table => new
                 {
-                    CompaniesCompanyID = table.Column<int>(type: "int", nullable: false),
-                    GamesGameID = table.Column<int>(type: "int", nullable: false)
+                    CompaniesCompanyID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    GamesGameID = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -188,12 +188,11 @@ namespace GameDex.DataLayer.Migrations
                 name: "Controls",
                 columns: table => new
                 {
-                    ControlID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ControlType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Action = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Key = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GameID = table.Column<int>(type: "int", nullable: true)
+                    ControlID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ControlType = table.Column<string>(type: "TEXT", nullable: false),
+                    Action = table.Column<string>(type: "TEXT", nullable: false),
+                    Key = table.Column<string>(type: "TEXT", nullable: false),
+                    GameID = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -202,18 +201,18 @@ namespace GameDex.DataLayer.Migrations
                         name: "FK_Controls_Games_GameID",
                         column: x => x.GameID,
                         principalTable: "Games",
-                        principalColumn: "GameID");
+                        principalColumn: "GameID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "DLCs",
                 columns: table => new
                 {
-                    DLCID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GameID = table.Column<int>(type: "int", nullable: true)
+                    DLCID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    GameID = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -222,18 +221,18 @@ namespace GameDex.DataLayer.Migrations
                         name: "FK_DLCs_Games_GameID",
                         column: x => x.GameID,
                         principalTable: "Games",
-                        principalColumn: "GameID");
+                        principalColumn: "GameID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Medias",
                 columns: table => new
                 {
-                    MediaID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MediaType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MediaPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GameID = table.Column<int>(type: "int", nullable: true)
+                    MediaID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    MediaType = table.Column<string>(type: "TEXT", nullable: false),
+                    MediaPath = table.Column<string>(type: "TEXT", nullable: false),
+                    GameID = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -242,21 +241,21 @@ namespace GameDex.DataLayer.Migrations
                         name: "FK_Medias_Games_GameID",
                         column: x => x.GameID,
                         principalTable: "Games",
-                        principalColumn: "GameID");
+                        principalColumn: "GameID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Performances",
                 columns: table => new
                 {
-                    PerformanceID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    GraphicsQuality = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Low1PercentFPS = table.Column<int>(type: "int", nullable: false),
-                    AverageFPS = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MaxFPS = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TestDate = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GameID = table.Column<int>(type: "int", nullable: true)
+                    PerformanceID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    GraphicsQuality = table.Column<string>(type: "TEXT", nullable: false),
+                    Low1PercentFPS = table.Column<int>(type: "INTEGER", nullable: false),
+                    AverageFPS = table.Column<string>(type: "TEXT", nullable: false),
+                    MaxFPS = table.Column<string>(type: "TEXT", nullable: false),
+                    TestDate = table.Column<string>(type: "TEXT", nullable: false),
+                    GameID = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -265,25 +264,25 @@ namespace GameDex.DataLayer.Migrations
                         name: "FK_Performances_Games_GameID",
                         column: x => x.GameID,
                         principalTable: "Games",
-                        principalColumn: "GameID");
+                        principalColumn: "GameID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Requirements",
                 columns: table => new
                 {
-                    RequirementID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RequirementType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SystemOS = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Processor = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Memory = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Graphics = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Network = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Storage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SoundCard = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DirectX = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GameID = table.Column<int>(type: "int", nullable: true)
+                    RequirementID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    RequirementType = table.Column<int>(type: "INTEGER", nullable: false),
+                    SystemOS = table.Column<string>(type: "TEXT", nullable: false),
+                    Processor = table.Column<string>(type: "TEXT", nullable: false),
+                    Memory = table.Column<string>(type: "TEXT", nullable: false),
+                    Graphics = table.Column<string>(type: "TEXT", nullable: false),
+                    Network = table.Column<string>(type: "TEXT", nullable: false),
+                    Storage = table.Column<string>(type: "TEXT", nullable: false),
+                    SoundCard = table.Column<string>(type: "TEXT", nullable: false),
+                    DirectX = table.Column<string>(type: "TEXT", nullable: false),
+                    GameID = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -292,27 +291,28 @@ namespace GameDex.DataLayer.Migrations
                         name: "FK_Requirements_Games_GameID",
                         column: x => x.GameID,
                         principalTable: "Games",
-                        principalColumn: "GameID");
+                        principalColumn: "GameID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "GameGenres",
+                name: "GameGenre",
                 columns: table => new
                 {
-                    GamesGameID = table.Column<int>(type: "int", nullable: false),
-                    GenresGenreID = table.Column<int>(type: "int", nullable: false)
+                    GamesGameID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    GenresGenreID = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GameGenres", x => new { x.GamesGameID, x.GenresGenreID });
+                    table.PrimaryKey("PK_GameGenre", x => new { x.GamesGameID, x.GenresGenreID });
                     table.ForeignKey(
-                        name: "FK_GameGenres_Games_GamesGameID",
+                        name: "FK_GameGenre_Games_GamesGameID",
                         column: x => x.GamesGameID,
                         principalTable: "Games",
                         principalColumn: "GameID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GameGenres_Genres_GenresGenreID",
+                        name: "FK_GameGenre_Genres_GenresGenreID",
                         column: x => x.GenresGenreID,
                         principalTable: "Genres",
                         principalColumn: "GenreID",
@@ -323,8 +323,8 @@ namespace GameDex.DataLayer.Migrations
                 name: "GameModManager",
                 columns: table => new
                 {
-                    GamesGameID = table.Column<int>(type: "int", nullable: false),
-                    ModManagersModManagerID = table.Column<int>(type: "int", nullable: false)
+                    GamesGameID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ModManagersModManagerID = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -347,8 +347,8 @@ namespace GameDex.DataLayer.Migrations
                 name: "GamePlatform",
                 columns: table => new
                 {
-                    GamesGameID = table.Column<int>(type: "int", nullable: false),
-                    PlatformsPlatformID = table.Column<int>(type: "int", nullable: false)
+                    GamesGameID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    PlatformsPlatformID = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -371,13 +371,12 @@ namespace GameDex.DataLayer.Migrations
                 name: "Songs",
                 columns: table => new
                 {
-                    SongID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DiscNumber = table.Column<int>(type: "int", nullable: false),
-                    TrackNumber = table.Column<int>(type: "int", nullable: false),
-                    Detail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AlbumID = table.Column<int>(type: "int", nullable: true)
+                    SongID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    DiscNumber = table.Column<int>(type: "INTEGER", nullable: false),
+                    TrackNumber = table.Column<int>(type: "INTEGER", nullable: false),
+                    Detail = table.Column<string>(type: "TEXT", nullable: false),
+                    AlbumID = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -386,15 +385,16 @@ namespace GameDex.DataLayer.Migrations
                         name: "FK_Songs_Albums_AlbumID",
                         column: x => x.AlbumID,
                         principalTable: "Albums",
-                        principalColumn: "AlbumID");
+                        principalColumn: "AlbumID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ChapterMissionCharacter",
                 columns: table => new
                 {
-                    ChapterMissionsChapterMissionID = table.Column<int>(type: "int", nullable: false),
-                    CharactersCharacterID = table.Column<int>(type: "int", nullable: false)
+                    ChapterMissionsChapterMissionID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CharactersCharacterID = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -414,26 +414,26 @@ namespace GameDex.DataLayer.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Characters",
-                columns: new[] { "CharacterID", "Description", "GameID", "ImagePath", "Name" },
-                values: new object[,]
-                {
-                    { 1, "A witcher and the main protagonist of The Witcher series.", null, "", "Geralt of Rivia" },
-                    { 2, "The Child of Prophecy, a powerful source of Elder Blood.", null, "", "Ciri" }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Games",
                 columns: new[] { "GameID", "ActualGameSize", "CriticsRating", "GameDescription", "GameEngine", "GameFiles", "GamePath", "HoursToComplete", "LinkForCrack", "Name", "OrderOfFranchise", "PGRating", "Patch", "PlayerHours", "PlayersRating", "SteamPrices", "StoryPlace", "UserRating", "YearOfRelease" },
-                values: new object[] { 1, "57 GB", 9.6m, "One of the most acclaimed RPGs of all time. Now ready for a new generation...", "REDengine 3", "", "D:\\SteamLibrary\\steamapps\\common\\The Witcher 3\\REDprelauncher.exe", 174, "", "The Witcher 3: Wild Hunt", "3", "18 over", "4.04", 60, 10m, 37.99m, "Temerian (southern) side of the Pontar in Velen", 10m, "May 2015" });
+                values: new object[] { new Guid("052b2a66-a6f6-4865-80bf-7b89175f79db"), "57 GB", 9.6m, "One of the most acclaimed RPGs of all time. Now ready for a new generation...", "REDengine 3", "", "D:\\SteamLibrary\\steamapps\\common\\The Witcher 3\\REDprelauncher.exe", 174, "", "The Witcher 3: Wild Hunt", "3", "18 over", "4.04", 60, 10m, 37.99m, "Temerian (southern) side of the Pontar in Velen", 10m, "May 2015" });
 
             migrationBuilder.InsertData(
                 table: "Platforms",
                 columns: new[] { "PlatformID", "Name" },
                 values: new object[,]
                 {
-                    { 1, "PC" },
-                    { 2, "PlayStation 4" }
+                    { new Guid("43b2427b-b32b-4a80-98c2-18b8c6f11934"), "PlayStation 4" },
+                    { new Guid("aff935b7-a122-45bf-b343-fb2b84ecfc47"), "PC" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Characters",
+                columns: new[] { "CharacterID", "Description", "GameID", "ImagePath", "Name" },
+                values: new object[,]
+                {
+                    { new Guid("24bc0f9d-2749-40ac-bf17-14bcdd8a66eb"), "A witcher and the main protagonist of The Witcher series.", new Guid("052b2a66-a6f6-4865-80bf-7b89175f79db"), "", "Geralt of Rivia" },
+                    { new Guid("3ad1890d-573b-44e6-ada2-268dfe65a569"), "The Child of Prophecy, a powerful source of Elder Blood.", new Guid("052b2a66-a6f6-4865-80bf-7b89175f79db"), "", "Ciri" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -472,8 +472,8 @@ namespace GameDex.DataLayer.Migrations
                 column: "GameID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GameGenres_GenresGenreID",
-                table: "GameGenres",
+                name: "IX_GameGenre_GenresGenreID",
+                table: "GameGenre",
                 column: "GenresGenreID");
 
             migrationBuilder.CreateIndex(
@@ -507,6 +507,7 @@ namespace GameDex.DataLayer.Migrations
                 column: "AlbumID");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
@@ -522,7 +523,7 @@ namespace GameDex.DataLayer.Migrations
                 name: "DLCs");
 
             migrationBuilder.DropTable(
-                name: "GameGenres");
+                name: "GameGenre");
 
             migrationBuilder.DropTable(
                 name: "GameModManager");

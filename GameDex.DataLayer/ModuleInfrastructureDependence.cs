@@ -1,21 +1,15 @@
-﻿using Infrastructure.Context;
+﻿using Domain.Repositories;
+using Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure
 {
     public static class ModuleInfrastructureDependence
     {
-        public static IServiceProvider AddInfrastructureDependence(this IServiceCollection services)
+        public static IServiceCollection AddInfrastructureDependence(this IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>()
-            // Add your infrastructure dependencies here
-            // Example: services.AddScoped<IYourService, YourServiceImplementation>();
-            // Return the service provider
-            return services.BuildServiceProvider();
+            services.AddTransient<IGameRepository, GameRepository>();
+            return services;
         }
+    }
 }

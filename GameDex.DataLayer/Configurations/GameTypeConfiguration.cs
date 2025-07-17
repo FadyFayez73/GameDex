@@ -94,12 +94,13 @@ namespace Infrastructure.Configurations
                 .HasMany(g => g.Genres)
                 .WithMany(gen => gen.Games);
 
+            var id = Guid.Parse("052b2a66-a6f6-4865-80bf-7b89175f79db");
 
             // Insert Data
             builder
                 .HasData(new Game
                 {
-                    GameID = 1,
+                    GameID = id,
                     Name = "The Witcher 3: Wild Hunt",
                     Patch = "4.04",
                     GamePath = @"D:\SteamLibrary\steamapps\common\The Witcher 3\REDprelauncher.exe",

@@ -20,7 +20,7 @@ namespace GameDex.DataLayer
         public AppDbContext CreateDbContext()
         {
             var options = new DbContextOptionsBuilder<AppDbContext>();
-            options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+            options.UseSqlite(_configuration.GetConnectionString("SQLiteConnection"));
 
             return new AppDbContext(options.Options);
         }
