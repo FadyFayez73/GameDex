@@ -17,7 +17,7 @@ import {
   faVcard,
   faAdd,
   faEdit,
-  faTrash
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
 // Cards
@@ -33,6 +33,7 @@ function Main() {
   const { filterModel } = useContext(FilterContext);
   const [Games, setGames] = useState<Game[]>([]);
   const { gameID } = useContext(ControlContext);
+  const [isNotFound, setIsNotFound] = useState(false);
 
   useEffect(() => {
     console.log("Game ID:", gameID);
@@ -68,6 +69,8 @@ function Main() {
         .catch((err) => console.error("❌ خطأ أثناء جلب البيانات:", err));
       console.log("تحديث جديد");
     }
+    if (Games.length === 0) setIsNotFound(true);
+    else setIsNotFound(false);
   }, [filterModel]);
 
   return (

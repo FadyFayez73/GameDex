@@ -4,6 +4,10 @@ import styles from "./filter.module.css";
 import { FilterContext } from "@/app/Components/Contexts/FilterContext";
 import { defaultFilterModel } from "@/app/Components/models/defaultFilterModel";
 
+import RangeSlider from "react-range-slider-input";
+import "react-range-slider-input/dist/style.css";
+import "./custom-slider.css"; // ملف CSS مخصصك
+
 type Section = {
   key: string;
   title: string;
@@ -112,6 +116,14 @@ export default function FilterList() {
         </div>
 
         {/* Range Filters */}
+        <RangeSlider
+          min={0}
+          max={100}
+          defaultValue={[20, 80]}
+          onInput={(value) => console.log("Selected range:", value)}
+          
+
+        />
         <div className={styles.rangeSection}>
           <h4>Price Range</h4>
           <div className={styles.rangeRow}>

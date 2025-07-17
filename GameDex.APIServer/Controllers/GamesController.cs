@@ -21,7 +21,7 @@ namespace GameDex.APIServer.Controllers
             if (id == 0) return BadRequest();
             var game = await _games.GetGameForDisplayAsync(id);
             if (game == null) return NotFound();
-            return Ok();
+            return Ok(game);
         }
     }
 }
