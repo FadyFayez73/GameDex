@@ -3,7 +3,7 @@ GameDex is an open-source project aimed at creating an application for managing 
 
 ## Current Features
 
-- An API server (GameDex.APIServer) supporting React and ASP.NET Core MVC interfaces.ؤؤؤؤؤؤؤؤ
+- An API server (GameDex.APIServer) supporting React and ASP.NET Core MVC interfaces.
 
 - A structured data layer (GameDex.DataLayer) for storing and managing game data.
 
