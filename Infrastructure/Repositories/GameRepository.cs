@@ -27,11 +27,9 @@ namespace Infrastructure.Repositories
             return result > 0;
         }
 
-        public async Task<bool> DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Game model)
         {
-            var game =  _context.Games.FirstOrDefault(g => g.GameID == id);
-            if(game == null) return false;
-            _context.Games.Remove(game);
+            _context.Games.Remove(model);
             var result = await _context.SaveChangesAsync();
             return result > 0;
         }
@@ -51,6 +49,14 @@ namespace Infrastructure.Repositories
             var game = await _context.Games
                 .FirstOrDefaultAsync(g => g.GameID == id);
             
+            return game;
+        }
+
+        public async Task<Game?> GetGameByNameAsync(string name)
+        {
+            var game = await _context.Games
+                .FirstOrDefaultAsync(g => g.Name.Contains(name));
+
             return game;
         }
 

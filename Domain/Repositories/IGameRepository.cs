@@ -11,6 +11,7 @@ namespace Domain.Repositories
     public interface IGameRepository : IBaseRepository<Game>
     {
         Task<Game?> GetGameByIdAsync(Guid id);
+        Task<Game?> GetGameByNameAsync(string name);
         Task<IEnumerable<Game>> GetAllGamesForDisplayAsync();
     }
 }

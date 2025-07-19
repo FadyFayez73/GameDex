@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Core.Features.Games.Queries.Handlers
 {
     public class GetAllGamesForDisplayCommandHandler 
-        : IRequestHandler<GetAllGamesForDisplayCommand, IEnumerable<GameFroDisplayDto>>
+        : IRequestHandler<GetAllGamesForDisplayCommand, IEnumerable<GameForDisplayDto>>
     {
         private readonly IGameServices _gameServices;
         private readonly IMapper _mapper;
@@ -23,9 +23,9 @@ namespace Core.Features.Games.Queries.Handlers
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<GameFroDisplayDto>> Handle(GetAllGamesForDisplayCommand request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<GameForDisplayDto>> Handle(GetAllGamesForDisplayCommand request, CancellationToken cancellationToken)
         {
-            return _mapper.Map<IEnumerable<GameFroDisplayDto>>(await _gameServices
+            return _mapper.Map<IEnumerable<GameForDisplayDto>>(await _gameServices
                 .GetAllGamesForDisplayAsync());
         }
     }

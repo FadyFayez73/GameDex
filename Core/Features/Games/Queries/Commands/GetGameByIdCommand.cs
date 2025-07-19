@@ -1,5 +1,4 @@
 ﻿using Core.Dtos.Games;
-using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,8 +8,13 @@ using System.Threading.Tasks;
 
 namespace Core.Features.Games.Queries.Commands
 {
-    public class GetAllGamesForDisplayCommand : IRequest<IEnumerable<GameForDisplayDto>>
+    public class GetGameByIdCommand : IRequest<GameForDisplayDto>
     {
+        public GetGameByIdCommand(Guid id)
+        {
+            Id = id;
+        }
 
+        public Guid Id { get; set; }
     }
 }

@@ -26,13 +26,18 @@ namespace Infrastructure.Repositories
             return result > 0;
         }
 
-        public async Task<bool> DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Media model)
         {
-            var media = await _context.Medias.FirstOrDefaultAsync(m => m.MediaID == id);
-            if (media == null) return false;
-            _context.Medias.Remove(media);
+            _context.Medias.Remove(model);
             var result = await _context.SaveChangesAsync();
             return result > 0;
+        }
+
+        public Task<Media?> GetMediaByIdAsync(Guid id)
+        {
+            var media = _context.Medias
+                .FirstOrDefaultAsync(m => m.MediaID == id);
+            return media;
         }
 
         public async Task<IEnumerable<Media>> GetMediasByGameIdAsync(Guid gameId)

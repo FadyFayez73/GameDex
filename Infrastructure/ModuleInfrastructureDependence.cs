@@ -9,6 +9,7 @@ namespace Infrastructure
         public static IServiceCollection AddInfrastructureDependence(this IServiceCollection services)
         {
             services.AddTransient<IGameRepository, GameRepository>();
+            services.AddTransient<IMediaRepository, MediaRepository>();
             return services;
         }
     }

@@ -9,6 +9,7 @@ namespace Services
         public static IServiceCollection AddServicesDependence(this IServiceCollection services)
         {
             services.AddTransient<IGameServices, GameServices>();
+            services.AddTransient<IMediaServices, MediaServices>();
             return services;
         }
     }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Core.Dtos.Games
 {
-    public class GameFroDisplayDto
+    public class GameForDisplayDto
     {
+        public Guid GameID { get; set; }
         public string? Name { get; set; } 
         public string? PGRating { get; set; }
         public decimal UserRating { get; set; }

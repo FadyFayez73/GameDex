@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Services.Contracts;
 
 namespace Services.Services
@@ -14,13 +15,20 @@ namespace Services.Services
 
         public async Task<bool> AddAsync(Game entity)
         {
-            return await _gameRepository
-                 .AddAsync(entity);
+            var game = await _gameRepository.GetGameByNameAsync(entity.Name);
+            if (game != null) return false;
+            
+            var result = await _gameRepository.AddAsync(entity);
+
+            return result;
         }
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            return await _gameRepository.DeleteAsync(id);
+            var game = await _gameRepository.GetGameByIdAsync(id);
+            if (game == null) return false;
+
+            return await _gameRepository.DeleteAsync(game);
         }
 
         public async Task<IEnumerable<Game>> GetAllGamesForDisplayAsync()

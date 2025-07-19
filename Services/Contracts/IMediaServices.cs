@@ -1,16 +1,17 @@
 ﻿using Domain.Entities;
-using Domain.Repositories.Base;
+using Services.Contracts.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Repositories
+namespace Services.Contracts
 {
-    public interface IMediaRepository : IBaseRepository<Media>
+    public interface IMediaServices : IBaseServices<Media>
     {
-        Task<Media?> GetMediaByIdAsync(Guid id);
         Task<IEnumerable<Media>> GetMediasByGameIdAsync(Guid gameId);
+        Task<Media?> GetMediaByIdAsync(Guid id);
+        Task<bool> UpdateListAsync(List<Media> entities);
     }
 }
