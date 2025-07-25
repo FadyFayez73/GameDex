@@ -4,6 +4,33 @@
   height: 100%;
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
   gap: 10px;
   overflow-y: auto;
+}
+
+/* شكل الشريط نفسه */
+.Content::-webkit-scrollbar {
+  width: 3px;
+  background-color: transparent;
+}
+
+/* خلفية الشريط */
+.Content::-webkit-scrollbar-track {
+  background: rgb(20, 20, 20);
+  border-radius: 8px;
+  width: 2px;
+}
+
+/* شكل الجزء المتحرك */
+.Content::-webkit-scrollbar-thumb {
+  background-color: rgba(128, 128, 128, 0.226);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+/* عند مرور الماوس */
+.Content::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(128, 128, 128, 0.426);
 }

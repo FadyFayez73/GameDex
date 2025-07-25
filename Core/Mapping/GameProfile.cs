@@ -26,7 +26,8 @@ namespace Core.Mapping
                     .FirstOrDefault()))
                 .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => src.Genres.Select(g => g.Name).ToList()))
                 .ForMember(dest => dest.Platforms, opt => opt.MapFrom(src => src.Platforms.Select(p => p.Name).ToList()));
-
+            CreateMap<Game, GameDto>()
+                .ReverseMap();
             CreateMap<CreateGameCommand, Game>();
             CreateMap<UpdateGameCommand, Game>();
         }

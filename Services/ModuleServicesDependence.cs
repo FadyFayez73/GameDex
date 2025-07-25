@@ -10,6 +10,8 @@ namespace Services
         {
             services.AddTransient<IGameServices, GameServices>();
             services.AddTransient<IMediaServices, MediaServices>();
+            services.AddTransient<IGenreServices, GenreServices>();
+            services.AddTransient<IFilterServices, FilterServices>();
             return services;
         }
     }

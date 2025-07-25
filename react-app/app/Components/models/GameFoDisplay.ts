@@ -1,9 +1,7 @@
-import { Media } from './media'
-import { Genre } from './genre'
-import { Company } from './company'
+import { UUID } from 'crypto';
 
 export type GameForDisplay = {
-  gameID: string;
+  gameID: UUID;
   name: string;
   pgRating: string;
   userRating: number;

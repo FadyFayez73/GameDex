@@ -1,29 +1,48 @@
 "use client";
-import { useEffect, useState } from "react";
+
+import React from "react";
+
+import { useState } from "react";
 import styles from "./GameDetails.module.css";
 import Image from "next/image";
 
 import { Game } from "@/app/Components/models/game";
+import { Media } from "@/app/Components/models/media";
+
+const GetGameFunction = (
+  gameId: string,
+  setGame: React.Dispatch<React.SetStateAction<Game | undefined>>
+) => {
+  fetch(`https://localhost:7165/api/Games/Details/${gameId}`)
+    .then((res) => res.json())
+    .then((data) => setGame(data))
+    .catch((err) => console.error(`Error: ${err}`));
+};
+
+const GetMediasFunction = (
+  gameId: string,
+  setMedias: React.Dispatch<React.SetStateAction<Media[] | undefined>>
+) => {
+  fetch(`https://localhost:7165/api/Medias/ByGame/${gameId}`)
+    .then((res) => res.json())
+    .then((data) => setMedias(data))
+    .catch((err) => console.error(`Error: ${err}`));
+};
 
 type prop = {
-  gameID: number;
+  gameID: string;
 };
 
 function GameDetails(prop: prop) {
   const [game, setGame] = useState<Game>();
+  const [medias, setMedias] = useState<Media[]>();
 
-  useEffect(() => {
-    fetch(`https://localhost:7165/api/Games/GetGame/${prop.gameID}`, {
-      method: "POST",
-    })
-      .then((res) => res.json())
-      .then((data) => setGame(data))
-      .catch((err) => console.error(`Error: ${err}`));
-  }, []);
+  GetGameFunction(prop.gameID, setGame);
+  GetMediasFunction(prop.gameID, setMedias);
 
-  const coverImage = game?.medias?.find(
-    (media) => media.mediaType === "Cover"
-  )?.mediaPath;
+  const coverImage =
+    medias?.find((media) => media.mediaType === "Cover")?.mediaPath ??
+    "none image";
 
   return (
     <div
@@ -39,10 +58,7 @@ function GameDetails(prop: prop) {
         {coverImage && (
           <Image
             className={styles.GameCover}
-            src={
-              game.medias?.filter((media) => media.mediaType === "Cover")[0]
-                ?.mediaPath ?? ""
-            }
+            src={coverImage}
             width={640}
             height={360}
             alt="game cover"
@@ -51,6 +67,8 @@ function GameDetails(prop: prop) {
         )}
         <div className={styles.MediaBrowser}></div>
       </div>
+
+      <h2>{game?.name ?? "No Game Name !"}</h2>
     </div>
   );
 }

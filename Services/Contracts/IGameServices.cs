@@ -12,5 +12,7 @@ namespace Services.Contracts
     {
         Task<IEnumerable<Game>> GetAllGamesForDisplayAsync();
         Task<Game?> GetGameByIdAsync(Guid id);
+        Task<IEnumerable<Game>> GetGamesByGenreAsync(Guid genreId);
+
     }
 }

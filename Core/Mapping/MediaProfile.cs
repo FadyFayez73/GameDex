@@ -15,6 +15,7 @@ namespace Core.Mapping
         public MediaProfile() 
         {
             CreateMap<Media, MediaDto>()
+                .ForMember(dest => dest.MediaID, opt => opt.MapFrom(src => src.MediaID))
                 .ForMember(dest => dest.MediaType, opt => opt.MapFrom(src => src.MediaType))
                 .ForMember(dest => dest.MediaPath, opt => opt.MapFrom(src => src.MediaPath))
                 .ReverseMap();

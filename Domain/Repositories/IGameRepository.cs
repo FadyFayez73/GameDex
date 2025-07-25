@@ -12,6 +12,7 @@ namespace Domain.Repositories
     {
         Task<Game?> GetGameByIdAsync(Guid id);
         Task<Game?> GetGameByNameAsync(string name);
-        Task<IEnumerable<Game>> GetAllGamesForDisplayAsync();
+        Task<IQueryable<Game>> GetAllGamesForDisplayAsync();
+        Task<IEnumerable<Game>> GetGamesByGenreAsync(Guid genreId);
     }
 }

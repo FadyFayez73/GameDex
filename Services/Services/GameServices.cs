@@ -8,19 +8,43 @@ namespace Services.Services
     public class GameServices : IGameServices
     {
         private readonly IGameRepository _gameRepository;
-        public GameServices(IGameRepository gameRepository)
+        private readonly IGenreRepository _genreRepository;
+
+        public GameServices(IGameRepository gameRepository, IGenreRepository genreRepository)
         {
             _gameRepository = gameRepository;
+            _genreRepository = genreRepository;
         }
 
-        public async Task<bool> AddAsync(Game entity)
+        public async Task<(bool, Guid)> AddAsync(Game entity)
         {
+            //var genres = entity.Genres;
+            //if (genres != null)
+            //{
+            //    var genresName = genres.Select(g => g.Name).ToList();
+
+            //    var existsGenres = (await _genreRepository.GetGenreByNamesAsync(genresName)).ToList();
+
+            //    var namesToAdd = genresName.Where(g => !existsGenres.Select(g => g.Name).Contains(g)).ToList();
+
+            //    var toAdd = namesToAdd.Select(name => new Genre
+            //    {
+            //        GenreID = Guid.NewGuid(),
+            //        Name = name
+            //    }).ToList();
+
+            //    var addRangeResult = await _genreRepository.AddRangeAsync(toAdd);
+
+            //}
+
             var game = await _gameRepository.GetGameByNameAsync(entity.Name);
-            if (game != null) return false;
-            
+            if (game != null) return (false, Guid.Empty);
+
+            entity.GameID = Guid.NewGuid();
+
             var result = await _gameRepository.AddAsync(entity);
 
-            return result;
+            return (result, entity.GameID);
         }
 
         public async Task<bool> DeleteAsync(Guid id)
@@ -33,44 +57,32 @@ namespace Services.Services
 
         public async Task<IEnumerable<Game>> GetAllGamesForDisplayAsync()
         {
-            return await _gameRepository
+            var games = await _gameRepository
                 .GetAllGamesForDisplayAsync();
+
+            return await games.ToListAsync();
         }
 
         public async Task<Game?> GetGameByIdAsync(Guid id)
         {
-            return await _gameRepository
+            var game = await _gameRepository
                 .GetGameByIdAsync(id);
+
+            return game;
+        }
+
+        public async Task<IEnumerable<Game>> GetGamesByGenreAsync(Guid genreId)
+        {
+            var games = await _gameRepository
+                .GetGamesByGenreAsync(genreId);
+
+            return games;
         }
 
         public async Task<bool> UpdateAsync(Game entity)
         {
-            var game = await _gameRepository
-                .GetGameByIdAsync(entity.GameID);
-
-            if (game == null) return false;
-
-            game.Name = entity.Name;
-            game.Patch = entity.Patch;
-            game.GamePath = entity.GamePath;
-            game.YearOfRelease = entity.YearOfRelease;
-            game.PGRating = entity.PGRating;
-            game.GameDescription = entity.GameDescription;
-            game.GameEngine = entity.GameEngine;
-            game.OrderOfFranchise = entity.OrderOfFranchise;
-            game.LinkForCrack = entity.LinkForCrack;
-            game.CriticsRating = entity.CriticsRating;
-            game.PlayersRating = entity.PlayersRating;
-            game.UserRating = entity.UserRating;
-            game.SteamPrices = entity.SteamPrices;
-            game.ActualGameSize = entity.ActualGameSize;
-            game.GameFiles = entity.GameFiles;
-            game.HoursToComplete = entity.HoursToComplete;
-            game.PlayerHours = entity.PlayerHours;
-            game.StoryPlace = entity.StoryPlace;
-
-            return await _gameRepository
-                .SaveChangesAsync();
+            var result = await _gameRepository.UpdateAsync(entity);
+            return result;
         }
     }
 }

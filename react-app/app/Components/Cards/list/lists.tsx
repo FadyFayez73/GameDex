@@ -1,10 +1,10 @@
 import styles from "./lists.module.css";
 import List from "./Components/List-Default";
-import { Game } from "../../models/game";
+import { GameForDisplay } from "../../models/GameFoDisplay";
 import Loader from "../../Loader/Loader";
 
 type props = {
-  games: Game[];
+  games: GameForDisplay[];
 }
 
 function ListContener(props:props) {

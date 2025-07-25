@@ -3,8 +3,9 @@
 /* List */
 .List{
     width: 100%;
-    height: fit-content;
+    height: 120px;
     display: flex;
+    flex-direction: row;
     border-radius: 5px;
     overflow: hidden;
     transition: 0.2s;
@@ -17,7 +18,7 @@
 
 .List .GameCover{
     width: fit-content;
-    height: 150px;
+    height: 100%;
 }
 
 .List .CradBody{

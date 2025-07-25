@@ -21,12 +21,15 @@ namespace Services.Services
             _gameRepository = gameRepository;
         }
 
-        public async Task<bool> AddAsync(Media entity)
+        public async Task<(bool, Guid)> AddAsync(Media entity)
         {
             var game = await _gameRepository.GetGameByIdAsync(entity.GameID);
-            if (game == null) return false;
+            if (game == null) return (false, Guid.Empty);
+
+            entity.MediaID = Guid.NewGuid();
+
             var result = await _mediaRepository.AddAsync(entity);
-            return result;
+            return (result, entity.MediaID);
         }
 
         public async Task<bool> DeleteAsync(Guid id)
@@ -51,15 +54,8 @@ namespace Services.Services
 
         public async Task<bool> UpdateAsync(Media entity)
         {
-            var media = await _mediaRepository.GetMediaByIdAsync(entity.MediaID);
-
-            if(media == null) return false;
-
-            media.MediaType = entity.MediaType;
-            media.MediaPath = entity.MediaPath;
-            media.GameID = entity.GameID;
-
-            return await _mediaRepository.SaveChangesAsync();
+            var result = await _mediaRepository.UpdateAsync(entity);
+            return result;
         }
 
         public async Task<bool> UpdateListAsync(List<Media> entities)
@@ -85,7 +81,7 @@ namespace Services.Services
                 game.Medias.Add(entity);
             }
 
-            foreach (var entity in entities)
+            foreach (var entity in entities)//entities مش صح عشان شغال علي 
             {
                 var media = await _mediaRepository.GetMediaByIdAsync(entity.MediaID);
                 if (media == null) return false;

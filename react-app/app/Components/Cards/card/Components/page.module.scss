@@ -5,6 +5,7 @@
     width: 300px;
     height: fit-content;
     display: flex;
+    align-items: stretch;
     flex-direction: column;
     border-radius: 5px;
     overflow: hidden;
@@ -13,8 +14,9 @@
 }
 
 .Card:hover{
-    box-shadow: 5px 5px 10px 1px black;
+    border-bottom: 2px solid gray;
 }
+    
 
 .Card .GameCover{
     width: 100%;
@@ -95,8 +97,8 @@
     align-items: center;
     justify-content: center;
     position: relative;
-
 }
+
 .Modal .backButton{
     position: absolute;
     top: 0;
@@ -104,6 +106,7 @@
     width: fit-content;
     height: fit-content;
     padding: 20px;
+    z-index: 1000;
 }
 
 .Modal .backButton button{

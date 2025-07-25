@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Core.Features.Medias.Queries.Handlers
 {
-    public class CreateMediaCommandHandler : IRequestHandler<CreateMediaCommand, bool>
+    public class CreateMediaCommandHandler : IRequestHandler<CreateMediaCommand, (bool, Guid)>
     {
         private readonly IMediaServices _mediaServices;
         private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ namespace Core.Features.Medias.Queries.Handlers
             _mapper = mapper;
         }
 
-        public async Task<bool> Handle(CreateMediaCommand request, CancellationToken cancellationToken)
+        public async Task<(bool, Guid)> Handle(CreateMediaCommand request, CancellationToken cancellationToken)
         {
             var mediaDomainModel = _mapper.Map<Media>(request);
             if(mediaDomainModel == null) throw new ArgumentNullException(nameof(mediaDomainModel), "Game domain model cannot be null");

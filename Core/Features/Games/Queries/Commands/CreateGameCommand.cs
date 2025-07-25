@@ -2,7 +2,7 @@
 
 namespace Core.Features.Games.Queries.Commands
 {
-    public class CreateGameCommand : IRequest<bool>
+    public class CreateGameCommand : IRequest<(bool, Guid)>
     {
         public string Name { get; set; }
         public string Patch { get; set; }

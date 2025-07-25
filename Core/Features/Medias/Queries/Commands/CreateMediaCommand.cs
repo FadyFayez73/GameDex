@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Features.Medias.Queries.Commands
 {
-    public class CreateMediaCommand : IRequest<bool>
+    public class CreateMediaCommand : IRequest<(bool, Guid)>
     {
         public string MediaType { get; set; }
         public string MediaPath { get; set; }

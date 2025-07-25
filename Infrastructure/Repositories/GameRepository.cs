@@ -34,13 +34,14 @@ namespace Infrastructure.Repositories
             return result > 0;
         }
 
-        public async Task<IEnumerable<Game>> GetAllGamesForDisplayAsync()
+        public async Task<IQueryable<Game>> GetAllGamesForDisplayAsync()
         {
-            var games = await _context.Games
+            var games = _context.Games
                 .Include(g => g.Medias)
                 .Include(g => g.Platforms)
                 .Include(g => g.Genres)
-                .ToListAsync();
+                .AsQueryable();
+
             return games;
         }
 
@@ -55,9 +56,18 @@ namespace Infrastructure.Repositories
         public async Task<Game?> GetGameByNameAsync(string name)
         {
             var game = await _context.Games
-                .FirstOrDefaultAsync(g => g.Name.Contains(name));
+                .FirstOrDefaultAsync(g => g.Name == name);
 
             return game;
+        }
+
+        public async Task<IEnumerable<Game>> GetGamesByGenreAsync(Guid genreId)
+        {
+            var games = await _context.Games
+                .Where(g => g.Genres != null && g.Genres.Any(genre => genre.GenreID == genreId))
+                .ToListAsync();
+
+            return games;
         }
 
         public async Task<bool> SaveChangesAsync()
@@ -68,7 +78,28 @@ namespace Infrastructure.Repositories
 
         public async Task<bool> UpdateAsync(Game entity)
         {
-            _context.Games.Update(entity);
+            var game = await GetGameByIdAsync(entity.GameID);
+
+            if (game == null) return false;
+
+            game.Name = entity.Name;
+            game.Patch = entity.Patch;
+            game.GamePath = entity.GamePath;
+            game.YearOfRelease = entity.YearOfRelease;
+            game.PGRating = entity.PGRating;
+            game.GameDescription = entity.GameDescription;
+            game.GameEngine = entity.GameEngine;
+            game.OrderOfFranchise = entity.OrderOfFranchise;
+            game.LinkForCrack = entity.LinkForCrack;
+            game.CriticsRating = entity.CriticsRating;
+            game.PlayersRating = entity.PlayersRating;
+            game.UserRating = entity.UserRating;
+            game.SteamPrices = entity.SteamPrices;
+            game.ActualGameSize = entity.ActualGameSize;
+            game.GameFiles = entity.GameFiles;
+            game.HoursToComplete = entity.HoursToComplete;
+            game.PlayerHours = entity.PlayerHours;
+            game.StoryPlace = entity.StoryPlace;
 
             var result = await _context.SaveChangesAsync();
             return result > 0;

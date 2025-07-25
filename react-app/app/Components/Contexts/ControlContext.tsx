@@ -1,27 +1,26 @@
 'use client';
 
-import { createContext, useState, ReactNode, Dispatch, SetStateAction } from "react";
+import { createContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
-// 1. تعريف نوع البيانات الخاصة بالسياق
 type ControlContextType = {
-  gameID: number;
-  setGameID: Dispatch<SetStateAction<number>>;
+  gameID: string;
+  setGameID: Dispatch<SetStateAction<string>>;
 };
 
-// 2. إنشاء السياق بنوع مضبوط
+const defaultGameID = uuidv4();
+
 export const ControlContext = createContext<ControlContextType>({
-  gameID: 0,
-  setGameID: () => {}, // dummy function (safe fallback)
+  gameID: defaultGameID,
+  setGameID: () => {}, 
 });
 
-// 3. تعريف نوع props الخاصة بالـ Provider
 type ControlProviderProps = {
   children: ReactNode;
 };
 
-// 4. الكومبوننت نفسها
 export function ControlProvider({ children }: ControlProviderProps) {
-  const [gameID, setGameID] = useState<number>(0);
+  const [gameID, setGameID] = useState<string>(defaultGameID); 
 
   return (
     <ControlContext.Provider value={{ gameID, setGameID }}>

@@ -6,20 +6,18 @@ import GameDetails from "@/app/GameDetailsPage/GameDetails";
 import Modal from "react-modal";
 
 //Models
-import { Game } from "@/app/Components/models/game";
+import { GameForDisplay } from "@/app/Components/models/GameFoDisplay";
 import { useContext, useEffect, useState } from "react";
 import { ControlContext } from "@/app/Components/Contexts/ControlContext";
 
 type Param = {
-  game: Game;
+  game: GameForDisplay;
 };
 
 function DefaultCard(param: Param) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { gameID, setGameID } = useContext(ControlContext);
-  const coverImage = param.game.medias?.find(
-    (media) => media.mediaType === "Cover"
-  )?.mediaPath;
+  const coverImage = param.game.coverUrl ?? "";
 
   useEffect(() => {
     // يتأكد إن الكود يتنفذ بعد ما يتعمل Mount
@@ -42,10 +40,10 @@ function DefaultCard(param: Param) {
       className={styles.Card}
       key={param.game.gameID}
       style={{
-        boxShadow:
+        borderBottom:
           gameID === param.game.gameID
-            ? "0 0 20px 1px rgb(30,30,30)"
-            : "0 0 10px 1px black",
+            ? "1px solid gray"
+            : "none",
         zIndex: 0,
       }}
     >
@@ -53,8 +51,7 @@ function DefaultCard(param: Param) {
         <Image
           className={styles.GameCover}
           src={
-            param.game.medias?.filter((media) => media.mediaType === "Cover")[0]
-              ?.mediaPath ?? ""
+            coverImage ?? ""
           }
           width={640}
           height={360}
@@ -65,17 +62,17 @@ function DefaultCard(param: Param) {
 
       <div className={styles.CradBody}>
         <h4>{param.game.name}</h4>
-        <p>{param.game.companies?.map((c) => c.name).join(" And ")}</p>
+        {/* <p>{param.game.companies?.map((c) => c.name).join(" And ")}</p> */}
         <div className={styles.Items}>
           <div className={styles.UserRate}>{param.game.userRating}</div>
           <div className={styles.Price}>{param.game.steamPrices}</div>
         </div>
         <div className={styles.Genres}>
-          <ul>
+          {/* <ul>
             {param.game.genres?.map((g) => (
               <li key={g.genreID}>{g.name}</li>
             ))}
-          </ul>
+          </ul> */}
         </div>
       </div>
       <Modal

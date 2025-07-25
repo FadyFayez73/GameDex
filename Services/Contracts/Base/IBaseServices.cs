@@ -8,7 +8,7 @@ namespace Services.Contracts.Base
 {
     public interface IBaseServices<T>
     {
-        Task<bool> AddAsync(T entity);
+        Task<(bool, Guid)> AddAsync(T entity);
         Task<bool> UpdateAsync(T entity);    
         Task<bool> DeleteAsync(Guid id);
     }

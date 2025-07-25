@@ -23,22 +23,28 @@ builder.Services.AddCoreDependencies();
 builder.Services.AddServicesDependence();
 builder.Services.AddInfrastructureDependence();
 
+// 1. Add CORS
+
+
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowReactPort", policy =>
+    options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins("http://localhost:3000")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        policy
+            .AllowAnyOrigin() // أو SetIsOriginAllowed(origin => true)
+            .AllowAnyHeader()
+            .AllowAnyMethod();
     });
 });
+
+
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     });
-
 
 
 var app = builder.Build();
@@ -56,12 +62,12 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate(); // أو db.Database.Migrate();
 }
 
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseCors("AllowReactPort");
 
 app.MapControllers();
 

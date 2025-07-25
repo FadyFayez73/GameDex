@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{7478DF06-CA92-4522-AB5E-2CEE1754E156}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{35DC6A17-9148-4AA8-B61E-7543B045667B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDexApp", "GameDexApp\GameDexApp.csproj", "{BA28512E-DE21-435A-981A-5F1FC878556D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,8 +49,16 @@ Global
 		{7478DF06-CA92-4522-AB5E-2CEE1754E156}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7478DF06-CA92-4522-AB5E-2CEE1754E156}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7478DF06-CA92-4522-AB5E-2CEE1754E156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA28512E-DE21-435A-981A-5F1FC878556D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA28512E-DE21-435A-981A-5F1FC878556D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA28512E-DE21-435A-981A-5F1FC878556D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA28512E-DE21-435A-981A-5F1FC878556D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DFB4C953-5B04-4140-98ED-3917F75EA668} = {35DC6A17-9148-4AA8-B61E-7543B045667B}
+		{BA28512E-DE21-435A-981A-5F1FC878556D} = {35DC6A17-9148-4AA8-B61E-7543B045667B}
 	EndGlobalSection
 EndGlobal

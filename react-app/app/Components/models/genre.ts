@@ -1,7 +1,8 @@
 import {Game} from './game'
+import { UUID } from 'crypto';
 
 export type Genre = {
-    genreID: number;
+    genreID: UUID;
     name: string;
     description: string;
 

@@ -10,6 +10,7 @@ namespace Infrastructure
         {
             services.AddTransient<IGameRepository, GameRepository>();
             services.AddTransient<IMediaRepository, MediaRepository>();
+            services.AddTransient<IGenreRepository, GenreRepository>();
             return services;
         }
     }

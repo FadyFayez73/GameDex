@@ -25,8 +25,26 @@ namespace API.Controllers
             return Ok(games);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("Display/{id}")]
         public async Task<IActionResult> GetGameForDisplayAsync(Guid id)
+        {
+            if (id == Guid.Empty) return BadRequest();
+            var game = await _mediator.Send(new GetGameForDisplayCommand(id));
+            if (game == null) return NotFound();
+            return Ok(game);
+        }
+
+        [HttpGet("Display")]
+        public async Task<IActionResult> GetGameForDisplayFromQueryAsync([FromQuery] Guid id)
+        {
+            if (id == Guid.Empty) return BadRequest();
+            var game = await _mediator.Send(new GetGameForDisplayCommand(id));
+            if (game == null) return NotFound();
+            return Ok(game);
+        }
+
+        [HttpGet("Details/{id}")]
+        public async Task<IActionResult> GetGameDetailsAsync(Guid id)
         {
             if (id == Guid.Empty) return BadRequest();
             var game = await _mediator.Send(new GetGameByIdCommand(id));
@@ -34,8 +52,8 @@ namespace API.Controllers
             return Ok(game);
         }
 
-        [HttpGet("GetById")]
-        public async Task<IActionResult> GetGameForDisplayAsyncFromQuery([FromQuery] Guid id)
+        [HttpGet("Details")]
+        public async Task<IActionResult> GetGameDetailsFromQueryAsync([FromQuery] Guid id)
         {
             if (id == Guid.Empty) return BadRequest();
             var game = await _mediator.Send(new GetGameByIdCommand(id));
@@ -47,9 +65,9 @@ namespace API.Controllers
         public async Task<IActionResult> AddGameAsync([FromBody] CreateGameCommand game)
         {
             if (game == null) return BadRequest();
-            var result = await _mediator.Send(game);
-            if (!result) return BadRequest("Failed to add game.");
-            return Ok("Game has been added");
+            var (state, id) = await _mediator.Send(game);
+            if (!state) return StatusCode(StatusCodes.Status409Conflict, "This game is already exists");
+            return Created();
         }
 
         [HttpPut]

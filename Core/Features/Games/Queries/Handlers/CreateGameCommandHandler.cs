@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Core.Features.Games.Queries.Handlers
 {
-    public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, bool>
+    public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, (bool, Guid)>
     {
         private readonly IGameServices _gameServices;
         private readonly IMapper _mapper;
@@ -22,7 +22,7 @@ namespace Core.Features.Games.Queries.Handlers
             _mapper = mapper;
         }
 
-        public async Task<bool> Handle(CreateGameCommand request, CancellationToken cancellationToken)
+        public async Task<(bool, Guid)> Handle(CreateGameCommand request, CancellationToken cancellationToken)
         {
             var gameDomainModel = _mapper.Map<Game>(request);
             if(gameDomainModel == null) throw new ArgumentNullException(nameof(gameDomainModel), "Game domain model cannot be null");

@@ -6,7 +6,7 @@ import styles from "./main.module.css";
 // Tools
 import { useContext, useEffect, useState } from "react";
 import { FilterContext } from "@/app/Components/Contexts/FilterContext";
-import { Game } from "@/app/Components/models/game";
+import { GameForDisplay } from "@/app/Components/models/GameFoDisplay";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,9 +31,9 @@ function Main() {
   const [Mod, setMod] = useState<string>("defualtCard");
   const [test, setTest] = useState("");
   const { filterModel } = useContext(FilterContext);
-  const [Games, setGames] = useState<Game[]>([]);
+  const [Games, setGames] = useState<GameForDisplay[]>([]);
   const { gameID } = useContext(ControlContext);
-  const [isNotFound, setIsNotFound] = useState(false);
+  // const [isNotFound, setIsNotFound] = useState(false);
 
   useEffect(() => {
     console.log("Game ID:", gameID);
@@ -47,12 +47,15 @@ function Main() {
     console.log(Mod);
   }, [Mod]);
 
+  // useEffect(() => {fun()}, []);
+
   useEffect(() => {
     setGames([]);
+    console.log(filterModel)
     if (filterModel) {
       console.log("انا card وده جالي من filter:", filterModel);
 
-      fetch("https://localhost:7165/api/Filter/SetFilterData", {
+      fetch("https://localhost:7165/api/Filter/GetByFilter", {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // 👈 مهم جداً
@@ -63,14 +66,14 @@ function Main() {
         .then((data) => setGames(data))
         .catch((err) => console.error(`Error: ${err}`));
     } else {
-      fetch("https://localhost:7165/api/Library/GetAllForDisplay")
+      fetch("https://localhost:7165/api/Games")
         .then((res) => res.json())
         .then((data) => setGames(data))
         .catch((err) => console.error("❌ خطأ أثناء جلب البيانات:", err));
       console.log("تحديث جديد");
     }
-    if (Games.length === 0) setIsNotFound(true);
-    else setIsNotFound(false);
+    // if (Games.length === 0) setIsNotFound(true);
+    // else setIsNotFound(false);
   }, [filterModel]);
 
   return (

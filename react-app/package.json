@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "export": "next export",
     "lint": "next lint"
   },
   "dependencies": {
@@ -19,6 +20,7 @@
     "react-range-slider-input": "^3.2.1",
     "react-router-dom": "^7.6.2",
     "sass": "^1.89.2",
+    "uuid": "^11.1.0",
     "zustand": "^5.0.5"
   },
   "devDependencies": {

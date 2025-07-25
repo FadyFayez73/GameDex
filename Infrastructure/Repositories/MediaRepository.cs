@@ -55,9 +55,18 @@ namespace Infrastructure.Repositories
             return result > 0;
         }
 
-        public Task<bool> UpdateAsync(Media entity)
+        public async Task<bool> UpdateAsync(Media entity)
         {
-            throw new NotImplementedException();
+            var media = await GetMediaByIdAsync(entity.MediaID);
+
+            if (media == null) return false;
+
+            media.MediaType = entity.MediaType;
+            media.MediaPath = entity.MediaPath;
+            media.GameID = entity.GameID;
+
+            var result = await _context.SaveChangesAsync();
+            return result > 0;
         }
     }
 }

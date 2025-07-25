@@ -8,6 +8,7 @@ import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import "./custom-slider.css"; // ملف CSS مخصصك
 
+
 type Section = {
   key: string;
   title: string;
@@ -17,6 +18,9 @@ type Section = {
 export default function FilterList() {
   const { setFilterModel } = useContext(FilterContext);
   const [shouldSubmitAfterClear, setShouldSubmitAfterClear] = useState(false);
+
+  const [rangePriceValue, setRangePriceValue] = useState([0, 0]);
+  const [rangeSizeValue, setRangeSizeValue] = useState([0, 0]);
 
   // استخراج الأقسام تلقائيًا من default model
   const checkboxSections: Section[] = Object.entries(
@@ -60,23 +64,23 @@ export default function FilterList() {
     });
   };
 
-  const handleRangeChange = (
-    type: "price" | "size",
-    field: "min" | "max",
-    value: string
-  ) => {
-    setRangeFilters((prev) => ({
-      ...prev,
-      [type]: { ...prev[type], [field]: Number(value) },
-    }));
-  };
+  // const handleRangeChange = (
+  //   type: "price" | "size",
+  //   field: "min" | "max",
+  //   value: string
+  // ) => {
+  //   setRangeFilters((prev) => ({
+  //     ...prev,
+  //     [type]: { ...prev[type], [field]: Number(value) },
+  //   }));
+  // };
 
   useEffect(() => {
     if (shouldSubmitAfterClear) {
       handleSubmit();
       setShouldSubmitAfterClear(false); // reset
     }
-  }, [filters, rangeFilters, sortBy]);
+  }, [filters, rangeFilters, sortBy, shouldSubmitAfterClear]);
 
   const handleSubmit = () => {
     const model = {
@@ -116,35 +120,34 @@ export default function FilterList() {
         </div>
 
         {/* Range Filters */}
-        <RangeSlider
-          min={0}
-          max={100}
-          defaultValue={[20, 80]}
-          onInput={(value) => console.log("Selected range:", value)}
-          
 
-        />
         <div className={styles.rangeSection}>
-          <h4>Price Range</h4>
-          <div className={styles.rangeRow}>
-            <input
-              type="number"
-              value={rangeFilters.price.min}
-              onChange={(e) =>
-                handleRangeChange("price", "min", e.target.value)
-              }
-              placeholder="Min"
-            />
-            <span>–</span>
-            <input
-              type="number"
-              value={rangeFilters.price.max}
-              onChange={(e) =>
-                handleRangeChange("price", "max", e.target.value)
-              }
-              placeholder="Max"
-            />
-          </div>
+          <h5>
+            Price Range <span>({rangePriceValue.join("$ - ")}$)</span>
+          </h5>
+          <RangeSlider
+            className="my-slider"
+            min={0}
+            max={200}
+            defaultValue={[0, 200]}
+            onInput={(value) => {
+              console.log("Selected range:", value);
+              setRangePriceValue([value[0], value[1]]);
+            }}
+          />
+          <h5>
+            Size Range <span>({rangeSizeValue.join("GB - ")}GB)</span>
+          </h5>
+          <RangeSlider
+            className="my-slider"
+            min={0}
+            max={200}
+            defaultValue={[0, 200]}
+            onInput={(value) => {
+              console.log("Selected range:", value);
+              setRangeSizeValue([value[0], value[1]]);
+            }}
+          />
         </div>
 
         {/* Checkbox Sections */}

@@ -1,9 +1,8 @@
-import { Media } from './media'
-import { Genre } from './genre'
-import { Company } from './company'
+
+import { UUID } from 'crypto';
 
 export type Game = {
-    gameID: number;
+    gameID: UUID;
     name: string;
     patch: string;
     gamePath: string;
@@ -22,9 +21,4 @@ export type Game = {
     hoursToComplete: number;
     playerHours: number;
     storyPlace: string;
-
-    // علاقات Many-to-Many
-    companies?: Company[];
-    medias?: Media[];
-    genres?: Genre[];
 };

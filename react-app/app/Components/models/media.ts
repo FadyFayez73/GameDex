@@ -1,11 +1,12 @@
 import {Game} from './game'
+import { UUID } from 'crypto';
 
 export type Media = {
-    mediaID: number;
+    mediaID: UUID;
     mediaType: string;
     mediaPath: string;
 
     // علاقة Many-to-One مع Game
-    gameID?: number;
+    gameID?: UUID;
     game?: Game;
 };

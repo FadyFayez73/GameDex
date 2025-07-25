@@ -1,4 +1,5 @@
 ﻿using Core.Features.Medias.Queries.Commands;
+using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +35,7 @@ namespace API.Controllers
             return Ok(Media);
         }
 
-        [HttpGet("GetMediasForGame/{id}")]
+        [HttpGet("ByGame/{id}")]
         public async Task<IActionResult> GetMediaByGameIdAsync(Guid id)
         {
             if (id == Guid.Empty) return BadRequest();
@@ -43,7 +44,7 @@ namespace API.Controllers
             return Ok(Media);
         }
 
-        [HttpGet("GetMediasForGame")]
+        [HttpGet("ByGame")]
         public async Task<IActionResult> GetMediaByGameIdFromQueryAsync([FromQuery] Guid id)
         {
             if (id == Guid.Empty) return BadRequest();
@@ -53,12 +54,12 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddMediaAsync([FromBody] CreateMediaCommand Media)
+        public async Task<IActionResult> AddMediaAsync([FromBody] CreateMediaCommand media)
         {
-            if (Media == null) return BadRequest();
-            var result = await _mediator.Send(Media);
-            if (!result) return BadRequest("Failed to add Media.");
-            return Ok("Media has been added");
+            if (media == null) return BadRequest();
+            var (state, id) = await _mediator.Send(media);
+            if (!state) return StatusCode(StatusCodes.Status409Conflict, "This media is already exists");
+            return Created();
         }
 
         [HttpPut]
@@ -67,7 +68,7 @@ namespace API.Controllers
             if (Media == null) return BadRequest();
             var result = await _mediator.Send(Media);
             if (!result) return NotFound();
-            return Ok("Media has been updated");
+            return Ok("media has been updated");
         }
 
         [HttpDelete("Delete")]
@@ -76,7 +77,7 @@ namespace API.Controllers
             if (id == Guid.Empty) return BadRequest();
             var result = await _mediator.Send(new DeleteMediaCommand(id));
             if (!result) return NotFound();
-            return Ok("Media has been deleted");
+            return Ok("media has been deleted");
         }
 
         [HttpDelete("Delete/{id}")]
@@ -85,7 +86,7 @@ namespace API.Controllers
             if (id == Guid.Empty) return BadRequest();
             var result = await _mediator.Send(new DeleteMediaCommand(id));
             if (!result) return NotFound();
-            return Ok("Media has been deleted");
+            return Ok("media has been deleted");
         }
 
     }

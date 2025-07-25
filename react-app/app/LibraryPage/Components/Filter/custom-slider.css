@@ -3,32 +3,30 @@
 /* تخصيص الحاوية */
 .my-slider {
   width: 100%;
-  height: 40px;
+  height: 4px;
+  background-color: #1a1a1a;
+  z-index: 0;
 }
 
 /* تخصيص شريط التراك */
 .my-slider .range-slider__range {
-  background-color: #eee;
-  height: 8px;
-  border-radius: 10px;
+  height: 4px;
+  z-index: 0;
 }
 
 /* تخصيص الشريط المتحرك */
 .my-slider .range-slider__track {
   background-color: #0d6efd;
-  height: 8px;
-  border-radius: 10px;
+  height: 4px;
 }
 
 /* تخصيص المقبض */
 .my-slider .range-slider__thumb {
-  width: 20px;
-  height: 20px;
-  background-color: white;
-  border: 3px solid #0d6efd;
-  border-radius: 50%;
-  top: -6px; /* عشان يتوسّط فوق الشريط */
+  width: 12px;
+  height: 12px;
+  /* border: 3px solid #0d6efd; */
   transition: transform 0.2s ease;
+  z-index: 1;
 }
 
 /* تأثير عند السحب */
