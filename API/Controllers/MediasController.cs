@@ -35,7 +35,7 @@ namespace API.Controllers
             return Ok(Media);
         }
 
-        [HttpGet("ByGame/{id}")]
+        [HttpGet("ByGameId/{id}")]
         public async Task<IActionResult> GetMediaByGameIdAsync(Guid id)
         {
             if (id == Guid.Empty) return BadRequest();
@@ -44,7 +44,7 @@ namespace API.Controllers
             return Ok(Media);
         }
 
-        [HttpGet("ByGame")]
+        [HttpGet("ByGameIdQuery")]
         public async Task<IActionResult> GetMediaByGameIdFromQueryAsync([FromQuery] Guid id)
         {
             if (id == Guid.Empty) return BadRequest();

@@ -65,6 +65,10 @@ namespace Infrastructure.Context
             new DLCTypeConfiguration()
                 .Configure(modelBuilder
                 .Entity<DLC>());
+
+            new CompanyGameTypeConfiguration()
+                .Configure(modelBuilder
+                .Entity<CompanyGame>());
         }
 
         public DbSet<Game> Games { get; set; }
@@ -72,7 +76,7 @@ namespace Infrastructure.Context
         public DbSet<Song> Songs { get; set; }
         public DbSet<Control> Controls { get; set; }
         public DbSet<Requirement> Requirements { get; set; }
-        public DbSet<Company> Companys { get; set; }
+        public DbSet<Company> Companies { get; set; }
         public DbSet<ModManager> ModManagers { get; set; }
         public DbSet<Media> Medias { get; set; }
         public DbSet<Platform> Platforms { get; set; }
@@ -81,5 +85,6 @@ namespace Infrastructure.Context
         public DbSet<Performance> Performances { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<DLC> DLCs { get; set; }
+        public DbSet<CompanyGame> CompanyGames { get; set; }
     }
 }

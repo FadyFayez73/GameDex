@@ -30,17 +30,17 @@ namespace Domain.Entities
         public string StoryPlace { get; set; }
 
         // Many to Many Relation
-        public ICollection<Album>? Albums { get; set; }
-        public ICollection<Control>? Controls { get; set; }
-        public ICollection<Requirement>? Requirements { get; set; }
-        public ICollection<Company>? Companies { get; set; }
-        public ICollection<ModManager> ModManagers { get; set; }
-        public ICollection<Media>? Medias { get; set; }
-        public ICollection<Platform>? Platforms { get; set; }
-        public ICollection<ChapterMission>? ChapterMissions { get; set; }
-        public ICollection<Character>? Characters { get; set; }
-        public ICollection<Performance>? Performances { get; set; }
-        public ICollection<Genre>? Genres { get; set; }
-        public ICollection<DLC>? DLCs { get; set; }
+        public ICollection<Album> Albums { get; set; } = new List<Album>();
+        public ICollection<Control> Controls { get; set; } = new List<Control>();
+        public ICollection<Requirement> Requirements { get; set; } = new List<Requirement>();
+        public ICollection<CompanyGame> CompanyGames { get; set; } = new List<CompanyGame>();
+        public ICollection<ModManager> ModManagers { get; set; } = new List<ModManager>();
+        public ICollection<Media> Medias { get; set; } = new List<Media>();
+        public ICollection<Platform> Platforms { get; set; } = new List<Platform>();
+        public ICollection<ChapterMission> ChapterMissions { get; set; } = new List<ChapterMission>();
+        public ICollection<Character> Characters { get; set; } = new List<Character>();
+        public ICollection<Performance> Performances { get; set; } = new List<Performance>();
+        public ICollection<Genre> Genres { get; set; } = new List<Genre>();
+        public ICollection<DLC> DLCs { get; set; } = new List<DLC>();
     }
 }

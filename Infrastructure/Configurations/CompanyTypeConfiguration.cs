@@ -24,19 +24,15 @@ namespace Infrastructure.Configurations
                 .IsRequired();
 
             builder
-                .Property(c => c.CompanyType)
-                .IsRequired();
-
-            builder
                 .Property(c => c.Description)
                 .IsRequired(false);
 
 
             // Relations
             builder
-                .HasMany(c => c.Games)
-                .WithMany(g => g.Companies);
-
+                .HasMany(c => c.CompanyGames)
+                .WithOne(g => g.Company)
+                .HasForeignKey(c => c.CompanyID);
         }
     }
 }

@@ -55,6 +55,12 @@ namespace Services.Services
             return await _gameRepository.DeleteAsync(game);
         }
 
+        public async Task<IEnumerable<Game>> GetAllGamesAsync()
+        {
+            var games = await _gameRepository.GetAllGamesAsync();
+            return games;
+        }
+
         public async Task<IEnumerable<Game>> GetAllGamesForDisplayAsync()
         {
             var games = await _gameRepository
@@ -71,10 +77,10 @@ namespace Services.Services
             return game;
         }
 
-        public async Task<IEnumerable<Game>> GetGamesByGenreAsync(Guid genreId)
+        public async Task<IEnumerable<Game>> GetGamesByGenreIdAsync(Guid genreId)
         {
-            var games = await _gameRepository
-                .GetGamesByGenreAsync(genreId);
+            var games = await _genreRepository
+                .GetGamesByGenreIdAsync(genreId);
 
             return games;
         }

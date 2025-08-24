@@ -26,7 +26,7 @@ namespace Core.Features.Medias.Queries.Handlers
         public async Task<(bool, Guid)> Handle(CreateMediaCommand request, CancellationToken cancellationToken)
         {
             var mediaDomainModel = _mapper.Map<Media>(request);
-            if(mediaDomainModel == null) throw new ArgumentNullException(nameof(mediaDomainModel), "Game domain model cannot be null");
+            if(mediaDomainModel == null) throw new ArgumentNullException(nameof(mediaDomainModel), "Media domain model cannot be null");
             
             var result = await _mediaServices.AddAsync(mediaDomainModel);
 

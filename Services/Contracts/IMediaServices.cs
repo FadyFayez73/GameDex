@@ -10,8 +10,8 @@ namespace Services.Contracts
 {
     public interface IMediaServices : IBaseServices<Media>
     {
-        Task<IEnumerable<Media>> GetMediasByGameIdAsync(Guid gameId);
+        Task<IEnumerable<Media>> GetAllMediasAsync();
         Task<Media?> GetMediaByIdAsync(Guid id);
-        Task<bool> UpdateListAsync(List<Media> entities);
+        Task<IEnumerable<Media>> GetMediasByGameIdAsync(Guid gameId);
     }
 }

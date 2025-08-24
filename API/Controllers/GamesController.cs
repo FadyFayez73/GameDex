@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using Core.Features.Games.Queries.Commands;
+using Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -12,7 +14,7 @@ namespace API.Controllers
     {
         private readonly IMediator _mediator;
 
-        public GamesController(IMediator mediator)
+        public GamesController(IMediator mediator, AppDbContext context)
         {
             _mediator = mediator;
         }
@@ -59,6 +61,24 @@ namespace API.Controllers
             var game = await _mediator.Send(new GetGameByIdCommand(id));
             if (game == null) return NotFound();
             return Ok(game);
+        }
+
+        [HttpGet("GetByGenreId/{id}")]
+        public async Task<IActionResult> GetGamesByGenreIdAsync(Guid id)
+        {
+            if (id == Guid.Empty) return BadRequest();
+            var games = await _mediator.Send(new GetGamesByGenreIdCommand(id));
+            if (games == null || !games.Any()) return NotFound();
+            return Ok(games);
+        }
+
+        [HttpGet("GetByGenreId")]
+        public async Task<IActionResult> GetGamesByGenreIdFromQueryAsync([FromQuery] Guid id)
+        {
+            if (id == Guid.Empty) return BadRequest();
+            var games = await _mediator.Send(new GetGamesByGenreIdCommand(id));
+            if (games == null || !games.Any()) return NotFound();
+            return Ok(games);
         }
 
         [HttpPost]

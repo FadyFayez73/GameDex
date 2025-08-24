@@ -14,16 +14,10 @@ namespace Domain.Entities
         public Guid CompanyID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public CompanyTypeEnum CompanyType { get; set; }
 
 
         // Game Entity Relation Many to Many
-        public ICollection<Game>? Games { get; set; }
+        public ICollection<CompanyGame> CompanyGames { get; set; }
 
-        public enum CompanyTypeEnum
-        {
-            Developer,
-            Publisher
-        }
     }
 }

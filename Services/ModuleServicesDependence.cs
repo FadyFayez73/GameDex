@@ -12,6 +12,19 @@ namespace Services
             services.AddTransient<IMediaServices, MediaServices>();
             services.AddTransient<IGenreServices, GenreServices>();
             services.AddTransient<IFilterServices, FilterServices>();
+            services.AddTransient<IPlatformServices, PlatformServices>();
+            services.AddTransient<ICompanyServices, CompanyServices>();
+            services.AddTransient<ICompanyGameServices, CompanyGameServices>();
+            services.AddTransient<IChapterMissionServices, ChapterMissionServices>();
+            services.AddTransient<ICharacterServices, CharacterServices>();
+            services.AddTransient<IAlbumServices, AlbumServices>();
+            services.AddTransient<ISongServices, SongServices>();
+            services.AddTransient<IPerformanceServices, PerformanceServices>();
+            services.AddTransient<IRequirementServices, RequirementServices>();
+            services.AddTransient<IControlServices, ControlServices>();
+            services.AddTransient<IDLCServices, DLCServices>();
+            services.AddTransient<IModManagerServices, ModManagerServices>();
+
             return services;
         }
     }

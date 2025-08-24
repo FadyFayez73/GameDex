@@ -32,21 +32,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("ChapterMissionCharacter");
                 });
 
-            modelBuilder.Entity("CompanyGame", b =>
-                {
-                    b.Property<Guid>("CompaniesCompanyID")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("GamesGameID")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("CompaniesCompanyID", "GamesGameID");
-
-                    b.HasIndex("GamesGameID");
-
-                    b.ToTable("CompanyGame");
-                });
-
             modelBuilder.Entity("Domain.Entities.Album", b =>
                 {
                     b.Property<Guid>("AlbumID")
@@ -165,9 +150,6 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("CompanyType")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
@@ -177,7 +159,25 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("CompanyID");
 
-                    b.ToTable("Companys");
+                    b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("Domain.Entities.CompanyGame", b =>
+                {
+                    b.Property<Guid>("GameID")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("CompanyID")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("GameID", "CompanyID", "Role");
+
+                    b.HasIndex("CompanyID");
+
+                    b.ToTable("CompanyGames");
                 });
 
             modelBuilder.Entity("Domain.Entities.Control", b =>
@@ -238,13 +238,13 @@ namespace Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ActualGameSize")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("CriticsRating")
                         .HasColumnType("decimal(3,1)");
 
                     b.Property<string>("GameDescription")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("GameEngine")
@@ -255,7 +255,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("GamePath")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("HoursToComplete")
@@ -276,7 +275,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Patch")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("PlayerHours")
@@ -589,21 +587,6 @@ namespace Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CompanyGame", b =>
-                {
-                    b.HasOne("Domain.Entities.Company", null)
-                        .WithMany()
-                        .HasForeignKey("CompaniesCompanyID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Game", null)
-                        .WithMany()
-                        .HasForeignKey("GamesGameID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Domain.Entities.Album", b =>
                 {
                     b.HasOne("Domain.Entities.Game", "Game")
@@ -633,6 +616,25 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("GameID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Game");
+                });
+
+            modelBuilder.Entity("Domain.Entities.CompanyGame", b =>
+                {
+                    b.HasOne("Domain.Entities.Company", "Company")
+                        .WithMany("CompanyGames")
+                        .HasForeignKey("CompanyID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Game", "Game")
+                        .WithMany("CompanyGames")
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
 
                     b.Navigation("Game");
                 });
@@ -753,6 +755,11 @@ namespace Infrastructure.Migrations
                     b.Navigation("Songs");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Company", b =>
+                {
+                    b.Navigation("CompanyGames");
+                });
+
             modelBuilder.Entity("Domain.Entities.Game", b =>
                 {
                     b.Navigation("Albums");
@@ -760,6 +767,8 @@ namespace Infrastructure.Migrations
                     b.Navigation("ChapterMissions");
 
                     b.Navigation("Characters");
+
+                    b.Navigation("CompanyGames");
 
                     b.Navigation("Controls");
 

@@ -15,7 +15,7 @@ namespace Domain.Entities
         public string Description { get; set; }
 
         // Game Entity Relation Many to Many
-        public ICollection<Game>? Games { get; set; }
+        public ICollection<Game> Games { get; set; }
 
     }
 }

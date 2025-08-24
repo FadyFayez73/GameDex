@@ -23,26 +23,13 @@ namespace Infrastructure.Repositories
         {
             _context.Genres.Add(entity);
 
-            var result = await _context
-                .SaveChangesAsync();
-            return result > 0;
-        }
-
-        public async Task<bool> AddRangeAsync(List<Genre> genres)
-        {
-            foreach (var genre in genres) 
-                _context.Genres.Add(genre);
-
-            var result = await _context.SaveChangesAsync();
-            return result > 0;
+            return await SaveChangesAsync();
         }
 
         public async Task<bool> DeleteAsync(Genre model)
         {
             _context.Genres.Remove(model);
-            var result = await _context
-                .SaveChangesAsync();
-            return result > 0;
+            return await SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Genre>> GetAllGenresAsync()
@@ -60,7 +47,7 @@ namespace Infrastructure.Repositories
             return genre;
         }
 
-        public async Task<IEnumerable<Genre>> GetGenreByIdsAsync(List<Guid> ids)
+        public async Task<IEnumerable<Genre>> GetGenresByIdsAsync(List<Guid> ids)
         {
             var genres = await _context.Genres.Where(g => ids.Contains(g.GenreID))
                 .ToListAsync();
@@ -75,7 +62,7 @@ namespace Infrastructure.Repositories
             return genre;
         }
 
-        public async Task<IEnumerable<Genre>> GetGenreByNamesAsync(List<string> names)
+        public async Task<IEnumerable<Genre>> GetGenresByNamesAsync(List<string> names)
         {
             var genres = await _context.Genres.Where(g => names.Contains(g.Name))
                 .ToListAsync();
@@ -100,9 +87,17 @@ namespace Infrastructure.Repositories
             genre.Name = entity.Name;
             genre.Description = entity.Description;
 
-            var result = await _context
-                .SaveChangesAsync();
-            return result > 0;
+            return await SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Game>> GetGamesByGenreIdAsync(Guid genreId)
+        {
+            var games = await _context.Genres
+                .Where(g => g.GenreID.ToString() == genreId.ToString())
+                .SelectMany(g => g.Games)
+                .ToListAsync();
+
+            return games;
         }
     }
 }

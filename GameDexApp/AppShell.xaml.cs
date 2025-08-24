@@ -5,6 +5,7 @@
         public AppShell()
         {
             InitializeComponent();
+            Shell.SetNavBarIsVisible(this, false);
         }
     }
 }

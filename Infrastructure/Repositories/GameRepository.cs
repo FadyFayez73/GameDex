@@ -19,19 +19,23 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<bool> AddAsync(Game entity)
+        public async Task<bool> AddAsync(Game game)
         {
-            _context.Games.Add(entity);
+            _context.Games.Add(game);
 
-            var result = await _context.SaveChangesAsync();
-            return result > 0;
+            return await SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteAsync(Game model)
+        public async Task<bool> DeleteAsync(Game game)
         {
-            _context.Games.Remove(model);
-            var result = await _context.SaveChangesAsync();
-            return result > 0;
+            _context.Games.Remove(game);
+            return await SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Game>> GetAllGamesAsync()
+        {
+            var games = await _context.Games.ToListAsync();
+            return games;
         }
 
         public async Task<IQueryable<Game>> GetAllGamesForDisplayAsync()
@@ -61,13 +65,14 @@ namespace Infrastructure.Repositories
             return game;
         }
 
-        public async Task<IEnumerable<Game>> GetGamesByGenreAsync(Guid genreId)
+        public async Task<IEnumerable<Genre>> GetGenresByGameIdAsync(Guid gameId)
         {
-            var games = await _context.Games
-                .Where(g => g.Genres != null && g.Genres.Any(genre => genre.GenreID == genreId))
+            var genres = await _context.Games
+                .Where(g => g.GameID == gameId)
+                .SelectMany(g => g.Genres)
                 .ToListAsync();
 
-            return games;
+            return genres;
         }
 
         public async Task<bool> SaveChangesAsync()
@@ -101,8 +106,7 @@ namespace Infrastructure.Repositories
             game.PlayerHours = entity.PlayerHours;
             game.StoryPlace = entity.StoryPlace;
 
-            var result = await _context.SaveChangesAsync();
-            return result > 0;
+            return await SaveChangesAsync();
         }
     }
 }

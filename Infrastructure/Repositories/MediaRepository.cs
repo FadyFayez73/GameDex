@@ -20,17 +20,20 @@ namespace Infrastructure.Repositories
 
         public async Task<bool> AddAsync(Media entity)
         {
-            entity.MediaID = Guid.NewGuid();
             _context.Medias.Add(entity);
-            var result = await _context.SaveChangesAsync();
-            return result > 0;
+            return await SaveChangesAsync();
         }
 
         public async Task<bool> DeleteAsync(Media model)
         {
             _context.Medias.Remove(model);
-            var result = await _context.SaveChangesAsync();
-            return result > 0;
+            return await SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Media>> GetAllMediasAsync()
+        {
+            var medias = await _context.Medias.ToListAsync();
+            return medias;
         }
 
         public Task<Media?> GetMediaByIdAsync(Guid id)
@@ -65,8 +68,7 @@ namespace Infrastructure.Repositories
             media.MediaPath = entity.MediaPath;
             media.GameID = entity.GameID;
 
-            var result = await _context.SaveChangesAsync();
-            return result > 0;
+            return await SaveChangesAsync();
         }
     }
 }

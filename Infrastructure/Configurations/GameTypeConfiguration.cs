@@ -19,11 +19,11 @@ namespace Infrastructure.Configurations
 
             // Property Setup
             builder.Property(g => g.Name).IsRequired();
-            builder.Property(g => g.Patch).IsRequired();
-            builder.Property(g => g.GamePath).IsRequired();
+            builder.Property(g => g.Patch).IsRequired(false);
+            builder.Property(g => g.GamePath).IsRequired(false);
             builder.Property(g => g.YearOfRelease).IsRequired(false);
             builder.Property(g => g.PGRating).IsRequired();
-            builder.Property(g => g.GameDescription).IsRequired();
+            builder.Property(g => g.GameDescription).IsRequired(false);
             builder.Property(g => g.GameEngine).IsRequired();
             builder.Property(g => g.OrderOfFranchise).IsRequired(false);
             builder.Property(g => g.LinkForCrack).IsRequired(false);
@@ -31,7 +31,7 @@ namespace Infrastructure.Configurations
             builder.Property(g => g.PlayersRating).IsRequired().HasColumnType("decimal(3,1)");
             builder.Property(g => g.UserRating).IsRequired().HasColumnType("decimal(3,1)");
             builder.Property(g => g.SteamPrices).IsRequired().HasColumnType("Decimal(7,2)");
-            builder.Property(g => g.ActualGameSize).IsRequired(false);
+            builder.Property(g => g.ActualGameSize).IsRequired();
             builder.Property(g => g.GameFiles).IsRequired(false);
             builder.Property(g => g.HoursToComplete).IsRequired();
             builder.Property(g => g.PlayerHours).IsRequired();
@@ -79,11 +79,14 @@ namespace Infrastructure.Configurations
                 .WithOne(d => d.Game)
                 .HasForeignKey(d => d.GameID);
 
+            builder
+                .HasMany(g => g.CompanyGames)
+                .WithOne(c => c.Game)
+                .HasForeignKey(g => g.GameID);
+
 
             // Many-to-Many Relationships
-            builder
-                .HasMany(g => g.Companies)
-                .WithMany(c => c.Games);
+
             builder
                 .HasMany(g => g.ModManagers)
                 .WithMany(m => m.Games);
