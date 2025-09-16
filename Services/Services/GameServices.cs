@@ -16,37 +16,29 @@ namespace Services.Services
             _genreRepository = genreRepository;
         }
 
-        public async Task<(bool, Guid)> AddAsync(Game entity)
+        /// <summary>
+        /// Adds a new game to the repository if a game with the same name does not already exist.
+        /// </summary>
+        /// <param name="game">Game model from domain to add.</param>
+        /// <returns>Tuple: success state and new GameID.</returns>
+        public async Task<(bool, Guid)> AddAsync(Game game)
         {
-            //var genres = entity.Genres;
-            //if (genres != null)
-            //{
-            //    var genresName = genres.Select(g => g.Name).ToList();
 
-            //    var existsGenres = (await _genreRepository.GetGenreByNamesAsync(genresName)).ToList();
+            var existGame = await _gameRepository.GetGameByNameAsync(game.Name);
+            if (existGame != null) return (false, Guid.Empty);
 
-            //    var namesToAdd = genresName.Where(g => !existsGenres.Select(g => g.Name).Contains(g)).ToList();
+            game.GameID = Guid.NewGuid();
 
-            //    var toAdd = namesToAdd.Select(name => new Genre
-            //    {
-            //        GenreID = Guid.NewGuid(),
-            //        Name = name
-            //    }).ToList();
+            var result = await _gameRepository.AddAsync(game);
 
-            //    var addRangeResult = await _genreRepository.AddRangeAsync(toAdd);
-
-            //}
-
-            var game = await _gameRepository.GetGameByNameAsync(entity.Name);
-            if (game != null) return (false, Guid.Empty);
-
-            entity.GameID = Guid.NewGuid();
-
-            var result = await _gameRepository.AddAsync(entity);
-
-            return (result, entity.GameID);
+            return (result, game.GameID);
         }
 
+        /// <summary>
+        /// Deletes a game by its ID if it exists.
+        /// </summary>
+        /// <param name="id">Unique identifier of the game to delete.</param>
+        /// <returns>True if deleted successfully, otherwise false.</returns>
         public async Task<bool> DeleteAsync(Guid id)
         {
             var game = await _gameRepository.GetGameByIdAsync(id);
@@ -55,12 +47,20 @@ namespace Services.Services
             return await _gameRepository.DeleteAsync(game);
         }
 
+        /// <summary>
+        /// Retrieves all games from the repository.
+        /// </summary>
+        /// <returns>IEnumerable of all games.</returns>
         public async Task<IEnumerable<Game>> GetAllGamesAsync()
         {
             var games = await _gameRepository.GetAllGamesAsync();
             return games;
         }
 
+        /// <summary>
+        /// Retrieves all games intended for display.
+        /// </summary>
+        /// <returns>IEnumerable of games for display.</returns>
         public async Task<IEnumerable<Game>> GetAllGamesForDisplayAsync()
         {
             var games = await _gameRepository
@@ -69,6 +69,11 @@ namespace Services.Services
             return await games.ToListAsync();
         }
 
+        /// <summary>
+        /// Fetches a single game by its unique ID.
+        /// </summary>
+        /// <param name="id">Unique identifier of the game.</param>
+        /// <returns>Game if found, otherwise null.</returns>
         public async Task<Game?> GetGameByIdAsync(Guid id)
         {
             var game = await _gameRepository
@@ -77,6 +82,11 @@ namespace Services.Services
             return game;
         }
 
+        /// <summary>
+        /// Retrieves all games associated with a specific genre ID.
+        /// </summary>
+        /// <param name="genreId">Unique identifier of the genre.</param>
+        /// <returns>IEnumerable of games for the genre.</returns>
         public async Task<IEnumerable<Game>> GetGamesByGenreIdAsync(Guid genreId)
         {
             var games = await _genreRepository
@@ -85,9 +95,14 @@ namespace Services.Services
             return games;
         }
 
-        public async Task<bool> UpdateAsync(Game entity)
+        /// <summary>
+        /// Updates an existing game game in the repository.
+        /// </summary>
+        /// <param name="game">Game model from domain to update.</param>
+        /// <returns>True if update was successful, otherwise false.</returns>
+        public async Task<bool> UpdateAsync(Game game)
         {
-            var result = await _gameRepository.UpdateAsync(entity);
+            var result = await _gameRepository.UpdateAsync(game);
             return result;
         }
     }

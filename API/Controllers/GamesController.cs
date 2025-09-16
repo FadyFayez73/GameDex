@@ -5,15 +5,15 @@ using MediatR;
 using Core.Features.Games.Queries.Commands;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using API.Models;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class GamesController : ControllerBase
     {
         private readonly IMediator _mediator;
-
         public GamesController(IMediator mediator, AppDbContext context)
         {
             _mediator = mediator;
@@ -82,10 +82,22 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddGameAsync([FromBody] CreateGameCommand game)
+        public async Task<IActionResult> AddGameAsync([FromForm] CreateGameRequest game)
         {
+            if (game.Cover == null) return BadRequest("Game sending without cover!");
+
+            var command = new CreateGameCommand
+            {
+                Name = game.Name,
+
+            };
+
+            var d = new MemoryStream();
+
+            await game.Cover.CopyToAsync(command.Cover);
+
             if (game == null) return BadRequest();
-            var (state, id) = await _mediator.Send(game);
+            var (state, id) = await _mediator.Send(command);
             if (!state) return StatusCode(StatusCodes.Status409Conflict, "This game is already exists");
             return Created();
         }

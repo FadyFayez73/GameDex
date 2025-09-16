@@ -11,7 +11,7 @@ namespace Domain.Entities
         // Property
         public Guid PlatformID { get; set; }
         public string Name { get; set; }
-
+        public string Description { get; set; }
 
         // Game Entity Relation Many to Many
         public ICollection<Game>? Games { get; set; }

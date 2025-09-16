@@ -425,6 +425,10 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -437,12 +441,50 @@ namespace Infrastructure.Migrations
                         new
                         {
                             PlatformID = new Guid("aff935b7-a122-45bf-b343-fb2b84ecfc47"),
-                            Name = "PC"
+                            Description = "Microsoft Windows operating system",
+                            Name = "Windows"
                         },
                         new
                         {
                             PlatformID = new Guid("43b2427b-b32b-4a80-98c2-18b8c6f11934"),
-                            Name = "PlayStation 4"
+                            Description = "Open-source operating system based on Unix",
+                            Name = "Linux"
+                        },
+                        new
+                        {
+                            PlatformID = new Guid("59cfe7d1-6c6e-4d25-95b6-7c9f6b2f9245"),
+                            Description = "Apple's operating system for Mac computers",
+                            Name = "macOS"
+                        },
+                        new
+                        {
+                            PlatformID = new Guid("9af20714-09a5-4c83-9f6f-798dc91b1d02"),
+                            Description = "Sony's gaming console platform",
+                            Name = "PlayStation"
+                        },
+                        new
+                        {
+                            PlatformID = new Guid("4f46a6c9-1f94-4a63-9de8-2f85cbe5f05e"),
+                            Description = "Microsoft's gaming console platform",
+                            Name = "Xbox"
+                        },
+                        new
+                        {
+                            PlatformID = new Guid("77bba20d-79f2-4a89-9f60-10cc02c0f2cf"),
+                            Description = "Nintendo's hybrid gaming console",
+                            Name = "Nintendo Switch"
+                        },
+                        new
+                        {
+                            PlatformID = new Guid("e15e8ef7-8f6b-4e71-9f51-f8658d7f84d9"),
+                            Description = "Google's mobile operating system",
+                            Name = "Android"
+                        },
+                        new
+                        {
+                            PlatformID = new Guid("b5b8efb3-7f8d-48a3-88b7-6f1a9d85f5c7"),
+                            Description = "Apple's mobile operating system",
+                            Name = "iOS"
                         });
                 });
 

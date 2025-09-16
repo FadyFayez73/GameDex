@@ -9,9 +9,9 @@ namespace Core.Features.Genres.Queries.Commands
 {
     public class UpdateGenreCommand : IRequest<bool>
     {
-        public UpdateGenreCommand(Guid id, string name, string description)
+        public UpdateGenreCommand(Guid genreID, string name, string description)
         {
-            GenreID = id;
+            GenreID = genreID;
             Name = name;
             Description = description;
         }

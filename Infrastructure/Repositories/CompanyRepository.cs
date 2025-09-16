@@ -35,7 +35,6 @@ namespace Infrastructure.Repositories
         public async Task<IEnumerable<Company>> GetAllCompaniesAsync()
         {
             var companies = await _context.Companies
-                .Include(c => c.CompanyGames)
                 .ToListAsync();
             return companies;
         }
@@ -43,7 +42,6 @@ namespace Infrastructure.Repositories
         public async Task<Company?> GetCompanyByIdAsync(Guid id)
         {
             var company = await _context.Companies
-                .Include(c => c.CompanyGames)
                 .FirstOrDefaultAsync(c => c.CompanyID == id);
             
             return company;
@@ -52,7 +50,6 @@ namespace Infrastructure.Repositories
         public async Task<Company?> GetCompanyByNameAsync(string name)
         {
             var company = await _context.Companies
-                .Include(c => c.CompanyGames)
                 .FirstOrDefaultAsync(c => c.Name == name);
 
             return company;
@@ -61,7 +58,6 @@ namespace Infrastructure.Repositories
         public async Task<IEnumerable<Company>> GetCompaniesByGameIdAsync(Guid gameId)
         {
             var companies = await _context.Companies
-                .Include(c => c.CompanyGames)
                 .Where(c => c.CompanyGames.Any(cg => cg.GameID == gameId))
                 .ToListAsync();
 
@@ -71,7 +67,6 @@ namespace Infrastructure.Repositories
         public async Task<IEnumerable<Company>> GetCompaniesByRoleAsync(string role)
         {
             var companies = await _context.Companies
-                .Include(c => c.CompanyGames)
                 .Where(c => c.CompanyGames.Any(cg => cg.Role.ToString() == role))
                 .ToListAsync();
 

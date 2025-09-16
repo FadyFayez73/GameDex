@@ -43,7 +43,7 @@ namespace Infrastructure.Repositories
         {
             var genre = await _context.Genres
                 .FirstOrDefaultAsync(g => g.GenreID
-                .ToString() == id.ToString());
+                .ToString().ToLower() == id.ToString().ToLower());
             return genre;
         }
 

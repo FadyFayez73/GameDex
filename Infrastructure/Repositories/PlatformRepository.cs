@@ -49,7 +49,7 @@ namespace Infrastructure.Repositories
         public async Task<Platform?> GetPlatformByNameAsync(string name)
         {
             var platform = await _context.Platforms
-                .FirstOrDefaultAsync(p => p.Name == name);
+                .FirstOrDefaultAsync(p => p.Name.ToLower() == name.ToLower());
             return platform;
         }
 

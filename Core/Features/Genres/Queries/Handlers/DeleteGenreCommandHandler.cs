@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Features.Games.Queries.Commands;
+using Core.Features.Genres.Queries.Commands;
 using MediatR;
 using Services.Contracts;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Core.Features.Genres.Queries.Handlers
 {
-    public class DeleteGenreCommandHandler : IRequestHandler<DeleteGameCommand, bool>
+    public class DeleteGenreCommandHandler : IRequestHandler<DeleteGenreCommand, bool>
     {
         private readonly IGenreServices _genreServices;
 
@@ -19,9 +20,9 @@ namespace Core.Features.Genres.Queries.Handlers
             _genreServices = genreServices;
         }
 
-        public async Task<bool> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteGenreCommand request, CancellationToken cancellationToken)
         {
-            var result = await _genreServices.DeleteAsync(request.GameID);
+            var result = await _genreServices.DeleteAsync(request.Id);
             return result;
         }
     }

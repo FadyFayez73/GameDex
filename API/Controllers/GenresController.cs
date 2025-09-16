@@ -1,12 +1,14 @@
-﻿using Core.Features.Genres.Queries.Commands;
+﻿using Core.Dtos.Genres;
+using Core.Features.Genres.Queries.Commands;
 using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NpgsqlTypes;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class GenresController : ControllerBase
     {
@@ -37,11 +39,12 @@ namespace API.Controllers
             return Ok(genre);
         }
 
-        [HttpGet("GetById/{id}")]
+        [HttpGet("GetById/{id}", Name = "GetGenreById")]
         public async Task<IActionResult> GetGenreByIdAsync(Guid id)
         {
             if (id == Guid.Empty) return BadRequest();
             var genre = await _mediator.Send(new GetGenreByIdCommand(id));
+            if (genre == null) return NotFound("The genre is not found");
             return Ok(genre);
         }
 
@@ -149,7 +152,17 @@ namespace API.Controllers
             if (command == null) return BadRequest();
             var (state, id) = await _mediator.Send(command);
             if(!state) return StatusCode(StatusCodes.Status409Conflict, "The genre is already exist");
-            return Created();
+            var genre = new GenreDto 
+            {
+                GenreID = id, 
+                Name = command.Name, 
+                Description = command.Description 
+            };
+            return CreatedAtAction(
+                "GetGenreById",
+                new { id = genre.GenreID },
+                genre
+            );
         }
 
         [HttpPut]
@@ -164,7 +177,7 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("Delete/{id}")]
+        [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteFromQueryAsync([FromQuery] Guid id)
         {
             if(id == Guid.Empty) return BadRequest();
@@ -176,14 +189,14 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("Delete")]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
             if (id == Guid.Empty) return BadRequest();
 
             var result = await _mediator.Send(new DeleteGenreCommand(id));
 
-            if (!result) return StatusCode(StatusCodes.Status404NotFound, "The genre is already not exist");
+            if (!result) return StatusCode(StatusCodes.Status404NotFound, "The genre already is not exist");
 
             return NoContent();
         }

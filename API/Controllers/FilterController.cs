@@ -10,7 +10,7 @@ using System.Text.Json;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class FilterController : ControllerBase
     {
@@ -29,6 +29,7 @@ namespace API.Controllers
 
             var games = await _mediator.Send(new GetFilteredGamesCommand(filter));
 
+            
             return Ok(games.ToList());
         }
 
