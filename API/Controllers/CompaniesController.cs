@@ -23,10 +23,16 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateCompanyCommand command)
         {
-            var result = await _mediator.Send(command);
-            if (!result.Item1)
-                return BadRequest("Failed to create company.");
-            return CreatedAtAction(nameof(GetById), new { id = result.Item2 }, result);
+            if (command == null) return BadRequest();
+            var (state, id) = await _mediator.Send(command);
+            if (!state) return StatusCode(StatusCodes.Status409Conflict, "The Company is already exist");
+            var company = new Company
+            {
+                CompanyID = id,
+                Name = command.Name,
+                Description = command.Description,
+            };
+            return CreatedAtAction(nameof(GetById), new { id = id }, company);
         }
 
         [HttpPut("{id:guid}")]
