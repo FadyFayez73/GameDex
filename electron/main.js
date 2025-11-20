@@ -1,52 +1,30 @@
 const { app, BrowserWindow } = require('electron');
-const path = require('path');
-const { spawn } = require('child_process');
+const { exec } = require('child_process');
 
-let apiProcess;
-let win;
-
-const isDev = true; // لو حبيت تغير لاحقًا
-
-function createWindow() {
-  win = new BrowserWindow({
-    width: 1200,
-    height: 800,
+function createWindow () {
+  const win = new BrowserWindow({
+    width: 1000,
+    height: 700,
     webPreferences: {
-      contextIsolation: true,
-    },
+      nodeIntegration: true
+    }
   });
 
-  if (isDev) {
-    // ✅ افتح React dev server
-    win.loadURL('http://localhost:3000');
-
-    // ✅ شغّل Web API
-    const apiDllPath = path.join(__dirname, '..', 'GameDex.WebAPI', 'bin', 'Debug', 'net6.0', 'GameDex.WebAPI.dll');
-    apiProcess = spawn('dotnet', [apiDllPath], {
-      detached: true,
-      stdio: 'ignore',
-    });
-  } else {
-    // ✅ افتح React من build
-    const indexPath = path.join(__dirname, '..', 'react-app', 'build', 'index.html');
-    win.loadFile(indexPath);
-
-    // ✅ شغّل Web API من مجلد publish
-    const apiDllPath = path.join(__dirname, 'webapi', 'GameDex.WebAPI.dll');
-    apiProcess = spawn('dotnet', [apiDllPath], {
-      detached: true,
-      stdio: 'ignore',
-    });
-  }
-
-  win.on('closed', () => {
-    if (apiProcess) process.kill(-apiProcess.pid);
-  });
+  win.loadURL('https://localhost:7165'); // أو UI خاص بيك لو عندك
 }
 
-app.whenReady().then(createWindow);
+// شغل الـ API أولًا
+app.whenReady().then(() => {
+  exec('dotnet ../API/bin/Debug/net9.0/API.dll', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error starting API: ${error.message}`);
+      return;
+    }
+    console.log('API Started');
+    createWindow();
+  });
+});
 
 app.on('window-all-closed', () => {
-  if (apiProcess) process.kill(-apiProcess.pid);
   app.quit();
 });

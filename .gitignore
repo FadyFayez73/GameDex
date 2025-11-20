@@ -3,6 +3,11 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Custome Files
+GameDexApp/api/
+GameDexApp/content/
+
+
 # User-specific files
 *.rsuser
 *.suo
@@ -361,3 +366,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+old-react.rar
