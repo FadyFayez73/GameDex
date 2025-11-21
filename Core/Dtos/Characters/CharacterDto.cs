@@ -2,7 +2,7 @@ using System;
 
 namespace Core.Dtos.Characters
 {
-    public class CharacterDto
+    public struct CharacterDto
     {
         public Guid CharacterId { get; set; }
         public string Name { get; set; }

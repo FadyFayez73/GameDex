@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Core.Dtos.Platforms
 {
-    public class PlatformDto
+    public struct PlatformDto
     {
         public Guid PlatformID { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

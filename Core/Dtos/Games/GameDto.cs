@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Dtos.Games
 {
-    public class GameDto
+    public struct GameDto
     {
         public Guid GameID { get; set; }
         public string Name { get; set; }

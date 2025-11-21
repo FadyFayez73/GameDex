@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Core.Dtos.Companies
 {
-    public class CompanyDto
+    public struct CompanyDto
     {
         public Guid CompanyId { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

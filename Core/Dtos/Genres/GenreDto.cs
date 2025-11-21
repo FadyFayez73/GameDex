@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Core.Dtos.Genres
 {
-    public class GenreDto
+    public struct GenreDto
     {
         public Guid GenreID { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

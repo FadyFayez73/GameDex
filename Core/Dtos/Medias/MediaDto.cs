@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Dtos.Medias
 {
-    public class MediaDto
+    public struct MediaDto
     {
         public Guid MediaID { get; set; }
         public string MediaType { get; set; }
