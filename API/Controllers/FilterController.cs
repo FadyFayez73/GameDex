@@ -1,7 +1,7 @@
-﻿using Core.Features.Filters.Queries.Commands;
+﻿using Application.Features.Filters.Queries.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Services.ServicesDto.Filter;
+using Application.Dtos.Filter;
 
 namespace API.Controllers
 {

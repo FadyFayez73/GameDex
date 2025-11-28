@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Application.Dtos.Filter
+{
+    public class RangeModel
+    {
+        public int Min { get; set; }
+        public int Max { get; set; }
+    }
+}

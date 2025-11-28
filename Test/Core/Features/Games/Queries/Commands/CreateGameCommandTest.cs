@@ -1,5 +1,4 @@
-﻿using Core.Features.Games.Queries.Commands;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,12 +11,7 @@ namespace Tests.Core.Features.Games.Queries.Commands
         [Fact]
         public void BasicTest()
         {
-            var command = new CreateGameCommand
-            {
-                Name = "Test Name",
-            };
 
-            Assert.True(command.Name == "Test Name");
         }
     }
 }

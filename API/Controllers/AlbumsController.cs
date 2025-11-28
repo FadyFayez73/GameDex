@@ -1,5 +1,5 @@
-using Core.Dtos.Albums;
-using Core.Features.Albums.Queries.Commands;
+using Application.Dtos.Albums;
+using Application.Features.Albums.Queries.Commands;
 using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

@@ -1,5 +1,5 @@
 ﻿using API.Models;
-using Core.Features.Games.Queries.Commands;
+using Application.Features.Games.Queries.Commands;
 using Infrastructure.Context;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

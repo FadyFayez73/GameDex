@@ -18,7 +18,8 @@
 
             Task.Run(async () => 
             {
-                await ApiStarter.IsApiReady();
+                var status =  await ApiStarter.IsApiReady();
+                if(!status) Current?.Quit();
             });
 
             return window;

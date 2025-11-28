@@ -1,5 +1,5 @@
-using Core.Dtos.Companies;
-using Core.Features.Companies.Queries.Commands;
+using Application.Dtos.Companies;
+using Application.Features.Companies.Queries.Commands;
 using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

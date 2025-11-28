@@ -33,7 +33,7 @@ public static class ApiStarter
         var client = new HttpClient();
         try
         {
-            var response = await client.GetAsync("http://localhost:5000/api/Games");
+            var response = await client.GetAsync("http://localhost:5000/Games");
             return response.IsSuccessStatusCode;
         }
         catch

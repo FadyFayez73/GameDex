@@ -1,5 +1,5 @@
-using Core.Dtos.Characters;
-using Core.Features.Characters.Queries.Commands;
+using Application.Dtos.Characters;
+using Application.Features.Characters.Queries.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

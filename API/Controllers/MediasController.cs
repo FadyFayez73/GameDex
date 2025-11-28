@@ -1,4 +1,4 @@
-﻿using Core.Features.Medias.Queries.Commands;
+﻿using Application.Features.Medias.Queries.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,5 +1,5 @@
-﻿using Core.Dtos.Genres;
-using Core.Features.Genres.Queries.Commands;
+﻿using Application.Dtos.Genres;
+using Application.Features.Genres.Queries.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

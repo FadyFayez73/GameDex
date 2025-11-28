@@ -1,5 +1,5 @@
-using Core.Dtos.Platforms;
-using Core.Features.Platforms.Queries.Commands;
+using Application.Dtos.Platforms;
+using Application.Features.Platforms.Queries.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
