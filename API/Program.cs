@@ -1,10 +1,8 @@
-﻿using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Infrastructure.Context;
-using Core;
 using Infrastructure;
-using Services;
+using Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,8 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(options => {
     options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConnection"));
 });
 
-builder.Services.AddCoreDependencies();
-builder.Services.AddServicesDependence();
+builder.Services.AddApplicationDependence();
 builder.Services.AddInfrastructureDependence();
 
 // 1. Add CORS

@@ -1,10 +1,7 @@
-using Core.Features.Characters.Queries.Commands;
-using Core.Dtos.Characters;
+using Application.Dtos.Characters;
+using Application.Features.Characters.Queries.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -13,13 +10,18 @@ namespace API.Controllers
 
     public class CharactersController : ControllerBase
     {
+        #region Fields
         private readonly IMediator _mediator;
+        #endregion
 
+        #region Constructors
         public CharactersController(IMediator mediator)
         {
             _mediator = mediator;
         }
+        #endregion
 
+        #region Gets
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CharacterDto>>> GetAllCharacters()
         {
@@ -33,21 +35,23 @@ namespace API.Controllers
         {
             var command = new GetCharacterByIdCommand { CharacterId = id };
             var result = await _mediator.Send(command);
-            
+
             if (result == null)
                 return NotFound();
-                
+
             return Ok(result);
         }
 
-        [HttpGet("game/{gameId}")]
+        [HttpGet("by-game/{gameId}")]
         public async Task<ActionResult<IEnumerable<CharacterDto>>> GetCharactersByGameId(Guid gameId)
         {
             var command = new GetCharactersByGameIdCommand { GameId = gameId };
             var result = await _mediator.Send(command);
             return Ok(result);
         }
+        #endregion
 
+        #region Actions
         [HttpPost]
         public async Task<ActionResult<(bool, Guid)>> AddCharacter([FromBody] CreateCharacterCommand command)
         {
@@ -68,7 +72,7 @@ namespace API.Controllers
             var result = await _mediator.Send(command);
             if (result)
                 return Ok(result);
-                
+
             return NotFound("Character not found");
         }
 
@@ -77,11 +81,12 @@ namespace API.Controllers
         {
             var command = new DeleteCharacterCommand { CharacterId = id };
             var result = await _mediator.Send(command);
-            
+
             if (result)
                 return Ok(result);
-                
+
             return NotFound("Character not found");
         }
+        #endregion
     }
 }

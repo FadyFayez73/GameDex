@@ -1,7 +1,5 @@
-﻿using Core.Features.Medias.Queries.Commands;
-using Domain.Entities;
+﻿using Application.Features.Medias.Queries.Commands;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,14 +8,19 @@ namespace API.Controllers
     [ApiController]
     public class MediasController : ControllerBase
     {
+        #region Fields
         private readonly IMediator _mediator;
+        #endregion
 
+        #region Constructors
         public MediasController(IMediator mediator)
         {
             _mediator = mediator;
         }
+        #endregion
 
-        [HttpGet("GetMediaById/{id}")]
+        #region Gets
+        [HttpGet("{id}", Name = "GetMediaById")]
         public async Task<IActionResult> GetMediaByIdAsync(Guid id)
         {
             if (id == Guid.Empty) return BadRequest();
@@ -26,16 +29,7 @@ namespace API.Controllers
             return Ok(Media);
         }
 
-        [HttpGet("GetMediaById")]
-        public async Task<IActionResult> GetMediaByIdFromQueryAsync([FromQuery] Guid id)
-        {
-            if (id == Guid.Empty) return BadRequest();
-            var Media = await _mediator.Send(new GetMediaByIdCommand(id));
-            if (Media == null) return NotFound();
-            return Ok(Media);
-        }
-
-        [HttpGet("ByGameId/{id}")]
+        [HttpGet("by-game/{id}")]
         public async Task<IActionResult> GetMediaByGameIdAsync(Guid id)
         {
             if (id == Guid.Empty) return BadRequest();
@@ -43,23 +37,17 @@ namespace API.Controllers
             if (Media == null) return NotFound();
             return Ok(Media);
         }
+        #endregion
 
-        [HttpGet("ByGameIdQuery")]
-        public async Task<IActionResult> GetMediaByGameIdFromQueryAsync([FromQuery] Guid id)
-        {
-            if (id == Guid.Empty) return BadRequest();
-            var Media = await _mediator.Send(new GetMediasByGameIdCommand(id));
-            if (Media == null) return NotFound();
-            return Ok(Media);
-        }
-
+        #region Actions
         [HttpPost]
         public async Task<IActionResult> AddMediaAsync([FromBody] CreateMediaCommand media)
         {
             if (media == null) return BadRequest();
             var (state, id) = await _mediator.Send(media);
             if (!state) return StatusCode(StatusCodes.Status409Conflict, "This media is already exists");
-            return Created();
+            var mediaExists = await _mediator.Send(new GetMediaByIdCommand(id));
+            return CreatedAtAction("GetMediaById", new { id }, mediaExists);
         }
 
         [HttpPut]
@@ -71,16 +59,7 @@ namespace API.Controllers
             return Ok("media has been updated");
         }
 
-        [HttpDelete("Delete")]
-        public async Task<IActionResult> DeleteFromQueryAsync([FromQuery] Guid id)
-        {
-            if (id == Guid.Empty) return BadRequest();
-            var result = await _mediator.Send(new DeleteMediaCommand(id));
-            if (!result) return NotFound();
-            return Ok("media has been deleted");
-        }
-
-        [HttpDelete("Delete/{id}")]
+        [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
             if (id == Guid.Empty) return BadRequest();
@@ -88,6 +67,6 @@ namespace API.Controllers
             if (!result) return NotFound();
             return Ok("media has been deleted");
         }
-
+        #endregion
     }
 }
