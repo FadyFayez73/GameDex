@@ -11,18 +11,18 @@ namespace Application.Features.Albums.Queries.Handlers
 {
     public class GetAlbumsByProducerCommandHandler : IRequestHandler<GetAlbumsByProducerCommand, IEnumerable<AlbumDto>>
     {
-        private readonly IAlbumApplication _albumApplication;
+        private readonly IAlbumServices _albumServices;
         private readonly IMapper _mapper;
 
-        public GetAlbumsByProducerCommandHandler(IAlbumApplication albumApplication, IMapper mapper)
+        public GetAlbumsByProducerCommandHandler(IAlbumServices albumServices, IMapper mapper)
         {
-            _albumApplication = albumApplication;
+            _albumServices = albumServices;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<AlbumDto>> Handle(GetAlbumsByProducerCommand request, CancellationToken cancellationToken)
         {
-            var albums = await _albumApplication.GetAlbumsByProducerAsync(request.Producer);
+            var albums = await _albumServices.GetAlbumsByProducerAsync(request.Producer);
             return _mapper.Map<IEnumerable<AlbumDto>>(albums);
         }
     }

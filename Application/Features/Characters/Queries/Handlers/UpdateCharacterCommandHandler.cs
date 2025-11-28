@@ -11,12 +11,12 @@ namespace Application.Features.Characters.Queries.Handlers
 {
     public class UpdateCharacterCommandHandler : IRequestHandler<UpdateCharacterCommand, bool>
     {
-        private readonly ICharacterApplication _characterApplication;
+        private readonly ICharacterServices _characterServices;
         private readonly IMapper _mapper;
 
-        public UpdateCharacterCommandHandler(ICharacterApplication characterApplication, IMapper mapper)
+        public UpdateCharacterCommandHandler(ICharacterServices characterServices, IMapper mapper)
         {
-            _characterApplication = characterApplication;
+            _characterServices = characterServices;
             _mapper = mapper;
         }
 
@@ -27,7 +27,7 @@ namespace Application.Features.Characters.Queries.Handlers
             if (characterDomainModel == null)
                 throw new ArgumentNullException(nameof(characterDomainModel), "Cannot convert from \"UpdateCharacterCommand\" to \"Character Domain Model\"!");
 
-            var result = await _characterApplication.UpdateAsync(characterDomainModel);
+            var result = await _characterServices.UpdateAsync(characterDomainModel);
             return result;
         }
     }

@@ -12,18 +12,18 @@ namespace Application.Features.Companies.Queries.Handlers
 {
     public class GetAllCompaniesCommandHandler : IRequestHandler<GetAllCompaniesCommand, IEnumerable<CompanyDto>>
     {
-        private readonly ICompanyApplication _companyApplication;
+        private readonly ICompanyServices _companyServices;
         private readonly IMapper _mapper;
 
-        public GetAllCompaniesCommandHandler(ICompanyApplication companyApplication, IMapper mapper)
+        public GetAllCompaniesCommandHandler(ICompanyServices companyServices, IMapper mapper)
         {
-            _companyApplication = companyApplication;
+            _companyServices = companyServices;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<CompanyDto>> Handle(GetAllCompaniesCommand request, CancellationToken cancellationToken)
         {
-            var companies = await _companyApplication.GetAllCompaniesAsync();
+            var companies = await _companyServices.GetAllCompaniesAsync();
             var companyDtos = _mapper.Map<IEnumerable<CompanyDto>>(companies);
             return companyDtos;
         }

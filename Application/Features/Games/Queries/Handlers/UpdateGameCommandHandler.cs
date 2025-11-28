@@ -13,11 +13,11 @@ namespace Application.Features.Games.Queries.Handlers
 {
     public class UpdateGameCommandHandler : IRequestHandler<UpdateGameCommand, bool>
     {
-        private readonly IGameApplication _gameApplication;
+        private readonly IGameServices _gameServices;
         private readonly IMapper _mapper;
-        public UpdateGameCommandHandler(IGameApplication gameApplication, IMapper mapper)
+        public UpdateGameCommandHandler(IGameServices gameServices, IMapper mapper)
         {
-            _gameApplication = gameApplication;
+            _gameServices = gameServices;
             _mapper = mapper;
         }
 
@@ -28,7 +28,7 @@ namespace Application.Features.Games.Queries.Handlers
             if (gameDomainModel == null)
                 throw new ArgumentNullException(nameof(gameDomainModel), "cant convert from \"Update Command\" to \"Domain Model\"!");
 
-            var result = await _gameApplication.UpdateAsync(gameDomainModel);
+            var result = await _gameServices.UpdateAsync(gameDomainModel);
             return result;
         }
     }

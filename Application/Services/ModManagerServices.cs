@@ -4,11 +4,11 @@ using Application.Contracts;
 
 namespace Application.Application
 {
-    public class ModManagerApplication : IModManagerApplication
+    public class ModManagerServices : IModManagerServices
     {
         private readonly IModManagerRepository _modManagerRepository;
 
-        public ModManagerApplication(IModManagerRepository modManagerRepository)
+        public ModManagerServices(IModManagerRepository modManagerRepository)
         {
             _modManagerRepository = modManagerRepository;
         }

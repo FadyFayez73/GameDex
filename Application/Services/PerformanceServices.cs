@@ -4,11 +4,11 @@ using Application.Contracts;
 
 namespace Application.Application
 {
-    public class PerformanceApplication : IPerformanceApplication
+    public class PerformanceServices : IPerformanceServices
     {
         private readonly IPerformanceRepository _performanceRepository;
 
-        public PerformanceApplication(IPerformanceRepository performanceRepository)
+        public PerformanceServices(IPerformanceRepository performanceRepository)
         {
             _performanceRepository = performanceRepository;
         }

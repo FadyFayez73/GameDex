@@ -4,11 +4,11 @@ using Application.Contracts;
 
 namespace Application.Application
 {
-    public class DLCApplication : IDLCApplication
+    public class DLCServices : IDLCServices
     {
         private readonly IDLCRepository _dlcRepository;
 
-        public DLCApplication(IDLCRepository dlcRepository)
+        public DLCServices(IDLCRepository dlcRepository)
         {
             _dlcRepository = dlcRepository;
         }

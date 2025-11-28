@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contracts
 {
-    public interface IDLCApplication : IBaseApplication<DLC>
+    public interface IDLCServices : IBaseServices<DLC>
     {
         Task<IEnumerable<DLC>> GetAllDLCsAsync();
         Task<DLC?> GetDLCByIdAsync(Guid id);

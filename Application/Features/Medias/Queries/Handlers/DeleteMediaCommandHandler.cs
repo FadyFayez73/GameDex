@@ -13,15 +13,15 @@ namespace Application.Features.Medias.Queries.Handlers
 {
     public class DeleteMediaCommandHandler : IRequestHandler<DeleteMediaCommand, bool>
     {
-        private readonly IMediaApplication _mediaApplication;
-        public DeleteMediaCommandHandler(IMediaApplication mediaApplication)
+        private readonly IMediaServices _medIaServices;
+        public DeleteMediaCommandHandler(IMediaServices medIaServices)
         {
-            _mediaApplication = mediaApplication;
+            _medIaServices = medIaServices;
         }
 
         public async Task<bool> Handle(DeleteMediaCommand request, CancellationToken cancellationToken)
         {
-            var result = await _mediaApplication.DeleteAsync(request.GameID);
+            var result = await _medIaServices.DeleteAsync(request.GameID);
             return result;
         }
     }

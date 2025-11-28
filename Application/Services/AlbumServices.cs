@@ -4,11 +4,11 @@ using Application.Contracts;
 
 namespace Application.Application
 {
-    public class AlbumApplication : IAlbumApplication
+    public class AlbumServices : IAlbumServices
     {
         private readonly IAlbumRepository _albumRepository;
 
-        public AlbumApplication(IAlbumRepository albumRepository)
+        public AlbumServices(IAlbumRepository albumRepository)
         {
             _albumRepository = albumRepository;
         }

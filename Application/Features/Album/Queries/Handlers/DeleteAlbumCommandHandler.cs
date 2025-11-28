@@ -9,11 +9,11 @@ namespace Application.Features.Albums.Queries.Handlers
 {
     public class DeleteAlbumCommandHandler : IRequestHandler<DeleteAlbumCommand, bool>
     {
-        private readonly IAlbumApplication _albumApplication;
+        private readonly IAlbumServices _albumServices;
 
-        public DeleteAlbumCommandHandler(IAlbumApplication albumApplication)
+        public DeleteAlbumCommandHandler(IAlbumServices albumServices)
         {
-            _albumApplication = albumApplication;
+            _albumServices = albumServices;
         }
 
         public async Task<bool> Handle(DeleteAlbumCommand request, CancellationToken cancellationToken)
@@ -21,7 +21,7 @@ namespace Application.Features.Albums.Queries.Handlers
             if (request == null || request.AlbumId == Guid.Empty)
                 throw new ArgumentException("Invalid album id.", nameof(request));
 
-            var result = await _albumApplication.DeleteAsync(request.AlbumId);
+            var result = await _albumServices.DeleteAsync(request.AlbumId);
             return result;
         }
     }

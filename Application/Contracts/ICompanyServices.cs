@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contracts
 {
-    public interface ICompanyApplication : IBaseApplication<Company>
+    public interface ICompanyServices : IBaseServices<Company>
     {
         Task<IEnumerable<Company>> GetAllCompaniesAsync();
         Task<Company?> GetCompanyByIdAsync(Guid id);

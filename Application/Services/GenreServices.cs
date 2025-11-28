@@ -4,13 +4,13 @@ using Application.Contracts;
 
 namespace Application.Application
 {
-    public class GenreApplication : IGenreApplication
+    public class GenreServices : IGenreServices
     {
         private readonly IGenreRepository _genreRepository;
         private readonly IGameRepository  _gameRepository;
 
 
-        public GenreApplication(IGenreRepository genreRepository, IGameRepository gameRepository)
+        public GenreServices(IGenreRepository genreRepository, IGameRepository gameRepository)
         {
             _genreRepository = genreRepository;
             _gameRepository = gameRepository;

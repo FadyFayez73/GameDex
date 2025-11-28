@@ -10,19 +10,19 @@ namespace Application.Features.Characters.Queries.Handlers
 {
     public class GetCharacterByIdCommandHandler : IRequestHandler<GetCharacterByIdCommand, CharacterDto?>
     {
-        private readonly ICharacterApplication _characterApplication;
+        private readonly ICharacterServices _characterServices;
         private readonly IMapper _mapper;
 
 
-        public GetCharacterByIdCommandHandler(ICharacterApplication characterApplication, IMapper mapper)
+        public GetCharacterByIdCommandHandler(ICharacterServices characterServices, IMapper mapper)
         {
-            _characterApplication = characterApplication;
+            _characterServices = characterServices;
             _mapper = mapper;
         }
 
         public async Task<CharacterDto?> Handle(GetCharacterByIdCommand request, CancellationToken cancellationToken)
         {
-            var character = await _characterApplication.GetCharacterByIdAsync(request.CharacterId);
+            var character = await _characterServices.GetCharacterByIdAsync(request.CharacterId);
             var characterDto = _mapper.Map<CharacterDto>(character);
             return characterDto;
         }

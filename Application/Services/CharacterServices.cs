@@ -4,11 +4,11 @@ using Application.Contracts;
 
 namespace Application.Application
 {
-    public class CharacterApplication : ICharacterApplication
+    public class CharacterServices : ICharacterServices
     {
         private readonly ICharacterRepository _characterRepository;
 
-        public CharacterApplication(ICharacterRepository characterRepository)
+        public CharacterServices(ICharacterRepository characterRepository)
         {
             _characterRepository = characterRepository;
         }

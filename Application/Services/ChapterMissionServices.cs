@@ -4,11 +4,11 @@ using Application.Contracts;
 
 namespace Application.Application
 {
-    public class ChapterMissionApplication : IChapterMissionApplication
+    public class ChapterMIssionServices : IChapterMissionServices
     {
         private readonly IChapterMissionRepository _chapterMissionRepository;
 
-        public ChapterMissionApplication(IChapterMissionRepository chapterMissionRepository)
+        public ChapterMIssionServices(IChapterMissionRepository chapterMissionRepository)
         {
             _chapterMissionRepository = chapterMissionRepository;
         }

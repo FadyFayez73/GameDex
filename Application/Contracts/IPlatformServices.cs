@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contracts
 {
-    public interface IPlatformApplication : IBaseApplication<Platform>
+    public interface IPlatformServices : IBaseServices<Platform>
     {
         Task<IEnumerable<Platform>> GetAllPlatformsAsync();
         Task<Platform?> GetPlatformByIdAsync(Guid id);

@@ -13,18 +13,18 @@ namespace Application.Features.Games.Queries.Handlers
 {
     public class GetGameForDisplayCommandHandler : IRequestHandler<GetGameForDisplayCommand, GameForDisplayDto?>
     {
-        private readonly IGameApplication _gameApplication;
+        private readonly IGameServices _gameServices;
         private readonly IMapper _mapper;
 
-        public GetGameForDisplayCommandHandler(IGameApplication gameApplication, IMapper mapper)
+        public GetGameForDisplayCommandHandler(IGameServices gameServices, IMapper mapper)
         {
-            _gameApplication = gameApplication;
+            _gameServices = gameServices;
             _mapper = mapper;
         }
 
         public async Task<GameForDisplayDto?> Handle(GetGameForDisplayCommand request, CancellationToken cancellationToken)
         {
-            var gameDomain = await _gameApplication.GetGameByIdAsync(request.GameID);
+            var gameDomain = await _gameServices.GetGameByIdAsync(request.GameID);
             var gameDto = _mapper.Map<GameForDisplayDto>(gameDomain);
             return gameDto;
         }

@@ -16,18 +16,18 @@ namespace Application.Features.Medias.Queries.Handlers
     public class GetMediasByGameIdCommandHandler 
         : IRequestHandler<GetMediasByGameIdCommand, IEnumerable<MediaDto>>
     {
-        private readonly IMediaApplication _mediaApplication;
+        private readonly IMediaServices _medIaServices;
         private readonly IMapper _mapper;
 
-        public GetMediasByGameIdCommandHandler(IMediaApplication mediaApplication, IMapper mapper)
+        public GetMediasByGameIdCommandHandler(IMediaServices medIaServices, IMapper mapper)
         {
-            _mediaApplication = mediaApplication;
+            _medIaServices = medIaServices;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<MediaDto>> Handle(GetMediasByGameIdCommand request, CancellationToken cancellationToken)
         {
-            var medias = await _mediaApplication.GetMediasByGameIdAsync(request.GameId);
+            var medias = await _medIaServices.GetMediasByGameIdAsync(request.GameId);
             var mediasDto = _mapper.Map<IEnumerable<MediaDto>>(medias);
 
             return mediasDto;

@@ -13,18 +13,18 @@ namespace Application.Features.Genres.Queries.Handlers
 {
     public class GetGenreByNameCommandHandler : IRequestHandler<GetGenreByNameCommand, GenreDto>
     {
-        private readonly IGenreApplication _genreApplication;
+        private readonly IGenreServices _genreServices;
         private readonly IMapper _mapper;
 
-        public GetGenreByNameCommandHandler(IGenreApplication genreApplication, IMapper mapper)
+        public GetGenreByNameCommandHandler(IGenreServices genreServices, IMapper mapper)
         {
-            _genreApplication = genreApplication;
+            _genreServices = genreServices;
             _mapper = mapper;
         }
 
         public async Task<GenreDto> Handle(GetGenreByNameCommand request, CancellationToken cancellationToken)
         {
-            var genre = await _genreApplication.GetGenreByNameAsync(request.Name);
+            var genre = await _genreServices.GetGenreByNameAsync(request.Name);
             var dto = _mapper.Map<GenreDto>(genre);
             return dto;
         }

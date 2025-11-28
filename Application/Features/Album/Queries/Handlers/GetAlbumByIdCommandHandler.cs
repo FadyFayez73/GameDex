@@ -11,12 +11,12 @@ namespace Application.Features.Albums.Queries.Handlers
 {
     public class GetAlbumByIdCommandHandler : IRequestHandler<GetAlbumByIdCommand, AlbumDto?>
     {
-        private readonly IAlbumApplication _albumApplication;
+        private readonly IAlbumServices _albumServices;
         private readonly IMapper _mapper;
 
-        public GetAlbumByIdCommandHandler(IAlbumApplication albumApplication, IMapper mapper)
+        public GetAlbumByIdCommandHandler(IAlbumServices albumServices, IMapper mapper)
         {
-            _albumApplication = albumApplication;
+            _albumServices = albumServices;
             _mapper = mapper;
         }
 
@@ -25,7 +25,7 @@ namespace Application.Features.Albums.Queries.Handlers
             if (request == null || request.AlbumId == Guid.Empty)
                 throw new ArgumentException("Invalid album id.", nameof(request));
 
-            var album = await _albumApplication.GetAlbumByIdAsync(request.AlbumId);
+            var album = await _albumServices.GetAlbumByIdAsync(request.AlbumId);
             return album == null ? null : _mapper.Map<AlbumDto>(album);
         }
     }

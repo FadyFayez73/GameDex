@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Application.Application
 {
-    public class PlatformApplication : IPlatformApplication
+    public class PlatformServices : IPlatformServices
     {
         private readonly IPlatformRepository _platformRepository;
 
-        public PlatformApplication(IPlatformRepository platformRepository)
+        public PlatformServices(IPlatformRepository platformRepository)
         {
             _platformRepository = platformRepository;
         }

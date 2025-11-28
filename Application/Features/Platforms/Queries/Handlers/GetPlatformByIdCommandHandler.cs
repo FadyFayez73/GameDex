@@ -12,12 +12,12 @@ namespace Application.Features.Platforms.Queries.Handlers
 {
     public class GetPlatformByIdCommandHandler : IRequestHandler<GetPlatformByIdCommand, PlatformDto?>
     {
-        private readonly IPlatformApplication _platformApplication;
+        private readonly IPlatformServices _platformServices;
         private readonly IMapper _mapper;
 
-        public GetPlatformByIdCommandHandler(IPlatformApplication platformApplication, IMapper mapper)
+        public GetPlatformByIdCommandHandler(IPlatformServices platformServices, IMapper mapper)
         {
-            _platformApplication = platformApplication;
+            _platformServices = platformServices;
             _mapper = mapper;
         }
 
@@ -26,7 +26,7 @@ namespace Application.Features.Platforms.Queries.Handlers
             if (request == null || request.PlatformId == Guid.Empty)
                 throw new ArgumentException("Invalid platform id.", nameof(request));
 
-            var platform = await _platformApplication.GetPlatformByIdAsync(request.PlatformId);
+            var platform = await _platformServices.GetPlatformByIdAsync(request.PlatformId);
             if (platform == null) return null;
 
             var dto = _mapper.Map<PlatformDto>(platform);

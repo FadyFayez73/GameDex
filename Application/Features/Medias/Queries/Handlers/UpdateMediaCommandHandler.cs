@@ -15,12 +15,12 @@ namespace Application.Features.Medias.Queries.Handlers
 {
     public class UpdateMediaCommandHandler : IRequestHandler<UpdateMediaCommand, bool>
     {
-        private readonly IMediaApplication _mediaApplication;
+        private readonly IMediaServices _medIaServices;
         private readonly IMapper _mapper;
 
-        public UpdateMediaCommandHandler(IMediaApplication mediaApplication, IMapper mapper)
+        public UpdateMediaCommandHandler(IMediaServices medIaServices, IMapper mapper)
         {
-            _mediaApplication = mediaApplication;
+            _medIaServices = medIaServices;
             _mapper = mapper;
         }
 
@@ -31,7 +31,7 @@ namespace Application.Features.Medias.Queries.Handlers
             if (mediaDomainModel == null)
                 throw new ArgumentNullException(nameof(mediaDomainModel), "Cannot convert from \"UpdateMediaCommand\" to \"Media Domain Model\"!");
 
-            var result = await _mediaApplication.UpdateAsync(mediaDomainModel);
+            var result = await _medIaServices.UpdateAsync(mediaDomainModel);
             return result;
         }
     }

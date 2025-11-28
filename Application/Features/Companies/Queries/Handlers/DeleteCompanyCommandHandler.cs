@@ -9,11 +9,11 @@ namespace Application.Features.Companies.Queries.Handlers
 {
     public class DeleteCompanyCommandHandler : IRequestHandler<DeleteCompanyCommand, bool>
     {
-        private readonly ICompanyApplication _companyApplication;
+        private readonly ICompanyServices _companyServices;
 
-        public DeleteCompanyCommandHandler(ICompanyApplication companyApplication)
+        public DeleteCompanyCommandHandler(ICompanyServices companyServices)
         {
-            _companyApplication = companyApplication;
+            _companyServices = companyServices;
         }
 
         public async Task<bool> Handle(DeleteCompanyCommand request, CancellationToken cancellationToken)
@@ -21,7 +21,7 @@ namespace Application.Features.Companies.Queries.Handlers
             if (request == null || request.CompanyId == Guid.Empty)
                 throw new ArgumentException("Invalid company id.", nameof(request));
 
-            var result = await _companyApplication.DeleteAsync(request.CompanyId);
+            var result = await _companyServices.DeleteAsync(request.CompanyId);
             return result;
         }
     }

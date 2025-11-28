@@ -11,12 +11,12 @@ namespace Application.Features.Characters.Queries.Handlers
 {
     public class CreateCharacterCommandHandler : IRequestHandler<CreateCharacterCommand, (bool, Guid)>
     {
-        private readonly ICharacterApplication _characterApplication;
+        private readonly ICharacterServices _characterServices;
         private readonly IMapper _mapper;
 
-        public CreateCharacterCommandHandler(ICharacterApplication characterApplication, IMapper mapper)
+        public CreateCharacterCommandHandler(ICharacterServices characterServices, IMapper mapper)
         {
-            _characterApplication = characterApplication;
+            _characterServices = characterServices;
             _mapper = mapper;
         }
 
@@ -27,7 +27,7 @@ namespace Application.Features.Characters.Queries.Handlers
             if (characterDomainModel == null)
                 throw new ArgumentNullException(nameof(characterDomainModel), "Character domain model cannot be null");
 
-            var result = await _characterApplication.AddAsync(characterDomainModel);
+            var result = await _characterServices.AddAsync(characterDomainModel);
             return result;
         }
     }

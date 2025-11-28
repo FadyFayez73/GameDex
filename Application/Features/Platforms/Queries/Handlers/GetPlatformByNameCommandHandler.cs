@@ -11,12 +11,12 @@ namespace Application.Features.Platforms.Queries.Handlers
 {
     public class GetPlatformByNameCommandHandler : IRequestHandler<GetPlatformByNameCommand, PlatformDto?>
     {
-        private readonly IPlatformApplication _platformApplication;
+        private readonly IPlatformServices _platformServices;
         private readonly IMapper _mapper;
 
-        public GetPlatformByNameCommandHandler(IPlatformApplication platformApplication, IMapper mapper)
+        public GetPlatformByNameCommandHandler(IPlatformServices platformServices, IMapper mapper)
         {
-            _platformApplication = platformApplication;
+            _platformServices = platformServices;
             _mapper = mapper;
         }
 
@@ -25,7 +25,7 @@ namespace Application.Features.Platforms.Queries.Handlers
             if (request == null || string.IsNullOrWhiteSpace(request.Name))
                 throw new ArgumentException("Invalid platform name.", nameof(request));
 
-            var platform = await _platformApplication.GetPlatformByNameAsync(request.Name);
+            var platform = await _platformServices.GetPlatformByNameAsync(request.Name);
             if (platform == null) return null;
 
             var dto = _mapper.Map<PlatformDto>(platform);

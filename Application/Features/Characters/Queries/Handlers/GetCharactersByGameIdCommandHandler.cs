@@ -11,18 +11,18 @@ namespace Application.Features.Characters.Queries.Handlers
 {
     public class GetCharactersByGameIdCommandHandler : IRequestHandler<GetCharactersByGameIdCommand, IEnumerable<CharacterDto>>
     {
-        private readonly ICharacterApplication _characterApplication;
+        private readonly ICharacterServices _characterServices;
         private readonly IMapper _mapper;
 
-        public GetCharactersByGameIdCommandHandler(ICharacterApplication characterApplication, IMapper mapper)
+        public GetCharactersByGameIdCommandHandler(ICharacterServices characterServices, IMapper mapper)
         {
-            _characterApplication = characterApplication;
+            _characterServices = characterServices;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<CharacterDto>> Handle(GetCharactersByGameIdCommand request, CancellationToken cancellationToken)
         {
-            var characters = await _characterApplication.GetCharactersByGameIdAsync(request.GameId);
+            var characters = await _characterServices.GetCharactersByGameIdAsync(request.GameId);
             var characterDtos = _mapper.Map<IEnumerable<CharacterDto>>(characters);
             return characterDtos;
         }

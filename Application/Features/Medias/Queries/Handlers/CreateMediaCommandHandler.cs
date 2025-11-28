@@ -14,12 +14,12 @@ namespace Application.Features.Medias.Queries.Handlers
 {
     public class CreateMediaCommandHandler : IRequestHandler<CreateMediaCommand, (bool, Guid)>
     {
-        private readonly IMediaApplication _mediaApplication;
+        private readonly IMediaServices _medIaServices;
         private readonly IMapper _mapper;
 
-        public CreateMediaCommandHandler(IMediaApplication mediaApplication, IMapper mapper)
+        public CreateMediaCommandHandler(IMediaServices medIaServices, IMapper mapper)
         {
-            _mediaApplication = mediaApplication;
+            _medIaServices = medIaServices;
             _mapper = mapper;
         }
 
@@ -28,7 +28,7 @@ namespace Application.Features.Medias.Queries.Handlers
             var mediaDomainModel = _mapper.Map<Media>(request);
             if(mediaDomainModel == null) throw new ArgumentNullException(nameof(mediaDomainModel), "Media domain model cannot be null");
             
-            var result = await _mediaApplication.AddAsync(mediaDomainModel);
+            var result = await _medIaServices.AddAsync(mediaDomainModel);
 
             return result;
         }

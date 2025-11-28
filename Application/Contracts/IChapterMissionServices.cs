@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contracts
 {
-    public interface IChapterMissionApplication : IBaseApplication<ChapterMission>
+    public interface IChapterMissionServices : IBaseServices<ChapterMission>
     {
         Task<IEnumerable<ChapterMission>> GetAllChapterMissionsAsync();
         Task<ChapterMission?> GetChapterMissionByIdAsync(Guid id);

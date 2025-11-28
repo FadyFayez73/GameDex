@@ -14,12 +14,12 @@ namespace Application.Features.Companies.Queries.Handlers
 {
     public class CreateCompanyCommandHandler : IRequestHandler<CreateCompanyCommand, (bool, Guid)>
     {
-        private readonly ICompanyApplication _companyApplication;
+        private readonly ICompanyServices _companyServices;
         private readonly IMapper _mapper;
 
-        public CreateCompanyCommandHandler(ICompanyApplication companyApplication, IMapper mapper) 
+        public CreateCompanyCommandHandler(ICompanyServices companyServices, IMapper mapper) 
         {
-            _companyApplication = companyApplication;
+            _companyServices = companyServices;
             _mapper = mapper;
         }
 
@@ -29,7 +29,7 @@ namespace Application.Features.Companies.Queries.Handlers
             if (company == null)
                 throw new ArgumentNullException(nameof(company), "Company domain model cannot be null");
 
-            var result = await _companyApplication.AddAsync(company);
+            var result = await _companyServices.AddAsync(company);
 
             return result;
         }

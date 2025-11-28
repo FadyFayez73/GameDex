@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contracts
 {
-    public interface IRequirementApplication : IBaseApplication<Requirement>
+    public interface IRequirementServices : IBaseServices<Requirement>
     {
         Task<IEnumerable<Requirement>> GetAllRequirementsAsync();
         Task<Requirement?> GetRequirementByIdAsync(Guid id);

@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace Application.Application
 {
-    public class FilterApplication : IFilterApplication
+    public class FIlterServices : IFilterServices
     {
         private readonly IGameRepository _gameRepository;
-        public FilterApplication(IGameRepository gameRepository)
+        public FIlterServices(IGameRepository gameRepository)
         {
             _gameRepository = gameRepository;
         }

@@ -5,13 +5,13 @@ using System.ComponentModel.Design;
 
 namespace Application.Application
 {
-    public class CompanyGameApplication : ICompanyGameApplication
+    public class CompanyGameServices : ICompanyGameServices
     {
         private readonly ICompanyGameRepository _companyGameRepository;
         private readonly IGameRepository _gameRepository;
         private readonly ICompanyRepository _companyRepository;
 
-        public CompanyGameApplication(ICompanyGameRepository companyGameRepository, IGameRepository gameRepository, ICompanyRepository companyRepository)
+        public CompanyGameServices(ICompanyGameRepository companyGameRepository, IGameRepository gameRepository, ICompanyRepository companyRepository)
         {
             _companyGameRepository = companyGameRepository;
             _gameRepository = gameRepository;

@@ -4,11 +4,11 @@ using Application.Contracts;
 
 namespace Application.Application
 {
-    public class CompanyApplication : ICompanyApplication
+    public class CompanyServices : ICompanyServices
     {
         private readonly ICompanyRepository _companyRepository;
 
-        public CompanyApplication(ICompanyRepository companyRepository)
+        public CompanyServices(ICompanyRepository companyRepository)
         {
             _companyRepository = companyRepository;
         }

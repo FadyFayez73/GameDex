@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contracts
 {
-    public interface IMediaApplication : IBaseApplication<Media>
+    public interface IMediaServices : IBaseServices<Media>
     {
         Task<IEnumerable<Media>> GetAllMediasAsync();
         Task<Media?> GetMediaByIdAsync(Guid id);

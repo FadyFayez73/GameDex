@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contracts
 {
-    public interface ICharacterApplication : IBaseApplication<Character>
+    public interface ICharacterServices : IBaseServices<Character>
     {
         Task<IEnumerable<Character>> GetAllCharactersAsync();
         Task<Character?> GetCharacterByIdAsync(Guid id);

@@ -13,19 +13,19 @@ namespace Application.Features.Games.Queries.Handlers
     public class FilterGamesCommandHandler
         : IRequestHandler<FilterGamesCommand, IEnumerable<GameForDisplayDto>>
     {
-        private readonly IGameApplication _gameApplication;
+        private readonly IGameServices _gameServices;
         private readonly IMapper _mapper;
 
-        public FilterGamesCommandHandler(IGameApplication gameApplication, IMapper mapper)
+        public FilterGamesCommandHandler(IGameServices gameServices, IMapper mapper)
         {
-            _gameApplication = gameApplication;
+            _gameServices = gameServices;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<GameForDisplayDto>> Handle(FilterGamesCommand request, CancellationToken cancellationToken)
         {
             // Get all games first and map to DTO
-            var games = await _gameApplication.GetAllGamesForDisplayAsync();
+            var games = await _gameServices.GetAllGamesForDisplayAsync();
             var gamesDto = _mapper.Map<IEnumerable<GameForDisplayDto>>(games).ToList();
 
             // Apply checkbox filters

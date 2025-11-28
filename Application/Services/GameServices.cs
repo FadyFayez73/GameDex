@@ -5,12 +5,12 @@ using Application.Contracts;
 
 namespace Application.Application
 {
-    public class GameApplication : IGameApplication
+    public class GameServices : IGameServices
     {
         private readonly IGameRepository _gameRepository;
         private readonly IGenreRepository _genreRepository;
 
-        public GameApplication(IGameRepository gameRepository, IGenreRepository genreRepository)
+        public GameServices(IGameRepository gameRepository, IGenreRepository genreRepository)
         {
             _gameRepository = gameRepository;
             _genreRepository = genreRepository;

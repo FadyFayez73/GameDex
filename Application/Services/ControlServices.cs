@@ -4,11 +4,11 @@ using Application.Contracts;
 
 namespace Application.Application
 {
-    public class ControlApplication : IControlApplication
+    public class ControlServices : IControlServices
     {
         private readonly IControlRepository _controlRepository;
 
-        public ControlApplication(IControlRepository controlRepository)
+        public ControlServices(IControlRepository controlRepository)
         {
             _controlRepository = controlRepository;
         }

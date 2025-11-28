@@ -8,16 +8,16 @@ namespace Application.Features.Characters.Queries.Handlers
 {
     public class DeleteCharacterCommandHandler : IRequestHandler<DeleteCharacterCommand, bool>
     {
-        private readonly ICharacterApplication _characterApplication;
+        private readonly ICharacterServices _characterServices;
 
-        public DeleteCharacterCommandHandler(ICharacterApplication characterApplication)
+        public DeleteCharacterCommandHandler(ICharacterServices characterServices)
         {
-            _characterApplication = characterApplication;
+            _characterServices = characterServices;
         }
 
         public async Task<bool> Handle(DeleteCharacterCommand request, CancellationToken cancellationToken)
         {
-            var result = await _characterApplication.DeleteAsync(request.CharacterId);
+            var result = await _characterServices.DeleteAsync(request.CharacterId);
             return result;
         }
     }

@@ -10,16 +10,16 @@ namespace Application.Features.Albums.Queries.Handlers
 {
     public class GetSongsByAlbumIdCommandHandler : IRequestHandler<GetSongsByAlbumIdCommand, IEnumerable<Song>>
     {
-        private readonly IAlbumApplication _albumApplication;
+        private readonly IAlbumServices _albumServices;
 
-        public GetSongsByAlbumIdCommandHandler(IAlbumApplication albumApplication)
+        public GetSongsByAlbumIdCommandHandler(IAlbumServices albumServices)
         {
-            _albumApplication = albumApplication;
+            _albumServices = albumServices;
         }
 
         public async Task<IEnumerable<Song>> Handle(GetSongsByAlbumIdCommand request, CancellationToken cancellationToken)
         {
-            var songs = await _albumApplication.GetSongsByAlbumIdAsync(request.AlbumId);
+            var songs = await _albumServices.GetSongsByAlbumIdAsync(request.AlbumId);
             return songs;
         }
     }

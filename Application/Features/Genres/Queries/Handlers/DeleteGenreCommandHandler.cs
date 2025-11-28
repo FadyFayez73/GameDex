@@ -13,16 +13,16 @@ namespace Application.Features.Genres.Queries.Handlers
 {
     public class DeleteGenreCommandHandler : IRequestHandler<DeleteGenreCommand, bool>
     {
-        private readonly IGenreApplication _genreApplication;
+        private readonly IGenreServices _genreServices;
 
-        public DeleteGenreCommandHandler(IGenreApplication genreApplication)
+        public DeleteGenreCommandHandler(IGenreServices genreServices)
         {
-            _genreApplication = genreApplication;
+            _genreServices = genreServices;
         }
 
         public async Task<bool> Handle(DeleteGenreCommand request, CancellationToken cancellationToken)
         {
-            var result = await _genreApplication.DeleteAsync(request.Id);
+            var result = await _genreServices.DeleteAsync(request.Id);
             return result;
         }
     }

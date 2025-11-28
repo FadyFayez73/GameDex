@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contracts
 {
-    public interface IAlbumApplication : IBaseApplication<Album>
+    public interface IAlbumServices : IBaseServices<Album>
     {
         Task<IEnumerable<Album>> GetAllAlbumsAsync();
         Task<Album?> GetAlbumByIdAsync(Guid id);

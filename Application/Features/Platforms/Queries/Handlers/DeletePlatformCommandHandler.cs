@@ -9,11 +9,11 @@ namespace Application.Features.Platforms.Queries.Handlers
 {
     public class DeletePlatformCommandHandler : IRequestHandler<DeletePlatformCommand, bool>
     {
-        private readonly IPlatformApplication _platformApplication;
+        private readonly IPlatformServices _platformServices;
 
-        public DeletePlatformCommandHandler(IPlatformApplication platformApplication)
+        public DeletePlatformCommandHandler(IPlatformServices platformServices)
         {
-            _platformApplication = platformApplication;
+            _platformServices = platformServices;
         }
 
         public async Task<bool> Handle(DeletePlatformCommand request, CancellationToken cancellationToken)
@@ -21,7 +21,7 @@ namespace Application.Features.Platforms.Queries.Handlers
             if (request == null || request.PlatformId == Guid.Empty)
                 throw new ArgumentException("Invalid platform id.", nameof(request));
 
-            var result = await _platformApplication.DeleteAsync(request.PlatformId);
+            var result = await _platformServices.DeleteAsync(request.PlatformId);
             return result;
         }
     }

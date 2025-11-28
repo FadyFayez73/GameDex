@@ -14,16 +14,16 @@ namespace Application.Features.Games.Queries.Handlers
 {
     public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, (bool, Guid)>
     {
-        private readonly IGameApplication _gameApplication;
-        private readonly IMediaApplication _mediaApplication;
+        private readonly IGameServices _gameServices;
+        private readonly IMediaServices _medIaServices;
         private readonly IMapper _mapper;
 
         private readonly string _coverFileName = "Cover.jpg";
 
-        public CreateGameCommandHandler(IGameApplication gameApplication, IMediaApplication mediaApplication, IMapper mapper)
+        public CreateGameCommandHandler(IGameServices gameServices, IMediaServices medIaServices, IMapper mapper)
         {
-            _gameApplication = gameApplication;
-            _mediaApplication = mediaApplication;
+            _gameServices = gameServices;
+            _medIaServices = medIaServices;
             _mapper = mapper;
         }
 
@@ -34,7 +34,7 @@ namespace Application.Features.Games.Queries.Handlers
             if(gameDomainModel == null) 
                 throw new ArgumentNullException(nameof(gameDomainModel), "Game domain model cannot be null");
             
-            var (gameState, gameId) = await _gameApplication.AddAsync(gameDomainModel);
+            var (gameState, gameId) = await _gameServices.AddAsync(gameDomainModel);
             
             if (!gameState) 
                 return (false, Guid.Empty);
@@ -59,7 +59,7 @@ namespace Application.Features.Games.Queries.Handlers
                 GameID = gameId
             };
 
-            var (mediaState, mediaId) = await _mediaApplication.AddAsync(mediaModel);
+            var (mediaState, mediaId) = await _medIaServices.AddAsync(mediaModel);
 
             return (true, Guid.Empty);
         }

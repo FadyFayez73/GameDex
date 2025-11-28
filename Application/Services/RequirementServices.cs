@@ -4,11 +4,11 @@ using Application.Contracts;
 
 namespace Application.Application
 {
-    public class RequirementApplication : IRequirementApplication
+    public class RequIrementServices : IRequirementServices
     {
         private readonly IRequirementRepository _requirementRepository;
 
-        public RequirementApplication(IRequirementRepository requirementRepository)
+        public RequIrementServices(IRequirementRepository requirementRepository)
         {
             _requirementRepository = requirementRepository;
         }

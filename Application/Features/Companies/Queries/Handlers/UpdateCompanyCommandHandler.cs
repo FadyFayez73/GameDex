@@ -11,12 +11,12 @@ namespace Application.Features.Companies.Queries.Handlers
 {
     public class UpdateCompanyCommandHandler : IRequestHandler<UpdateCompanyCommand, bool>
     {
-        private readonly ICompanyApplication _companyApplication;
+        private readonly ICompanyServices _companyServices;
         private readonly IMapper _mapper;
 
-        public UpdateCompanyCommandHandler(ICompanyApplication companyApplication, IMapper mapper)
+        public UpdateCompanyCommandHandler(ICompanyServices companyServices, IMapper mapper)
         {
-            _companyApplication = companyApplication;
+            _companyServices = companyServices;
             _mapper = mapper;
         }
 
@@ -26,7 +26,7 @@ namespace Application.Features.Companies.Queries.Handlers
             if (company == null)
                 throw new ArgumentNullException(nameof(company), "Company domain model cannot be null");
 
-            var result = await _companyApplication.UpdateAsync(company);
+            var result = await _companyServices.UpdateAsync(company);
             return result;
         }
     }

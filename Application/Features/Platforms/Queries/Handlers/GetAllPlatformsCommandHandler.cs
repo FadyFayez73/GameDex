@@ -12,18 +12,18 @@ namespace Application.Features.Platforms.Queries.Handlers
 {
     public class GetAllPlatformsCommandHandler : IRequestHandler<GetAllPlatformsCommand, IEnumerable<PlatformDto>>
     {
-        private readonly IPlatformApplication _platformApplication;
+        private readonly IPlatformServices _platformServices;
         private readonly IMapper _mapper;
 
-        public GetAllPlatformsCommandHandler(IPlatformApplication platformApplication, IMapper mapper)
+        public GetAllPlatformsCommandHandler(IPlatformServices platformServices, IMapper mapper)
         {
-            _platformApplication = platformApplication;
+            _platformServices = platformServices;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<PlatformDto>> Handle(GetAllPlatformsCommand request, CancellationToken cancellationToken)
         {
-            var platforms = await _platformApplication.GetAllPlatformsAsync();
+            var platforms = await _platformServices.GetAllPlatformsAsync();
             var dtos = _mapper.Map<IEnumerable<PlatformDto>>(platforms);
             return dtos;
         }

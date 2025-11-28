@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contracts
 {
-    public interface IModManagerApplication : IBaseApplication<ModManager>
+    public interface IModManagerServices : IBaseServices<ModManager>
     {
         Task<IEnumerable<ModManager>> GetAllModManagersAsync();
         Task<ModManager?> GetModManagerByIdAsync(Guid id);

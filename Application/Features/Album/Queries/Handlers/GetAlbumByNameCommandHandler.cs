@@ -10,12 +10,12 @@ namespace Application.Features.Albums.Queries.Handlers
 {
     public class GetAlbumByNameCommandHandler : IRequestHandler<GetAlbumByNameCommand, AlbumDto?>
     {
-        private readonly IAlbumApplication _albumApplication;
+        private readonly IAlbumServices _albumServices;
         private readonly IMapper _mapper;
 
-        public GetAlbumByNameCommandHandler(IAlbumApplication albumApplication, IMapper mapper)
+        public GetAlbumByNameCommandHandler(IAlbumServices albumServices, IMapper mapper)
         {
-            _albumApplication = albumApplication;
+            _albumServices = albumServices;
             _mapper = mapper;
         }
 
@@ -24,7 +24,7 @@ namespace Application.Features.Albums.Queries.Handlers
             if (request == null || string.IsNullOrWhiteSpace(request.Name))
                 throw new System.ArgumentException("Invalid album name.", nameof(request));
 
-            var album = await _albumApplication.GetAlbumByNameAsync(request.Name);
+            var album = await _albumServices.GetAlbumByNameAsync(request.Name);
             return album == null ? null : _mapper.Map<AlbumDto>(album);
         }
     }

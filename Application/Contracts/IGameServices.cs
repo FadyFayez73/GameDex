@@ -1,14 +1,9 @@
-﻿using Domain.Entities;
-using Application.Contracts.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Contracts.Base;
+using Domain.Entities;
 
 namespace Application.Contracts
 {
-    public interface IGameApplication : IBaseApplication<Game>
+    public interface IGameServices : IBaseServices<Game>
     {
         Task<IEnumerable<Game>> GetAllGamesAsync();
         Task<IEnumerable<Game>> GetAllGamesForDisplayAsync();

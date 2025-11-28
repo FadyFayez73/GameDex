@@ -11,12 +11,12 @@ namespace Application.Features.Albums.Queries.Handlers
 {
     public class CreateAlbumCommandHandler : IRequestHandler<CreateAlbumCommand, (bool, Guid)>
     {
-        private readonly IAlbumApplication _albumApplication;
+        private readonly IAlbumServices _albumServices;
         private readonly IMapper _mapper;
 
-        public CreateAlbumCommandHandler(IAlbumApplication albumApplication, IMapper mapper)
+        public CreateAlbumCommandHandler(IAlbumServices albumServices, IMapper mapper)
         {
-            _albumApplication = albumApplication;
+            _albumServices = albumServices;
             _mapper = mapper;
         }
 
@@ -25,7 +25,7 @@ namespace Application.Features.Albums.Queries.Handlers
             var album = _mapper.Map<Album>(request);
             if (album == null) throw new ArgumentNullException(nameof(album));
 
-            var result = await _albumApplication.AddAsync(album);
+            var result = await _albumServices.AddAsync(album);
             return result;
         }
     }

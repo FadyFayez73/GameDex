@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contracts
 {
-    public interface ICompanyGameApplication : IBaseRelationshipApplication<CompanyGame>
+    public interface ICompanyGameServices : IBaseRelationshipServices<CompanyGame>
     {
         Task<bool> DeleteAsync(CompanyGame companyGame);
         Task<CompanyGame?> GetCompanyGameByFkAsync(Guid gameId, Guid companyId, CompanyRole companyRole);

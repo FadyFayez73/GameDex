@@ -15,17 +15,17 @@ namespace Application.Features.Games.Queries.Handlers
     public class GetAllGamesForDisplayCommandHandler 
         : IRequestHandler<GetAllGamesForDisplayCommand, IEnumerable<GameForDisplayDto>>
     {
-        private readonly IGameApplication _gameApplication;
+        private readonly IGameServices _gameServices;
         private readonly IMapper _mapper;
-        public GetAllGamesForDisplayCommandHandler(IGameApplication gameApplication, IMapper mapper)
+        public GetAllGamesForDisplayCommandHandler(IGameServices gameServices, IMapper mapper)
         {
-            _gameApplication = gameApplication;
+            _gameServices = gameServices;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<GameForDisplayDto>> Handle(GetAllGamesForDisplayCommand request, CancellationToken cancellationToken)
         {
-            return _mapper.Map<IEnumerable<GameForDisplayDto>>(await _gameApplication
+            return _mapper.Map<IEnumerable<GameForDisplayDto>>(await _gameServices
                 .GetAllGamesForDisplayAsync());
         }
     }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contracts
 {
-    public interface IPerformanceApplication : IBaseApplication<Performance>
+    public interface IPerformanceServices : IBaseServices<Performance>
     {
         Task<IEnumerable<Performance>> GetAllPerformancesAsync();
         Task<Performance?> GetPerformanceByIdAsync(Guid id);

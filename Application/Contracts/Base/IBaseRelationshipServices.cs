@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contracts.Base
 {
-    public interface IBaseRelationshipApplication<T>
+    public interface IBaseRelationshipServices<T>
     {
         Task<bool> AddAsync(T entity);
     }

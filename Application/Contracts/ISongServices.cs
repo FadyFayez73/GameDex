@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contracts
 {
-    public interface ISongApplication : IBaseApplication<Song>
+    public interface ISongServices : IBaseServices<Song>
     {
         Task<IEnumerable<Song>> GetAllSongsAsync();
         Task<Song?> GetSongByIdAsync(Guid id);

@@ -14,17 +14,17 @@ namespace Application.Features.Medias.Queries.Handlers
 {
     public class GetMediaByIdCommandHandler : IRequestHandler<GetMediaByIdCommand, MediaDto?>
     {
-        private readonly IMediaApplication _mediaApplication;
+        private readonly IMediaServices _medIaServices;
         private readonly IMapper _mapper;
-        public GetMediaByIdCommandHandler(IMediaApplication mediaApplication, IMapper mapper)
+        public GetMediaByIdCommandHandler(IMediaServices medIaServices, IMapper mapper)
         {
-            _mediaApplication = mediaApplication;
+            _medIaServices = medIaServices;
             _mapper = mapper;
         }
 
         public async Task<MediaDto?> Handle(GetMediaByIdCommand request, CancellationToken cancellationToken)
         {
-            var game = _mapper.Map<MediaDto>(await _mediaApplication
+            var game = _mapper.Map<MediaDto>(await _medIaServices
                 .GetMediaByIdAsync(request.Id));
             return game;
         }

@@ -13,12 +13,12 @@ namespace Application.Features.Genres.Queries.Handlers
 {
     public class UpdateGenreCommandHandler : IRequestHandler<UpdateGenreCommand, bool>
     {
-        private readonly IGenreApplication _genreApplication;
+        private readonly IGenreServices _genreServices;
         private readonly IMapper _mapper;
 
-        public UpdateGenreCommandHandler(IGenreApplication genreApplication, IMapper mapper)
+        public UpdateGenreCommandHandler(IGenreServices genreServices, IMapper mapper)
         {
-            _genreApplication = genreApplication;
+            _genreServices = genreServices;
             _mapper = mapper;
         }
 
@@ -26,7 +26,7 @@ namespace Application.Features.Genres.Queries.Handlers
         {
             var genreDomain = _mapper.Map<Genre>(request);
 
-            var result = await _genreApplication.UpdateAsync(genreDomain);
+            var result = await _genreServices.UpdateAsync(genreDomain);
             return result;
         }
     }

@@ -11,12 +11,12 @@ namespace Application.Features.Platforms.Queries.Handlers
 {
     public class CreatePlatformCommandHandler : IRequestHandler<CreatePlatformCommand, (bool, Guid)>
     {
-        private readonly IPlatformApplication _platformApplication;
+        private readonly IPlatformServices _platformServices;
         private readonly IMapper _mapper;
 
-        public CreatePlatformCommandHandler(IPlatformApplication platformApplication, IMapper mapper)
+        public CreatePlatformCommandHandler(IPlatformServices platformServices, IMapper mapper)
         {
-            _platformApplication = platformApplication;
+            _platformServices = platformServices;
             _mapper = mapper;
         }
 
@@ -26,7 +26,7 @@ namespace Application.Features.Platforms.Queries.Handlers
             if (platform == null)
                 throw new ArgumentNullException(nameof(platform), "Platform domain model cannot be null");
 
-            var result = await _platformApplication.AddAsync(platform);
+            var result = await _platformServices.AddAsync(platform);
             return result;
         }
     }

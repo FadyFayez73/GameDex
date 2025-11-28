@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contracts
 {
-    public interface IGenreApplication : IBaseApplication<Genre>
+    public interface IGenreServices : IBaseServices<Genre>
     {
         Task<IEnumerable<Genre>> GetAllGenresAsync();
         Task<Genre?> GetGenreByIdAsync(Guid id);

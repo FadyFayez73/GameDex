@@ -10,11 +10,11 @@ namespace Application.Features.Companies.Queries.Handlers
 {
     public class GetCompanyByIdCommandHandler : IRequestHandler<GetCompanyByIdCommand, Company?>
     {
-        private readonly ICompanyApplication _companyApplication;
+        private readonly ICompanyServices _companyServices;
 
-        public GetCompanyByIdCommandHandler(ICompanyApplication companyApplication)
+        public GetCompanyByIdCommandHandler(ICompanyServices companyServices)
         {
-            _companyApplication = companyApplication;
+            _companyServices = companyServices;
         }
 
         public async Task<Company?> Handle(GetCompanyByIdCommand request, CancellationToken cancellationToken)
@@ -22,7 +22,7 @@ namespace Application.Features.Companies.Queries.Handlers
             if (request == null || request.CompanyId == Guid.Empty)
                 throw new ArgumentException("Invalid company id.", nameof(request));
 
-            var company = await _companyApplication.GetCompanyByIdAsync(request.CompanyId);
+            var company = await _companyServices.GetCompanyByIdAsync(request.CompanyId);
             return company;
         }
     }

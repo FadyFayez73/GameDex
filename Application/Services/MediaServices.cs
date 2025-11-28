@@ -4,11 +4,11 @@ using Application.Contracts;
 
 namespace Application.Application
 {
-    public class MediaApplication : IMediaApplication
+    public class MedIaServices : IMediaServices
     {
         private readonly IMediaRepository _mediaRepository;
 
-        public MediaApplication(IMediaRepository mediaRepository)
+        public MedIaServices(IMediaRepository mediaRepository)
         {
             _mediaRepository = mediaRepository;
         }

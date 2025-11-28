@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contracts
 {
-    public interface IControlApplication : IBaseApplication<Control>
+    public interface IControlServices : IBaseServices<Control>
     {
         Task<IEnumerable<Control>> GetAllControlsAsync();
         Task<Control?> GetControlByIdAsync(Guid id);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contracts.Base
 {
-    public interface IBaseApplication<T>
+    public interface IBaseServices<T>
     {
         Task<(bool, Guid)> AddAsync(T entity);
         Task<bool> UpdateAsync(T entity);    

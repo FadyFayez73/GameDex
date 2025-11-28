@@ -9,11 +9,11 @@ namespace Application.Features.Companies.Queries.Handlers
 {
     public class GetCompanyByNameCommandHandler : IRequestHandler<GetCompanyByNameCommand, Company?>
     {
-        private readonly ICompanyApplication _companyApplication;
+        private readonly ICompanyServices _companyServices;
 
-        public GetCompanyByNameCommandHandler(ICompanyApplication companyApplication)
+        public GetCompanyByNameCommandHandler(ICompanyServices companyServices)
         {
-            _companyApplication = companyApplication;
+            _companyServices = companyServices;
         }
 
         public async Task<Company?> Handle(GetCompanyByNameCommand request, CancellationToken cancellationToken)
@@ -21,7 +21,7 @@ namespace Application.Features.Companies.Queries.Handlers
             if (request == null || string.IsNullOrWhiteSpace(request.Name))
                 throw new ArgumentException("Invalid company name.", nameof(request));
 
-            var company = await _companyApplication.GetCompanyByNameAsync(request.Name);
+            var company = await _companyServices.GetCompanyByNameAsync(request.Name);
             return company;
         }
     }

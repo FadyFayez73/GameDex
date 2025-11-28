@@ -4,11 +4,11 @@ using Application.Contracts;
 
 namespace Application.Application
 {
-    public class SongApplication : ISongApplication
+    public class SongServices : ISongServices
     {
         private readonly ISongRepository _songRepository;
 
-        public SongApplication(ISongRepository songRepository)
+        public SongServices(ISongRepository songRepository)
         {
             _songRepository = songRepository;
         }

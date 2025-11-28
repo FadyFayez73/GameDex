@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Contracts
 {
-    public interface IFilterApplication
+    public interface IFilterServices
     {
         Task<IEnumerable<Game>> GetGamesByFilter(FilterModel filter);
     }

@@ -12,15 +12,15 @@ namespace Application.Features.Games.Queries.Handlers
 {
     public class DeleteGameCommandHandler : IRequestHandler<DeleteGameCommand, bool>
     {
-        private readonly IGameApplication _gameApplication;
-        public DeleteGameCommandHandler(IGameApplication gameApplication)
+        private readonly IGameServices _gameServices;
+        public DeleteGameCommandHandler(IGameServices gameServices)
         {
-            _gameApplication = gameApplication;
+            _gameServices = gameServices;
         }
 
         public async Task<bool> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
         {
-            var result = await _gameApplication.DeleteAsync(request.GameID);
+            var result = await _gameServices.DeleteAsync(request.GameID);
             return result;
         }
     }
