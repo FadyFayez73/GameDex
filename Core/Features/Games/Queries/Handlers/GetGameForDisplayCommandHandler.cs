@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Core.Features.Games.Queries.Handlers
 {
-    public class GetGameForDisplayCommandHandler : IRequestHandler<GetGameForDisplayCommand, GameForDisplayDto>
+    public class GetGameForDisplayCommandHandler : IRequestHandler<GetGameForDisplayCommand, GameForDisplayDto?>
     {
         private readonly IGameServices _gameServices;
         private readonly IMapper _mapper;
@@ -22,7 +22,7 @@ namespace Core.Features.Games.Queries.Handlers
             _mapper = mapper;
         }
 
-        public async Task<GameForDisplayDto> Handle(GetGameForDisplayCommand request, CancellationToken cancellationToken)
+        public async Task<GameForDisplayDto?> Handle(GetGameForDisplayCommand request, CancellationToken cancellationToken)
         {
             var gameDomain = await _gameServices.GetGameByIdAsync(request.GameID);
             var gameDto = _mapper.Map<GameForDisplayDto>(gameDomain);

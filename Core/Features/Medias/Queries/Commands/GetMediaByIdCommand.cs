@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Core.Features.Medias.Queries.Commands
 {
-    public class GetMediaByIdCommand : IRequest<MediaDto>
+    public class GetMediaByIdCommand : IRequest<MediaDto?>
     {
         public GetMediaByIdCommand(Guid id)
         {

@@ -1,11 +1,7 @@
 using Core.Dtos.Platforms;
 using Core.Features.Platforms.Queries.Commands;
-using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -13,13 +9,48 @@ namespace API.Controllers
     [Route("[controller]")]
     public class PlatformsController : ControllerBase
     {
+        #region Fields
         private readonly IMediator _mediator;
+        #endregion
 
+        #region Constructors
         public PlatformsController(IMediator mediator)
         {
             _mediator = mediator;
         }
+        #endregion
 
+        #region Gets
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<PlatformDto>>> GetAll()
+        {
+            var command = new GetAllPlatformsCommand();
+            var platforms = await _mediator.Send(command);
+            return Ok(platforms);
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<PlatformDto?>> GetById(Guid id)
+        {
+            var command = new GetPlatformByIdCommand(id);
+            var platform = await _mediator.Send(command);
+            if (platform == null)
+                return NotFound();
+            return Ok(platform);
+        }
+
+        [HttpGet("by-name/{name}")]
+        public async Task<ActionResult<PlatformDto?>> GetByName(string name)
+        {
+            var command = new GetPlatformByNameCommand(name);
+            var platform = await _mediator.Send(command);
+            if (platform == null)
+                return NotFound();
+            return Ok(platform);
+        }
+        #endregion
+
+        #region Actions
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreatePlatformCommand command)
         {
@@ -49,33 +80,6 @@ namespace API.Controllers
                 return NotFound("Platform not found or delete failed.");
             return NoContent();
         }
-
-        [HttpGet("{id:guid}")]
-        public async Task<ActionResult<PlatformDto?>> GetById(Guid id)
-        {
-            var command = new GetPlatformByIdCommand(id);
-            var platform = await _mediator.Send(command);
-            if (platform == null)
-                return NotFound();
-            return Ok(platform);
-        }
-
-        [HttpGet("by-name/{name}")]
-        public async Task<ActionResult<PlatformDto?>> GetByName(string name)
-        {
-            var command = new GetPlatformByNameCommand(name);
-            var platform = await _mediator.Send(command);
-            if (platform == null)
-                return NotFound();
-            return Ok(platform);
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<PlatformDto>>> GetAll()
-        {
-            var command = new GetAllPlatformsCommand();
-            var platforms = await _mediator.Send(command);
-            return Ok(platforms);
-        }
+        #endregion
     }
 }

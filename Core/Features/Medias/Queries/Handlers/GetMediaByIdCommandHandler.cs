@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Core.Features.Medias.Queries.Handlers
 {
-    public class GetMediaByIdCommandHandler : IRequestHandler<GetMediaByIdCommand, MediaDto>
+    public class GetMediaByIdCommandHandler : IRequestHandler<GetMediaByIdCommand, MediaDto?>
     {
         private readonly IMediaServices _mediaServices;
         private readonly IMapper _mapper;
@@ -22,7 +22,7 @@ namespace Core.Features.Medias.Queries.Handlers
             _mapper = mapper;
         }
 
-        public async Task<MediaDto> Handle(GetMediaByIdCommand request, CancellationToken cancellationToken)
+        public async Task<MediaDto?> Handle(GetMediaByIdCommand request, CancellationToken cancellationToken)
         {
             var game = _mapper.Map<MediaDto>(await _mediaServices
                 .GetMediaByIdAsync(request.Id));

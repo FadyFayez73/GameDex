@@ -14,17 +14,16 @@ namespace Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Companys",
+                name: "Companies",
                 columns: table => new
                 {
                     CompanyID = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    CompanyType = table.Column<int>(type: "INTEGER", nullable: false)
+                    Description = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Companys", x => x.CompanyID);
+                    table.PrimaryKey("PK_Companies", x => x.CompanyID);
                 });
 
             migrationBuilder.CreateTable(
@@ -33,11 +32,11 @@ namespace Infrastructure.Migrations
                 {
                     GameID = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Patch = table.Column<string>(type: "TEXT", nullable: false),
-                    GamePath = table.Column<string>(type: "TEXT", nullable: false),
+                    Patch = table.Column<string>(type: "TEXT", nullable: true),
+                    GamePath = table.Column<string>(type: "TEXT", nullable: true),
                     YearOfRelease = table.Column<string>(type: "TEXT", nullable: true),
                     PGRating = table.Column<string>(type: "TEXT", nullable: false),
-                    GameDescription = table.Column<string>(type: "TEXT", nullable: false),
+                    GameDescription = table.Column<string>(type: "TEXT", nullable: true),
                     GameEngine = table.Column<string>(type: "TEXT", nullable: false),
                     OrderOfFranchise = table.Column<string>(type: "TEXT", nullable: true),
                     LinkForCrack = table.Column<string>(type: "TEXT", nullable: true),
@@ -45,7 +44,7 @@ namespace Infrastructure.Migrations
                     PlayersRating = table.Column<decimal>(type: "decimal(3,1)", nullable: false),
                     UserRating = table.Column<decimal>(type: "decimal(3,1)", nullable: false),
                     SteamPrices = table.Column<decimal>(type: "Decimal(7,2)", nullable: false),
-                    ActualGameSize = table.Column<string>(type: "TEXT", nullable: true),
+                    ActualGameSize = table.Column<string>(type: "TEXT", nullable: false),
                     GameFiles = table.Column<string>(type: "TEXT", nullable: true),
                     HoursToComplete = table.Column<int>(type: "INTEGER", nullable: false),
                     PlayerHours = table.Column<int>(type: "INTEGER", nullable: false),
@@ -87,7 +86,8 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     PlatformID = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -161,24 +161,25 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CompanyGame",
+                name: "CompanyGames",
                 columns: table => new
                 {
-                    CompaniesCompanyID = table.Column<Guid>(type: "TEXT", nullable: false),
-                    GamesGameID = table.Column<Guid>(type: "TEXT", nullable: false)
+                    GameID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CompanyID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Role = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CompanyGame", x => new { x.CompaniesCompanyID, x.GamesGameID });
+                    table.PrimaryKey("PK_CompanyGames", x => new { x.GameID, x.CompanyID, x.Role });
                     table.ForeignKey(
-                        name: "FK_CompanyGame_Companys_CompaniesCompanyID",
-                        column: x => x.CompaniesCompanyID,
-                        principalTable: "Companys",
+                        name: "FK_CompanyGames_Companies_CompanyID",
+                        column: x => x.CompanyID,
+                        principalTable: "Companies",
                         principalColumn: "CompanyID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CompanyGame_Games_GamesGameID",
-                        column: x => x.GamesGameID,
+                        name: "FK_CompanyGames_Games_GameID",
+                        column: x => x.GameID,
                         principalTable: "Games",
                         principalColumn: "GameID",
                         onDelete: ReferentialAction.Cascade);
@@ -420,11 +421,17 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Platforms",
-                columns: new[] { "PlatformID", "Name" },
+                columns: new[] { "PlatformID", "Description", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("43b2427b-b32b-4a80-98c2-18b8c6f11934"), "PlayStation 4" },
-                    { new Guid("aff935b7-a122-45bf-b343-fb2b84ecfc47"), "PC" }
+                    { new Guid("43b2427b-b32b-4a80-98c2-18b8c6f11934"), "Open-source operating system based on Unix", "Linux" },
+                    { new Guid("4f46a6c9-1f94-4a63-9de8-2f85cbe5f05e"), "Microsoft's gaming console platform", "Xbox" },
+                    { new Guid("59cfe7d1-6c6e-4d25-95b6-7c9f6b2f9245"), "Apple's operating system for Mac computers", "macOS" },
+                    { new Guid("77bba20d-79f2-4a89-9f60-10cc02c0f2cf"), "Nintendo's hybrid gaming console", "Nintendo Switch" },
+                    { new Guid("9af20714-09a5-4c83-9f6f-798dc91b1d02"), "Sony's gaming console platform", "PlayStation" },
+                    { new Guid("aff935b7-a122-45bf-b343-fb2b84ecfc47"), "Microsoft Windows operating system", "Windows" },
+                    { new Guid("b5b8efb3-7f8d-48a3-88b7-6f1a9d85f5c7"), "Apple's mobile operating system", "iOS" },
+                    { new Guid("e15e8ef7-8f6b-4e71-9f51-f8658d7f84d9"), "Google's mobile operating system", "Android" }
                 });
 
             migrationBuilder.InsertData(
@@ -457,9 +464,9 @@ namespace Infrastructure.Migrations
                 column: "GameID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CompanyGame_GamesGameID",
-                table: "CompanyGame",
-                column: "GamesGameID");
+                name: "IX_CompanyGames_CompanyID",
+                table: "CompanyGames",
+                column: "CompanyID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Controls_GameID",
@@ -514,7 +521,7 @@ namespace Infrastructure.Migrations
                 name: "ChapterMissionCharacter");
 
             migrationBuilder.DropTable(
-                name: "CompanyGame");
+                name: "CompanyGames");
 
             migrationBuilder.DropTable(
                 name: "Controls");
@@ -550,7 +557,7 @@ namespace Infrastructure.Migrations
                 name: "Characters");
 
             migrationBuilder.DropTable(
-                name: "Companys");
+                name: "Companies");
 
             migrationBuilder.DropTable(
                 name: "Genres");

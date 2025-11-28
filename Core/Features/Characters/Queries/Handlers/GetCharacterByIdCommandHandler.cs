@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Core.Features.Characters.Queries.Handlers
 {
-    public class GetCharacterByIdCommandHandler : IRequestHandler<GetCharacterByIdCommand, CharacterDto>
+    public class GetCharacterByIdCommandHandler : IRequestHandler<GetCharacterByIdCommand, CharacterDto?>
     {
         private readonly ICharacterServices _characterServices;
         private readonly IMapper _mapper;
@@ -20,7 +20,7 @@ namespace Core.Features.Characters.Queries.Handlers
             _mapper = mapper;
         }
 
-        public async Task<CharacterDto> Handle(GetCharacterByIdCommand request, CancellationToken cancellationToken)
+        public async Task<CharacterDto?> Handle(GetCharacterByIdCommand request, CancellationToken cancellationToken)
         {
             var character = await _characterServices.GetCharacterByIdAsync(request.CharacterId);
             var characterDto = _mapper.Map<CharacterDto>(character);

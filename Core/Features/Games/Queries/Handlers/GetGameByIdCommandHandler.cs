@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Core.Features.Games.Queries.Handlers
 {
-    public class GetGameByIdCommandHandler : IRequestHandler<GetGameByIdCommand, GameDto>
+    public class GetGameByIdCommandHandler : IRequestHandler<GetGameByIdCommand, GameDto?>
     {
         private readonly IGameServices _gameServices;
         private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ namespace Core.Features.Games.Queries.Handlers
             _mapper = mapper;
         }
 
-        public async Task<GameDto> Handle(GetGameByIdCommand request, CancellationToken cancellationToken)
+        public async Task<GameDto?> Handle(GetGameByIdCommand request, CancellationToken cancellationToken)
         {
             var game = _mapper.Map<GameDto>(await _gameServices
                 .GetGameByIdAsync(request.GameID));

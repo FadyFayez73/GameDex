@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Core.Features.Games.Queries.Commands
 {
-    public class GetGameForDisplayCommand : IRequest<GameForDisplayDto>
+    public class GetGameForDisplayCommand : IRequest<GameForDisplayDto?>
     {
         public GetGameForDisplayCommand(Guid gameId)
         {

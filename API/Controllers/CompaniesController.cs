@@ -1,11 +1,8 @@
+using Core.Dtos.Companies;
 using Core.Features.Companies.Queries.Commands;
+using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Domain.Entities;
-using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using Core.Dtos.Companies;
 
 namespace API.Controllers
 {
@@ -13,49 +10,18 @@ namespace API.Controllers
     [Route("[controller]")]
     public class CompaniesController : ControllerBase
     {
+        #region Fields
         private readonly IMediator _mediator;
+        #endregion
 
+        #region Constructors
         public CompaniesController(IMediator mediator)
         {
             _mediator = mediator;
         }
+        #endregion
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateCompanyCommand command)
-        {
-            if (command == null) return BadRequest();
-            var (state, id) = await _mediator.Send(command);
-            if (!state) return StatusCode(StatusCodes.Status409Conflict, "The Company is already exist");
-            var company = new Company
-            {
-                CompanyID = id,
-                Name = command.Name,
-                Description = command.Description,
-            };
-            return CreatedAtAction(nameof(GetById), new { id = id }, company);
-        }
-
-        [HttpPut("{id:guid}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateCompanyCommand command)
-        {
-            if (id != command.CompanyId)
-                return BadRequest("Company ID mismatch.");
-            var result = await _mediator.Send(command);
-            if (!result)
-                return NotFound("Company not found or update failed.");
-            return Ok(result);
-        }
-
-        [HttpDelete("{id:guid}")]
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            var command = new DeleteCompanyCommand { CompanyId = id };
-            var result = await _mediator.Send(command);
-            if (!result)
-                return NotFound("Company not found or delete failed.");
-            return NoContent();
-        }
-
+        #region Gets
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<Company?>> GetById(Guid id)
         {
@@ -91,5 +57,45 @@ namespace API.Controllers
             var companies = await _mediator.Send(command);
             return Ok(companies);
         }
+
+        #endregion
+
+        #region Actions
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateCompanyCommand command)
+        {
+            if (command == null) return BadRequest();
+            var (state, id) = await _mediator.Send(command);
+            if (!state) return StatusCode(StatusCodes.Status409Conflict, "The Company is already exist");
+            var company = new Company
+            {
+                CompanyID = id,
+                Name = command.Name,
+                Description = command.Description,
+            };
+            return CreatedAtAction(nameof(GetById), new { id = id }, company);
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateCompanyCommand command)
+        {
+            if (id != command.CompanyId)
+                return BadRequest("Company ID mismatch.");
+            var result = await _mediator.Send(command);
+            if (!result)
+                return NotFound("Company not found or update failed.");
+            return Ok(result);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var command = new DeleteCompanyCommand { CompanyId = id };
+            var result = await _mediator.Send(command);
+            if (!result)
+                return NotFound("Company not found or delete failed.");
+            return NoContent();
+        }
+        #endregion
     }
 }

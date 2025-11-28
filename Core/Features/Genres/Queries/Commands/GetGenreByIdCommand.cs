@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Core.Features.Genres.Queries.Commands
 {
-    public class GetGenreByIdCommand : IRequest<GenreDto>
+    public class GetGenreByIdCommand : IRequest<GenreDto?>
     {
         public GetGenreByIdCommand(Guid id) 
         {
